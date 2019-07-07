@@ -1,5 +1,5 @@
 # iKanColleCommand with OOI and Chinese Traditional Translation
-修改自2019年7月4號由原作者NGA用戶亖葉(UID42542015)發布的iKanColleCommand專案，提供iOS用戶穩定的艦隊收藏遊戲環境和基本的輔助程式功能。
+修改自原作者NGA用戶亖葉(UID42542015)於2019年7月4號發佈的iKanColleCommand專案，提供iOS用戶穩定的艦隊收藏遊戲環境和基本的輔助程式功能。
 
 NGA帖子連結：https://ngabbs.com/read.php?tid=17767319
 
@@ -27,7 +27,12 @@ NGA帖子連結：https://ngabbs.com/read.php?tid=17767319
 IPA檔提供於Release頁面：https://github.com/ming900518/KC2-OOI-/releases
 
 非越獄用戶可以參考https://mrmad.com.tw/cydia-impactor
-，非企業簽證的用戶每七天需要重新簽名。
+，非企業簽證（沒有付蘋果299美金的人）的用戶每七天需要重新簽名。
 
 有越獄用戶可以參考https://mrmad.com.tw/reprovision
 ，可以自動重新簽名，或使用AppSync直接Fake Sign（進階）。
+
+## 聯繫我(Bug回報或功能建議)
+Email:ming900518@gmail.com
+
+#### 徵求會Swift或有企業簽證/TestFlight的大佬聯繫我，一起造福世界上使用iOS設備的提督!
