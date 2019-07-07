@@ -24,6 +24,8 @@ NGA帖子連結：https://ngabbs.com/read.php?tid=17767319
 這裡主要只提供IPA下載，根據原作者希望，之後會將源碼使用GitHub的Fork功能（摸索中）提供回原專案。
 
 ## 安裝方式
+### Mac及PC用戶請使用電腦的輔助程式（KCV, KC3, Poi等），Android用戶請愛用官方App搭配Kcanotify，這App是給iOS用的。
+
 IPA檔提供於Release頁面：https://github.com/ming900518/KC2-OOI-/releases
 
 理論上支援所有iOS 11.4以上的所有iDevice，已經在iPhone 6s Plus（iOS 13 Developer Beta 3）上測試過功能正常。
