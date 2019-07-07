@@ -1,4 +1,4 @@
-# iKanColleCommand with OOI ＆ Chinese Traditional Translation
+# iKanColleCommand with OOI and Chinese Traditional Translation
 修改自原作者NGA用戶亖葉(UID42542015)於2019年7月4號發佈的iKanColleCommand專案，提供iOS用戶穩定的艦隊收藏遊戲環境和基本的輔助程式功能。
 
 NGA帖子連結：https://ngabbs.com/read.php?tid=17767319
@@ -17,7 +17,7 @@ NGA帖子連結：https://ngabbs.com/read.php?tid=17767319
 6. 程式名稱縮短為KC2(OOI)
 7. Bundle ID從cn.cctech.kancolle.command改為tw.cctech.kancolle.command.ooi
 
-### 本專案不盈利，根據原作者要求也不允許任何形式的收費。
+### 本專案不會用於盈利，根據原作者要求也不允許任何形式的收費。
 
 ### 轉發需註明原作者-NGA用戶亖葉(UID42542015)及本頁面的連結。
 
