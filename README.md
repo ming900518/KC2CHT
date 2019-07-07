@@ -11,7 +11,7 @@ NGA帖子連結：https://ngabbs.com/read.php?tid=17767319
 
 1. 將起始網頁設定為OOI艦娘在線緩存系統(http://ooi.moe/)
 2. 繁體中文化（尚未完善）
-3. 允許畫面縮放
+3. 允許畫面縮放（自動全螢幕將於未來版本加入）
 4. 功能調整
 5. 保留原本版本號但加註TW.CHT（臺灣繁體中文）和OOI以和原版做區別
 6. 程式名稱縮短為KC2(OOI)
@@ -26,8 +26,10 @@ NGA帖子連結：https://ngabbs.com/read.php?tid=17767319
 ## 安裝方式
 IPA檔提供於Release頁面：https://github.com/ming900518/KC2-OOI-/releases
 
+理論上支援所有iOS 11.4以上的所有iDevice，已經在iPhone 6s Plus（iOS 13 Developer Beta 3）上測試過功能正常。
+
 非越獄用戶可以參考https://mrmad.com.tw/cydia-impactor
-，非企業簽證（沒有付蘋果299美金的人）的用戶每七天需要重新簽名。
+，非企業簽證（沒有付蘋果299美金的人）的用戶每七天需要重新簽名安裝。
 
 有越獄用戶可以參考https://mrmad.com.tw/reprovision
 ，可以自動重新簽名，或使用AppSync直接Fake Sign（進階）。
