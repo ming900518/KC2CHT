@@ -7,7 +7,7 @@
 3. 允許畫面縮放
 4. 功能調整
 
-本專案不盈利，修改自NGA用戶亖葉(UID42542015)的iKanColleCommand專案，NGA帖子連結：https://ngabbs.com/read.php?tid=17767319
+本專案不盈利，修改自NGA用戶亖葉(UID42542015)的iKanColleCommand專案，已經徵求原作者同意，NGA帖子連結：https://ngabbs.com/read.php?tid=17767319
 
 依據原作者要求，之後會將源碼使用GitHub的Fork功能提供回原專案
 
