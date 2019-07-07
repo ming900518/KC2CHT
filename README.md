@@ -1,5 +1,5 @@
 # iKanColleCommand with OOI and Chinese Traditional Translation
-修改自原iKanColleCommand專案(https://github.com/lhc-clover/iKanColleCommand)
+修改自2019年7月4號的iKanColleCommand專案(https://github.com/lhc-clover/iKanColleCommand)
 ，使不想利用VPN遊玩KanColle的iOS玩家也可以使用這個App進行遊玩，修改項目如下：
 
 1. 將起始網頁設定為OOI艦娘在線緩存系統(http://ooi.moe/)
