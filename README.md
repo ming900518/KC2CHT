@@ -15,4 +15,4 @@ IPA檔提供於Release頁面（https://github.com/ming900518/KC2-OOI-/releases
 ），安裝可以參考https://mrmad.com.tw/cydia-impactor
 的方式安裝
 
-由於本人對GitHub的環境尚不熟悉（這是我第一次用GitHub），原始碼暫時不提供，在Release頁面中於最新的IPA下有源碼的壓縮檔。
+由於本人對GitHub的環境尚不熟悉（這是我第一次用GitHub），在Release頁面中於最新的IPA下有源碼的壓縮檔。
