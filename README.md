@@ -35,4 +35,11 @@ IPA檔提供於Release頁面：https://github.com/ming900518/KC2-OOI-/releases
 ## 聯繫我(Bug回報或功能建議)
 Email:ming900518@gmail.com
 
-#### 徵求會Swift或有企業簽證/TestFlight的大佬聯繫我，一起造福世界上使用iOS設備的提督!
+## 助人為快樂之本
+徵求
+1. 精通Swift的真神
+2. 有企業簽證/TestFlight的大佬
+3. 有除了iPhone 6s Plus以外的設備，會編譯的提督
+4. 會用GitHub的提督
+
+聯繫我，讓我們一起造福世界上使用iOS設備的提督!
