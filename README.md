@@ -1,5 +1,5 @@
 # iKanColleCommand with OOI and Chinese Traditional Translation
-修改自2019年7月4號由NGA用戶亖葉(UID42542015)發布的iKanColleCommand專案
+修改自2019年7月4號由NGA用戶亖葉(UID42542015)發布的iKanColleCommand專案，提供穩定的遊戲環境（已於iPhone 6s Plus, iOS 13 DB3的環境下測試）和基本的輔助程式功能。
 
 NGA帖子連結：https://ngabbs.com/read.php?tid=17767319
 
