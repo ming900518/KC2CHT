@@ -17,12 +17,17 @@ NGA帖子連結：https://ngabbs.com/read.php?tid=17767319
 6. 程式名稱縮短為KC2(OOI)
 7. Bundle ID從cn.cctech.kancolle.command改為tw.cctech.kancolle.command.ooi
 
-本專案不盈利，根據原作者要求也不允許任何形式的收費。
+### 本專案不盈利，根據原作者要求也不允許任何形式的收費。
 
-轉發需註明原作者-NGA用戶亖葉(UID42542015)及本頁面的連結。
+### 轉發需註明原作者-NGA用戶亖葉(UID42542015)及本頁面的連結。
 
 這裡主要只提供IPA下載，根據原作者希望，之後會將源碼使用GitHub的Fork功能（摸索中）提供回原專案。
 
+## 安裝方式
 IPA檔提供於Release頁面：https://github.com/ming900518/KC2-OOI-/releases
 
-安裝方式可以參考https://mrmad.com.tw/cydia-impactor
+非越獄用戶可以參考https://mrmad.com.tw/cydia-impactor
+，非企業簽證的用戶每七天需要重新簽名。
+
+有越獄用戶可以參考https://mrmad.com.tw/reprovision
+，可以自動重新簽名，或使用AppSync直接Fake Sign（進階）。
