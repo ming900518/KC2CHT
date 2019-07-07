@@ -17,6 +17,8 @@ NGA帖子連結：https://ngabbs.com/read.php?tid=17767319
 
 本專案不盈利，根據原作者要求也不允許任何形式的收費。
 
+轉發需附上原作者-NGA用戶亖葉(UID42542015)及本頁面的連結。
+
 這裡主要只提供IPA下載，根據原作者希望，之後會將源碼使用GitHub的Fork功能（摸索中）提供回原專案。
 
 IPA檔提供於Release頁面：https://github.com/ming900518/KC2-OOI-/releases
