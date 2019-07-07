@@ -1,4 +1,4 @@
-# iKanColleCommand with OOI and Chinese Traditional Translation
+# iKanColleCommand with OOI ＆ Chinese Traditional Translation
 修改自原作者NGA用戶亖葉(UID42542015)於2019年7月4號發佈的iKanColleCommand專案，提供iOS用戶穩定的艦隊收藏遊戲環境和基本的輔助程式功能。
 
 NGA帖子連結：https://ngabbs.com/read.php?tid=17767319
