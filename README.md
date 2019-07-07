@@ -1,11 +1,11 @@
 # iKanColleCommand with OOI and Chinese Traditional Translation
-修改自2019年7月4號由NGA用戶亖葉(UID42542015)發布的iKanColleCommand專案，提供穩定的遊戲環境（已於iPhone 6s Plus, iOS 13 DB3的環境下測試）和基本的輔助程式功能。
+修改自2019年7月4號由原作者NGA用戶亖葉(UID42542015)發布的iKanColleCommand專案，提供iOS用戶穩定的艦隊收藏遊戲環境和基本的輔助程式功能。
 
 NGA帖子連結：https://ngabbs.com/read.php?tid=17767319
 
 原版源碼GitHub連結：https://github.com/lhc-clover/iKanColleCommand
 
-本修改版使沒有使用VPN遊玩艦隊收藏及使用繁體中文的iOS玩家也可以使用這個App進行遊玩，修改項目如下：
+本修改版使沒有使用VPN遊玩艦隊收藏及使用繁體中文的玩家也可以使用這個App，修改項目如下：
 
 1. 將起始網頁設定為OOI艦娘在線緩存系統(http://ooi.moe/)
 2. 繁體中文化（尚未完善）
