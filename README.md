@@ -5,7 +5,9 @@ NGA帖子連結：https://ngabbs.com/read.php?tid=17767319
 
 原版源碼GitHub連結：https://github.com/lhc-clover/iKanColleCommand
 
-本修改版使沒有使用VPN遊玩艦隊收藏及使用繁體中文的玩家也可以使用這個App，修改項目如下：
+本修改版使沒有使用VPN遊玩艦隊收藏及使用繁體中文的玩家也可以使用這個App。
+
+修改項目如下：
 
 1. 將起始網頁設定為OOI艦娘在線緩存系統(http://ooi.moe/)
 2. 繁體中文化（尚未完善）
