@@ -9,7 +9,7 @@
 
 本專案不盈利，修改自NGA用戶亖葉(UID42542015)的iKanColleCommand專案，已經徵求原作者同意，NGA帖子連結：https://ngabbs.com/read.php?tid=17767319
 
-這裡主要只提供IPA下載，根據原作者希望，之後會將源碼使用GitHub的Fork功能提供回原專案
+這裡主要只提供IPA下載，根據原作者希望，之後會將源碼使用GitHub的Fork功能（摸索中）提供回原專案
 
 IPA檔提供於Release頁面（https://github.com/ming900518/KC2-OOI-/releases
 ），安裝可以參考https://mrmad.com.tw/cydia-impactor
