@@ -9,7 +9,8 @@ NGA帖子連結：https://ngabbs.com/read.php?tid=17767319
 
 修改項目如下：
 
-1. 將起始網頁設定為OOI艦娘在線緩存系統(http://ooi.moe/)
+1. 將起始網頁設定為OOI艦娘在線緩存系統(http://ooi.moe/
+)，可繞過DMM登入地區檢查，客戶端不必掛VPN或修改Cookies便可遊玩。
 2. 繁體中文化（尚未完善）
 3. 允許畫面縮放（自動全螢幕將於未來版本加入）
 4. 功能調整
@@ -27,6 +28,8 @@ NGA帖子連結：https://ngabbs.com/read.php?tid=17767319
 ### Mac及PC用戶請使用電腦的輔助程式（KCV, KC3, Poi等），Android用戶請愛用官方App搭配Kcanotify，這App是給iOS用的。
 
 IPA檔提供於Release頁面：https://github.com/ming900518/KC2-OOI-/releases
+
+### 目前最新版本為1.0(TW.CHT.Beta5-OOI)，我強烈建議使用最新版本進行遊玩。
 
 理論上支援所有iOS 11.4以上的所有iDevice，已經在iPhone 6s Plus（iOS 13 Developer Beta 3）上測試過功能正常。
 
