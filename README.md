@@ -1,15 +1,15 @@
 # iKanColleCommand with OOI and Chinese Traditional Translation
 修改自原作者NGA用戶亖葉(UID42542015)於2019年7月4號發佈的iKanColleCommand專案，提供iOS用戶穩定的艦隊收藏遊戲環境和基本的輔助程式功能。
 
-NGA帖子連結：https://ngabbs.com/read.php?tid=17767319
+[NGA帖子連結](https://ngabbs.com/read.php?tid=17767319)
 
-原版源碼GitHub連結：https://github.com/lhc-clover/iKanColleCommand
+[原版源碼GitHub連結](https://github.com/lhc-clover/iKanColleCommand)
 
 本修改版使沒有使用VPN遊玩艦隊收藏及使用繁體中文的玩家也可以使用這個App。
 
 修改項目如下：
 
-1. 將起始網頁設定為OOI艦娘在線緩存系統(http://ooi.moe/
+1. 將起始網頁設定為[OOI艦娘在線緩存系統](http://ooi.moe/)
 )，可繞過DMM登入地區檢查，客戶端不必掛VPN或修改Cookies便可遊玩。
 2. 繁體中文化（尚未完善）
 3. 允許畫面縮放（自動全螢幕將於未來版本加入）
@@ -29,9 +29,25 @@ NGA帖子連結：https://ngabbs.com/read.php?tid=17767319
 
 IPA檔提供於Release頁面：https://github.com/ming900518/KC2-OOI-/releases
 
-### 目前最新版本為1.0(TW.CHT.Beta5-OOI)，我強烈建議使用最新版本進行遊玩。
+### 目前最新版本為1.0(TW.CHT.Beta6-OOI)，我強烈建議使用最新版本進行遊玩。
 
-理論上支援所有iOS 11.4以上的所有iDevice，已經在iPhone 6s Plus（iOS 13 Developer Beta 3）上測試過功能正常。
+理論上支援所有iOS 11.4以上的所有iDevice（iPhone 5以下的32位元設備不支援），已經在iPhone 6s Plus（iOS 13 Developer Beta 3）上測試過功能正常。
+
+#### 由於記憶體洩漏問題（田中的鍋），非常不建議以下1GB記憶體（RAM，非儲存空間）的設備遊玩
+
+* iPhone 6
+
+* iPhone 6 Plus
+
+* iPhone 5s
+
+* iPod 6 Generation
+
+* iPad Mini 3
+
+* iPad Mini 4
+
+* iPad Air
 
 非越獄用戶可以參考https://mrmad.com.tw/cydia-impactor
 ，非企業簽證（沒有付蘋果299美金的人）的用戶每七天需要重新簽名安裝。
