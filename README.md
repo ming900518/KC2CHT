@@ -33,6 +33,12 @@ IPA檔提供於Release頁面：https://github.com/ming900518/KC2-OOI-/releases
 
 理論上支援所有iOS 11.4以上的所有iDevice（iPhone 5以下的32位元設備不支援），已經在iPhone 6s Plus（iOS 13 Developer Beta 3）上測試過功能正常。
 
+非越獄用戶安裝可以參考https://mrmad.com.tw/cydia-impactor
+，非企業簽證（沒有付蘋果299美金的人）的用戶每七天需要重新簽名安裝。
+
+有越獄用戶安裝可以參考https://mrmad.com.tw/reprovision
+，可以自動重新簽名，或使用AppSync直接Fake Sign（進階）。
+
 #### 由於記憶體洩漏問題（田中的鍋），非常不建議以下1GB記憶體（RAM，非儲存空間）的設備遊玩
 
 * iPhone 6
@@ -48,12 +54,6 @@ IPA檔提供於Release頁面：https://github.com/ming900518/KC2-OOI-/releases
 * iPad Mini 4
 
 * iPad Air
-
-非越獄用戶可以參考https://mrmad.com.tw/cydia-impactor
-，非企業簽證（沒有付蘋果299美金的人）的用戶每七天需要重新簽名安裝。
-
-有越獄用戶可以參考https://mrmad.com.tw/reprovision
-，可以自動重新簽名，或使用AppSync直接Fake Sign（進階）。
 
 ## 聯繫我(Bug回報或功能建議)
 Email:ming900518@gmail.com
