@@ -54,8 +54,6 @@ IPA檔提供於Release頁面：https://github.com/ming900518/KC2-OOI-/releases
 
 * iPad Air
 
-### Mac及PC用戶請使用電腦的輔助程式（KCV, KC3, Poi等），Android用戶請愛用官方App搭配Kcanotify，這App是給iOS用的。
-
 ## 聯繫我(Bug回報或功能建議)
 Email:ming900518@gmail.com
 
