@@ -46,13 +46,13 @@ IPA檔提供於Release頁面：https://github.com/ming900518/KC2-OOI-/releases
 
 * iPhone 5s
 
-* iPod 6 Generation
+* iPod Touch (6th Generation)
 
 * iPad Mini 3
 
 * iPad Mini 4
 
-* iPad Air
+* iPad Air (1st Generation)
 
 ## 聯繫我(Bug回報或功能建議)
 Email:ming900518@gmail.com
