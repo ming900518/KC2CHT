@@ -30,6 +30,8 @@ IPA檔提供於Release頁面：https://github.com/ming900518/KC2-OOI-/releases
 
 ### 目前最新版本為1.0(TW.CHT.Beta6-OOI)，我強烈建議使用最新版本進行遊玩。
 
+### 我盡量在每個禮拜五中午12:00推送更新，可以避免不必要的重新安裝。
+
 理論上支援所有iOS 11.4以上的所有iDevice（iPhone 5以下的32位元設備不支援），已經在iPhone 6s Plus（iOS 13 Developer Beta 3）上測試過功能正常。
 
 非越獄用戶安裝可以參考https://mrmad.com.tw/cydia-impactor
