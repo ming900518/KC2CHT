@@ -29,7 +29,7 @@
 IPA檔提供於Release頁面：https://github.com/ming900518/KC2-OOI-/releases
 
 ### 目前最新版本為1.0(TW.CHT.Release1-OOI)，我強烈建議使用最新版本進行遊玩。
-### iPhone X, iPhone Xs, iPhone Xs Max及iPhone XR用戶會有顯示問題，不影響遊戲操作，特別版製作中，請先使用Release1版。
+### iPhone X, iPhone Xs, iPhone Xs Max及iPhone XR用戶會有顯示問題，不影響遊戲操作。
 
 理論上支援所有iOS 11.4以上的所有iDevice（iPhone 5以下的32位元設備不支援），已經在iPhone 6s Plus（iOS 13 Developer Beta 3）上測試過功能正常。
 
