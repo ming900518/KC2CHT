@@ -36,6 +36,10 @@ IPA檔提供於Release頁面：https://github.com/ming900518/KC2-OOI-/releases
 非越獄用戶安裝可以參考https://mrmad.com.tw/cydia-impactor
 ，非企業簽證（沒有付蘋果299美金的人）的用戶每七天需要重新簽名安裝。
 
+[macOS安裝過程](https://drive.google.com/file/d/1VLvUJZS1PwaenYvbD_G5gqoNbWrEFEvf/view?usp=sharing)
+
+[Windows安裝過程](https://drive.google.com/file/d/1GPyeAOcYsAzV32cND76GgW2_J9YvXiv7/view?usp=sharing)
+
 有越獄用戶安裝可以參考https://mrmad.com.tw/reprovision
 ，可以自動重新簽名，或使用AppSync直接Fake Sign（進階）。
 
