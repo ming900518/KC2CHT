@@ -40,6 +40,8 @@ IPA檔提供於Release頁面：https://github.com/ming900518/KC2-OOI-/releases
 
 [Windows安裝過程](https://drive.google.com/file/d/1GPyeAOcYsAzV32cND76GgW2_J9YvXiv7/view?usp=sharing)
 
+[iOS端的設定](https://drive.google.com/file/d/1dPbtrt4gwdot0WhdZ5hTiTenc_4j1wem/view?usp=sharing)
+
 有越獄用戶安裝可以參考https://mrmad.com.tw/reprovision
 ，可以自動重新簽名，或使用AppSync直接Fake Sign（進階）。
 
