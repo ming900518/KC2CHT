@@ -32,7 +32,7 @@ IPA檔提供於Release頁面：https://github.com/ming900518/KC2-OOI-/releases
 ### 原作者由於Apple不給審核，已經暫緩本程式的更新計畫，本人仍會努力修復現有Bug，也希望有Swift程式設計經驗的提督能協助程式的完善。
 ### iPhone X, iPhone Xs, iPhone Xs Max及iPhone XR用戶會有顯示問題，不影響遊戲操作。
 
-理論上支援所有iOS 11.4以上的所有iDevice（iPhone 5以下的32位元設備不支援），已經在iPhone 6s Plus（iOS 13 Developer Beta 3）上測試過功能正常。
+理論上支援所有iOS 11.4以上的所有iDevice（iPhone 5以下的32位元設備不支援），已經在iPhone 6s Plus（iOS 13 Developer Beta 7）上測試過功能正常。
 
 非越獄用戶安裝可以參考https://mrmad.com.tw/cydia-impactor
 ，非企業簽證（沒有付蘋果299美金的人）的用戶每七天需要重新簽名安裝。
