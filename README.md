@@ -25,6 +25,7 @@
 ## 如何安裝
 
 [點此查看最新正式版](https://github.com/ming900518/KC2-OOI-/releases/tag/Release1)
+
 [點此查看最新Beta版](https://github.com/ming900518/KC2-OOI-/releases/tag/R2Beta1)
 
 更新日期:2019/9/13
