@@ -7,16 +7,7 @@
 
 本修改版使沒有使用VPN遊玩艦隊收藏及使用繁體中文的玩家也可以使用這個App。
 
-修改項目如下：
-
-1. 將起始網頁設定為[OOI艦娘在線緩存系統](http://ooi.moe/)
-，可繞過DMM登入地區檢查，客戶端不必掛VPN或修改Cookies便可遊玩。
-2. 繁體中文化
-3. 允許畫面縮放（使用OOI登入器直連模式時會自動全螢幕）
-4. 功能調整
-5. 保留原本版本號但加註TW.CHT（臺灣繁體中文）和OOI以和原版做區別
-6. 程式名稱縮短為KC2(OOI)
-7. Bundle ID從cn.cctech.kancolle.command改為tw.cctech.kancolle.command.ooi
+修改項目請至[這裏](https://forum.gamer.com.tw/C.php?bsn=24698&snA=20053&tnum=5&bPage=2)查看
 
 ### 本專案不會用於盈利，根據原作者要求也不允許任何形式的收費。
 
