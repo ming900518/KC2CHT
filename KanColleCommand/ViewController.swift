@@ -87,7 +87,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     }
 
     @objc func confirmRefresh() {
-        let dialog = UIAlertController(title: nil, message: "刷新", preferredStyle: .alert)
+        let dialog = UIAlertController(title: nil, message: "返回選擇遊玩方式介面", preferredStyle: .alert)
         dialog.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
         dialog.addAction(UIAlertAction(title: "確定", style: .default) { action in
             self.reloadGame()

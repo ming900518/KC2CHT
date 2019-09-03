@@ -124,7 +124,7 @@ extension SettingVC: UITableViewDelegate {
                 })
                 self.present(dialog, animated: true)
             }
-        } else if (indexPath.section == 1) {
+        } else if (indexPath.section == 2) {
             if (indexPath.row == 1) {
                 let dialog = UIAlertController(title: "請選擇渠道", message: nil, preferredStyle: .alert)
                 dialog.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
@@ -177,7 +177,7 @@ extension SettingVC: UITableViewDelegate {
 extension SettingVC: UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
 
     public func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
 
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -196,7 +196,7 @@ extension SettingVC: UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDa
             } else if (indexPath.row == 1) {
                 let cell = UITableViewCell(style: .default, reuseIdentifier: cellIdentifier)
                 cell.backgroundColor = UIColor.white
-                cell.textLabel?.text = "修復遊戲"
+                cell.textLabel?.text = "清理Cookies"
                 cell.detailTextLabel?.text = "當遊戲出現問題時可以嘗試看看"
                 cell.accessoryType = .disclosureIndicator
                 return cell
@@ -211,6 +211,21 @@ extension SettingVC: UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDa
                 }
                 return cell
             } else if (indexPath.row == 1) {
+                let cell = UITableViewCell(style: .value1, reuseIdentifier: cellIdentifier)
+                cell.backgroundColor = UIColor.white
+                cell.textLabel?.text = "程式功能"
+                cell.detailTextLabel?.text = "基本遊戲、輔助程式、大破警告"
+                return cell
+            }
+        } else if (indexPath.section == 2) {
+            if (indexPath.row == 0) {
+                let cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellIdentifier)
+                cell.backgroundColor = UIColor.white
+                cell.textLabel?.text = "提示：第一次遊玩遊戲時，會在背景下載緩存檔"
+                cell.detailTextLabel?.text = "重啟App就會使用緩存，讓遊戲更順暢喔"
+                cell.detailTextLabel?.textColor = UIColor.lightGray
+                return cell
+            } else if (indexPath.row == 1) {
                 let cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellIdentifier)
                 cell.backgroundColor = UIColor.white
                 cell.textLabel?.text = "捐贈原作者（非修改版作者）"
@@ -220,7 +235,7 @@ extension SettingVC: UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDa
                 return cell
             }
         }
-        return UITableViewCell(style: .default, reuseIdentifier: cellIdentifier)
+    return UITableViewCell(style: .default, reuseIdentifier: cellIdentifier)
     }
 
     public func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
