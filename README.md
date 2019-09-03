@@ -26,11 +26,11 @@
 
 IPA檔提供於Release頁面：https://github.com/ming900518/KC2-OOI-/releases
 
-### 目前最新版本為1.0(TW.CHT.Release1-OOI)，我強烈建議使用最新版本進行遊玩。
+### 目前最新正式版本為1.0(TW.CHT.Release1-OOI)，我強烈建議使用最新版本進行遊玩。
+### 源碼中的版本不一定為正式版，還請想自己編譯的提督注意。
 ### 原作者由於Apple不給審核，已經暫緩本程式的更新計畫，本人仍會努力修復現有Bug，也希望有Swift程式設計經驗的提督能協助程式的完善。
-### iPhone X, iPhone Xs, iPhone Xs Max及iPhone XR用戶會有顯示問題，不影響遊戲操作。
 
-理論上支援所有iOS 11.4以上的所有iDevice（iPhone 5以下的32位元設備不支援），已經在iPhone 6s Plus（iOS 13 Developer Beta 7）上測試過功能正常。
+理論上支援所有iOS 11.4以上的所有iDevice（iPhone 5及更舊的32位元設備不支援）
 
 非越獄用戶安裝可以參考https://mrmad.com.tw/cydia-impactor
 ，非企業簽證（沒有付蘋果299美金的人）的用戶每七天需要重新簽名安裝。
@@ -44,22 +44,6 @@ IPA檔提供於Release頁面：https://github.com/ming900518/KC2-OOI-/releases
 
 有越獄用戶安裝可以參考https://mrmad.com.tw/reprovision
 ，可以自動重新簽名，或使用AppSync直接Fake Sign（進階）。
-
-#### 由於記憶體洩漏問題（田中的鍋），非常不建議以下1GB記憶體（RAM，非儲存空間）的設備遊玩
-
-* iPhone 6
-
-* iPhone 6 Plus
-
-* iPhone 5s
-
-* iPod Touch (6th Generation)
-
-* iPad Mini 3
-
-* iPad Mini 4
-
-* iPad Air (1st Generation)
 
 ## 聯繫我(Bug回報或功能建議)
 Email:ming900518@gmail.com
