@@ -22,8 +22,6 @@
 
 ### 轉發需註明原作者-NGA用戶亖葉(UID42542015)及本頁面的連結。嚴禁未經同意轉發IPA！
 
-這裡主要只提供IPA下載，根據原作者希望，之後會將源碼使用GitHub的Fork功能（摸索中）提供回原專案。
-
 ## 安裝方式
 
 IPA檔提供於Release頁面：https://github.com/ming900518/KC2-OOI-/releases
