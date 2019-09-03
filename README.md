@@ -64,7 +64,6 @@ IPA檔提供於Release頁面：https://github.com/ming900518/KC2-OOI-/releases
 ## 聯繫我(Bug回報或功能建議)
 Email:ming900518@gmail.com
 
-巴哈姆特的文章為我朋友代發，有問題和建議也可以直接留言在下面喔！
 ## 助人為快樂之本
 徵求
 1. 精通Swift的真神
