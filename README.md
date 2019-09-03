@@ -9,19 +9,18 @@
 
 修改項目請至[這裏](https://forum.gamer.com.tw/C.php?bsn=24698&snA=20053&tnum=5&bPage=2)查看
 
-### 本專案不會用於盈利，根據原作者要求也不允許任何形式的收費。
+本專案不會用於盈利，根據原作者要求也不允許任何形式的收費。
 
-### 轉發需註明原作者-NGA用戶亖葉(UID42542015)及本頁面的連結。嚴禁未經同意轉發IPA！
+轉發需註明原作者-NGA用戶亖葉(UID42542015)及本頁面的連結。嚴禁未經同意轉發IPA！
 
 ## 如何安裝
 
-### [點此查看最新正式版](https://github.com/ming900518/KC2-OOI-/releases/tag/Release1)
+#### [點此查看最新正式版](https://github.com/ming900518/KC2-OOI-/releases/tag/Release1)
 
-### [點此查看最新Beta版](https://github.com/ming900518/KC2-OOI-/releases/tag/R2Beta1)
+#### [點此查看最新Beta版](https://github.com/ming900518/KC2-OOI-/releases/tag/R2Beta1)
 
-更新日期:2019/9/13
 
-#### 目前最新正式版本為1.0(TW.CHT.Release1-OOI)，我強烈建議使用最新正式版本進行遊玩。
+#### 目前最新正式版本為1.0(TW.CHT.Release1-OOI)，我強烈建議使用最新正式版本進行遊玩。(更新日期:2019/9/13)
 源碼可能和發佈的版本有差，還請想自己編譯的提督注意。
 
 原作者由於Apple不給審核，已經暫緩本程式的更新計畫，主要版本將維持在１.0直到主作者發佈更新，本人仍會努力修復現有Bug，也希望有Swift程式設計經驗的提督能協助程式的完善。
