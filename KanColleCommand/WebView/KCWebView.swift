@@ -80,6 +80,9 @@ extension KCWebView: UIWebViewDelegate {
     }
 
     public func webViewDidFinishLoad(_ webView: UIWebView) {
+        OperationQueue.main.addOperation {
+            self.stringByEvaluatingJavaScript(from: Constants.DMM_COOKIES)
+        }
     }
 
     public func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {

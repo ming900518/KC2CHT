@@ -35,7 +35,7 @@ class SettingVC: UIViewController {
         }
 
         let titleText = UILabel()
-        titleText.text = "便攜式艦隊司令部-繁體OOI版設定"
+        titleText.text = "便攜式艦隊司令部-繁體版設定"
         titleText.textColor = UIColor.black
         titleBar.addSubview(titleText)
         titleText.snp.makeConstraints { maker in
