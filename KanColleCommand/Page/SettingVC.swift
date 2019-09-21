@@ -214,7 +214,7 @@ extension SettingVC: UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDa
                 let cell = UITableViewCell(style: .value1, reuseIdentifier: cellIdentifier)
                 cell.backgroundColor = UIColor.white
                 cell.textLabel?.text = "程式功能"
-                cell.detailTextLabel?.text = "基本遊戲、輔助程式、大破警告"
+                cell.detailTextLabel?.text = "基本遊戲、輔助程式、大破警告、Cookies修改"
                 return cell
             }
         } else if (indexPath.section == 2) {
