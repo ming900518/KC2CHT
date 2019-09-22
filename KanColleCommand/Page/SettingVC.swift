@@ -110,7 +110,7 @@ extension SettingVC: UITableViewDelegate {
                 selector.addAction(UIAlertAction(title: "取消", style: .cancel))
                 self.present(selector, animated: true)
             } else if (indexPath.row == 1) {
-                let dialog = UIAlertController(title: nil, message: "使用後後遊戲會被登出", preferredStyle: .alert)
+                let dialog = UIAlertController(title: nil, message: "使用後遊戲會被登出", preferredStyle: .alert)
                 dialog.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
                 dialog.addAction(UIAlertAction(title: "執行", style: .default) { action in
                     if let cookies = HTTPCookieStorage.shared.cookies {
