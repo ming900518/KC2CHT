@@ -10,6 +10,7 @@
 		421A2643226C0DE500AEC67D /* bridge.js in Resources */ = {isa = PBXBuildFile; fileRef = C60370758B94FB19D95980E0 /* bridge.js */; };
 		423AF77A219FECC100C4BCE9 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 423AF779219FECC100C4BCE9 /* WebKit.framework */; };
 		42C20DA922C5B4A400235A19 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42C20DA822C5B4A400235A19 /* Photos.framework */; };
+		7AAE039023374CAB00FC27F8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AAE038F23374CAB00FC27F8 /* AudioToolbox.framework */; };
 		C600267289FBB1B5CB83D4F7 /* BattleNightSp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C600E2F28E1FB2811C399D06 /* BattleNightSp.swift */; };
 		C60032DCBAD6778EA3AB8E6A /* slot_36.png in Resources */ = {isa = PBXBuildFile; fileRef = C6025C1FA627C532327B8DE5 /* slot_36.png */; };
 		C600576CDD4CBA34995FE911 /* slot_32.png in Resources */ = {isa = PBXBuildFile; fileRef = C605E233C8A8C4329F2B809E /* slot_32.png */; };
@@ -161,6 +162,8 @@
 		423AF779219FECC100C4BCE9 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		42C20DA822C5B4A400235A19 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		61B0E6346279897DF1C7D1A8 /* Pods_KanColleCommand.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KanColleCommand.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7AAE038E23374CAB00FC27F8 /* KanColleCommand.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KanColleCommand.entitlements; sourceTree = "<group>"; };
+		7AAE038F23374CAB00FC27F8 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		A13C1AA5A0C1AE357F660C12 /* Pods-KanColleCommand.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KanColleCommand.release.xcconfig"; path = "Pods/Target Support Files/Pods-KanColleCommand/Pods-KanColleCommand.release.xcconfig"; sourceTree = "<group>"; };
 		C600010C70E9931478A661DB /* DestroyItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestroyItem.swift; sourceTree = "<group>"; };
 		C6006F097A5D24B7915BFFDE /* PresetSelect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresetSelect.swift; sourceTree = "<group>"; };
@@ -317,6 +320,7 @@
 				42C20DA922C5B4A400235A19 /* Photos.framework in Frameworks */,
 				423AF77A219FECC100C4BCE9 /* WebKit.framework in Frameworks */,
 				CABACA2C6DCC15F3AAA97F0B /* Pods_KanColleCommand.framework in Frameworks */,
+				7AAE039023374CAB00FC27F8 /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -326,6 +330,7 @@
 		7E65389658901A3E07D65070 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7AAE038F23374CAB00FC27F8 /* AudioToolbox.framework */,
 				42C20DA822C5B4A400235A19 /* Photos.framework */,
 				423AF779219FECC100C4BCE9 /* WebKit.framework */,
 				61B0E6346279897DF1C7D1A8 /* Pods_KanColleCommand.framework */,
@@ -452,6 +457,7 @@
 		C608938942B0394D84C007B2 /* KanColleCommand */ = {
 			isa = PBXGroup;
 			children = (
+				7AAE038E23374CAB00FC27F8 /* KanColleCommand.entitlements */,
 				4202BEA5224133F300AED2D4 /* Files.bundle */,
 				C6010E08739966591A1CE2A1 /* Info.plist */,
 				C60FF98AA6E3FDAC202E22EA /* Assets.xcassets */,
@@ -905,6 +911,7 @@
 			baseConfigurationReference = A13C1AA5A0C1AE357F660C12 /* Pods-KanColleCommand.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = KanColleCommand/KanColleCommand.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RYS7R26Y6Y;
@@ -926,6 +933,7 @@
 			baseConfigurationReference = 2B1295577464041F4DC73396 /* Pods-KanColleCommand.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = KanColleCommand/KanColleCommand.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RYS7R26Y6Y;

@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UMConfigure.initWithAppkey("5cdc24183fc1955cd000113f", channel: "Main")
         do {
             let audioSession: AVAudioSession = AVAudioSession.sharedInstance()
-            try audioSession.setCategory(AVAudioSessionCategoryPlayback)
+            try audioSession.setCategory(AVAudioSessionCategoryAmbient)//AVAudioSessionCategoryPlayback
         } catch {
             print("Got error in set AVAudioSession")
         }

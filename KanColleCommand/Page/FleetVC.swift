@@ -222,7 +222,7 @@ private class ShipCell: UITableViewCell {
         nameText.snp.makeConstraints { maker in
             maker.left.equalTo(root.snp.left).offset(8)
             maker.top.equalTo(root.snp.top).offset(4)
-            maker.width.equalTo(80)
+            maker.width.equalTo(140)
         }
         nameText.numberOfLines = 1
         nameText.lineBreakMode = .byTruncatingTail

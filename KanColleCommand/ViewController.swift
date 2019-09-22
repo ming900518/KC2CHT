@@ -8,12 +8,12 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     static let DEFAULT_BACKGROUND = UIColor(hexString: "#303030")
     private var webView: KCWebView!
     private var scrollView: UIScrollView!
-
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.landscape = true
+        UIApplication.shared.isIdleTimerDisabled = true
         //UIDevice.current.setValue(NSNumber(value: UIInterfaceOrientation.landscapeRight.rawValue), forKey: "orientation")
         self.view.backgroundColor = UIColor.black
 
