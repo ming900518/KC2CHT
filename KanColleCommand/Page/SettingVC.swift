@@ -15,12 +15,11 @@ class SettingVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         let backgroundColor = UIColor(hexString: "#FBFBFB")
         self.view.backgroundColor = backgroundColor
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.landscape = false
-        UIDevice.current.setValue(NSNumber(value: UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
+        appDelegate.landscape = true
+        //UIDevice.current.setValue(NSNumber(value: UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
 
         let toolbar = UIView()
         toolbar.backgroundColor = backgroundColor
@@ -82,7 +81,7 @@ class SettingVC: UIViewController {
         dismiss(animated: true)
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.landscape = true
-        UIDevice.current.setValue(NSNumber(value: UIInterfaceOrientation.landscapeRight.rawValue), forKey: "orientation")
+        //UIDevice.current.setValue(NSNumber(value: UIInterfaceOrientation.landscapeRight.rawValue), forKey: "orientation")
     }
 
 }

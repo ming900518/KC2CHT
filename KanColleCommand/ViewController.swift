@@ -14,8 +14,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         // Do any additional setup after loading the view, typically from a nib.
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.landscape = true
-        UIDevice.current.setValue(NSNumber(value: UIInterfaceOrientation.landscapeRight.rawValue), forKey: "orientation")
-
+        //UIDevice.current.setValue(NSNumber(value: UIInterfaceOrientation.landscapeRight.rawValue), forKey: "orientation")
         self.view.backgroundColor = UIColor.black
 
         webView = KCWebView()
@@ -98,6 +97,9 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     @objc func openSetting() {
         let settingVC = SettingVC()
         present(settingVC, animated: true)
+        if #available(iOS 13.0, *) {
+            settingVC.isModalInPresentation = true
+        }
     }
 
     @objc func reloadGame() {
