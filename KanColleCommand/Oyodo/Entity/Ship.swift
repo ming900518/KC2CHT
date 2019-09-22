@@ -79,10 +79,10 @@ class Ship {
         nowFuel = apiShip.api_fuel
         nowBullet = apiShip.api_bull
         condition = apiShip.api_cond
-        for num in 0...apiShip.api_slotnum {
+        //for num in 0...apiShip.api_slotnum {
         //    let item = apiShip.api_slot[num]
         //    items.append(item)
-        }
+        //}
         itemEx = apiShip.api_slot_ex
         soku = apiShip.api_soku
         carrys += apiShip.api_onslot
