@@ -15,9 +15,9 @@
 
 ## 如何安裝
 
-#### [點此查看最新正式版](https://github.com/ming900518/KC2-OOI-/releases/tag/Release1)
+#### [點此查看最新正式版](https://github.com/ming900518/KC2CHT/releases/tag/Release1)
 
-#### [點此查看最新Beta版](https://github.com/ming900518/KC2-OOI-/releases/tag/R2Beta3)
+#### [點此查看最新Beta版](https://github.com/ming900518/KC2CHT/releases/tag/R2Beta4)
 
 
 #### 目前最新正式版本為1.0(TW.CHT.Release1-OOI)，我強烈建議使用最新正式版本進行遊玩。(更新日期:2019/9/21)
