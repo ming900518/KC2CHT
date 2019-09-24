@@ -129,7 +129,7 @@ extension SettingVC: UITableViewDelegate {
                 dialog.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
                 dialog.addAction(UIAlertAction(title: "支付寶", style: .default) { action in
                     if let url = URL(string: "https://qr.alipay.com/tsx04467wmwmuqfxcmwmt7e") {
-                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                        UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
                     }
                 })
                 dialog.addAction(UIAlertAction(title: "微信", style: .default) { action in
@@ -142,7 +142,7 @@ extension SettingVC: UITableViewDelegate {
                                 dialog.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
                                 dialog.addAction(UIAlertAction(title: "去微信", style: .default) { action in
                                     if let url = URL(string: "weixin://") {
-                                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                                        UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
                                     }
                                 })
                                 self.present(dialog, animated: true)
@@ -152,8 +152,8 @@ extension SettingVC: UITableViewDelegate {
                             let dialog = UIAlertController(title: nil, message: "這個功能需要相簿存取權限，請授與", preferredStyle: .alert)
                             dialog.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
                             dialog.addAction(UIAlertAction(title: "去設定", style: .default) { action in
-                                if let url = URL(string: UIApplicationOpenSettingsURLString) {
-                                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                                if let url = URL(string: UIApplication.openSettingsURLString) {
+                                    UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
                                 }
                             })
                             self.present(dialog, animated: true)
@@ -253,4 +253,9 @@ extension SettingVC: UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDa
         return "\(row)"
     }
 
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }

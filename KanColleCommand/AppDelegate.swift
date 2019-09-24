@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UMConfigure.initWithAppkey("5cdc24183fc1955cd000113f", channel: "Main")
         do {
             let audioSession: AVAudioSession = AVAudioSession.sharedInstance()
-            try audioSession.setCategory(AVAudioSessionCategoryAmbient)//AVAudioSessionCategoryPlayback
+            try audioSession.setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.ambient)))//AVAudioSessionCategoryPlayback
         } catch {
             print("Got error in set AVAudioSession")
         }
@@ -59,4 +59,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        }
 //    }
 
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
+	return input.rawValue
 }

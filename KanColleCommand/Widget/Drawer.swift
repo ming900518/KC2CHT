@@ -82,9 +82,9 @@ class Drawer: UIView {
         container.addChild(battleVC)
         container.addChild(missionVC)
         #else
-        container.addChildViewController(fleetVC)
-        container.addChildViewController(battleVC)
-        container.addChildViewController(missionVC)
+        container.addChild(fleetVC)
+        container.addChild(battleVC)
+        container.addChild(missionVC)
         #endif
         fleetVC.view.frame = self.bounds
         battleVC.view.frame = self.bounds
@@ -116,13 +116,13 @@ extension Drawer: GripDelegate {
     func onCheck(index: Int) {
         switch (index) {
         case 1:
-            bringSubview(toFront: battleVC.view)
+            bringSubviewToFront(battleVC.view)
             break
         case 2:
-            bringSubview(toFront: missionVC.view)
+            bringSubviewToFront(missionVC.view)
             break
         default:
-            bringSubview(toFront: fleetVC.view)
+            bringSubviewToFront(fleetVC.view)
             break
         }
         if (!expanded) {
