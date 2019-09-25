@@ -26,7 +26,8 @@ class CacheManager {
                     try fileManager.removeItem(atPath: filePath)
                 }
                 let separator = filePath.lastIndex(of: "/")
-                let dirName = filePath.substring(to: separator!)
+                //let dirName = filePath.substring(to: separator!)
+                let dirName = String(filePath[..<separator!])
                 try fileManager.createDirectory(atPath: dirName, withIntermediateDirectories: true)
                 fileManager.createFile(atPath: filePath, contents: nil)
                 try data?.write(to: URL(fileURLWithPath: filePath))

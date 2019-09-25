@@ -118,9 +118,9 @@ class Oyodo {
             bean.process()
         }
     }
-
-    public func watch<T>(data: Observable<T>, watcher: @escaping (Event<T>) -> Void) {
-        data.subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
+    
+        public func watch<T>(data: Observable<T>, watcher: @escaping (Event<T>) -> Void) {
+            _ = data.subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
                 .observeOn(MainScheduler.instance)
                 .subscribe(watcher)
     }

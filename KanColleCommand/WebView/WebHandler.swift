@@ -144,7 +144,7 @@ class WebHandler: URLProtocol, URLSessionDelegate, URLSessionDataDelegate, URLSe
         let newRequest = (self.request as NSURLRequest).mutableCopy() as! NSMutableURLRequest
         newRequest.timeoutInterval = 30
         let tag = URLProtocol.property(forKey: Constants.TAG, in: request) as? Int ?? 0
-        print("retry count \(tag) for \(request.url)")
+        print("retry count \(tag) for \(String(describing: request.url))")
         URLProtocol.setProperty(tag + 1, forKey: Constants.TAG, in: newRequest)
         let defaultConfigObj = URLSessionConfiguration.default
         defaultConfigObj.urlCache = nil

@@ -55,7 +55,7 @@ extension Fleet {
             return try deckShipIds[index].value().filter { (i: Int) -> Bool in
                 i > 0
             }.map { i -> Ship in
-                try shipMap[i]!
+                shipMap[i]!
             }
         } catch {
             return Array()
@@ -153,7 +153,7 @@ extension Fleet {
         var min = 0
         var max = 0
         getShips(index: index).forEach { ship in
-            var airPower = ship.getAirPower()
+            let airPower = ship.getAirPower()
             min += airPower[0]
             max += airPower[1]
         }
