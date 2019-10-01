@@ -280,14 +280,14 @@ private class ShipCell: UITableViewCell {
         }
 
         // Slot ex
-        slotEx = UIImageView()
-        root.addSubview(slotEx)
-        slotEx.snp.makeConstraints { maker in
-            maker.width.equalTo(16)
-            maker.height.equalTo(16)
-            maker.right.equalTo(condText.snp.left).offset(-12)
-            maker.centerY.equalTo(condText.snp.centerY)
-        }
+        //slotEx = UIImageView()
+        //root.addSubview(slotEx)
+        //slotEx.snp.makeConstraints { maker in
+        //    maker.width.equalTo(16)
+        //    maker.height.equalTo(16)
+        //    maker.right.equalTo(condText.snp.left).offset(-12)
+        //    maker.centerY.equalTo(condText.snp.centerY)
+        //}
 
         // Divider
 //        let divider = UIView()
@@ -322,8 +322,9 @@ private class ShipCell: UITableViewCell {
             condText.textColor = getConditionColor(cond: ship.condition)
             hpText.text = "\(max(ship.hp(), 1)) / \(ship.maxHp)"
             statusTag.image = getTagImage(shipId: ship.id)
-            if let exItem = Fleet.instance.slotMap[ship.itemEx] {
-                slotEx.image = UIImage.init(named: "slot_\(exItem.type).png")
+            if Fleet.instance.slotMap[ship.itemEx] != nil {
+            //if let exItem = Fleet.instance.slotMap[ship.itemEx] {
+                //slotEx.image = UIImage.init(named: "slot_\(exItem.type).png")
             }
         } else {
             hp.set(percent: 0)
