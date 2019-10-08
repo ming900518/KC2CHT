@@ -13,7 +13,7 @@
 
 轉發需註明原作者-NGA用戶亖葉(UID42542015)及本頁面的連結。
 
-## 如何安裝
+## 如何安裝(大陆地区用户请使用[这里](https://github.com/ming900518/iKanColleCommand)的版本)
 
 #### [點此查看最新正式版](https://github.com/ming900518/KC2CHT/releases/tag/Release2)
 
