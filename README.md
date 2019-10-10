@@ -15,12 +15,12 @@
 
 ## 如何安裝 (大陆地区用户请使用[这里](https://github.com/ming900518/iKanColleCommand)的版本)
 
-#### [點此查看最新正式版](https://github.com/ming900518/KC2CHT/releases/tag/Release2)
+#### [點此查看最新正式版](https://github.com/ming900518/KC2CHT/releases/tag/Release2.1)
 
 #### [目前沒有新Beta版]()
 
 
-#### 目前最新正式版本為1.0(TW.CHT.Release2)，我強烈建議使用最新正式版本進行遊玩。(更新日期:2019/10/01)
+#### 目前最新正式版本為1.0(TW.CHT.Release2.1)，我強烈建議使用最新正式版本進行遊玩。(更新日期:2019/10/10)
 源碼可能和發佈的版本有差，還請想自己編譯的提督注意。
 
 原作者由於Apple不給審核，已經暫緩本程式的更新計畫，主版本將維持在1.0直到原作者發佈更新，本人仍會努力修復現有Bug，也希望有Swift程式設計經驗的提督能協助程式的完善。
