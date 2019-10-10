@@ -8,6 +8,9 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     static let DEFAULT_BACKGROUND = UIColor(hexString: "#303030")
     private var webView: KCWebView!
     private var scrollView: UIScrollView!
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -20,6 +23,8 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         webView = KCWebView()
         webView.setup(parent: self.view)
         webView.load()
+        self.webView.isOpaque = false;
+        self.webView.backgroundColor = UIColor.black
         if #available(iOS 11.0, *) {
             webView.scrollView.contentInsetAdjustmentBehavior = .always;
             webView.scalesPageToFit = true;
@@ -97,9 +102,9 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     @objc func openSetting() {
         let settingVC = SettingVC()
         present(settingVC, animated: true)
-        if #available(iOS 13.0, *) {
-            settingVC.isModalInPresentation = true
-        }
+        //if #available(iOS 13.0, *) {
+        //    settingVC.isModalInPresentation = true
+        //}
     }
 
     @objc func reloadGame() {

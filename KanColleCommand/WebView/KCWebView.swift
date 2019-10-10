@@ -7,7 +7,7 @@ class KCWebView: UIWebView {
 
     func setup(parent: UIView) {
         parent.addSubview(self)
-        if (UIScreen.current <= .iPhone5_5) {
+        if (UIScreen.current <= .iPhone5_5) { //iPhone with Home Botton
             self.snp.makeConstraints { maker in
                 maker.width.equalTo(parent.snp.width).inset(40)
                 maker.height.equalTo(self.snp.width).multipliedBy(Float(9) / Float(14.1))
@@ -17,10 +17,11 @@ class KCWebView: UIWebView {
             }
         } else {
             self.snp.makeConstraints { maker in
-                maker.height.equalTo(parent.snp.height)
-                maker.width.equalTo(self.snp.height).multipliedBy(Float(14.1) / Float(9))
+                maker.height.equalTo(parent.snp.height).inset(10.5)
+                maker.width.equalTo(parent.snp.width).inset(40)
                 maker.top.equalTo(parent)
                 maker.centerX.equalTo(parent)
+                maker.centerY.equalTo(parent.snp.centerY)
             }
         }
 
@@ -41,7 +42,10 @@ class KCWebView: UIWebView {
 
     @objc private func gameStart(n: Notification) {
         OperationQueue.main.addOperation {
+            if (UIScreen.current <= .iPhone6_5) {
             self.stringByEvaluatingJavaScript(from: Constants.FULL_SCREEN_SCRIPT)
+            self.stringByEvaluatingJavaScript(from: Constants.darkBG)
+            }
         }
     }
 }
@@ -77,6 +81,7 @@ extension KCWebView: UIWebViewDelegate {
     }
 
     public func webViewDidStartLoad(_ webView: UIWebView) {
+
     }
 
     public func webViewDidFinishLoad(_ webView: UIWebView) {
