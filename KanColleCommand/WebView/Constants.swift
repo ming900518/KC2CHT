@@ -17,5 +17,4 @@ struct Constants {
 
     static let DMM_COOKIES = "javascript:document.cookie='ckcy=1;expires=Sun, 04 Feb 2029 09:00:09 GMT;domain=osapi.dmm.com;path=/';document.cookie='ckcy=1;expires=Sun, 04 Feb 2029 09:00:09 GMT;domain=203.104.209.7;path=/';document.cookie='ckcy=1;expires=Sun, 04 Feb 2029 09:00:09 GMT;domain=www.dmm.com;path=/netgame/';document.cookie='ckcy=1;expires=Sun, 04 Feb 2029 09:00:09 GMT;domain=log-netgame.dmm.com;path=/';"
     
-    static let darkBG = "javascript:var style = document.createElement(\"style\");style.type = \"text/css\";var head = document.head;head.appendChild(style);style.sheet.insertRule(\"* { color: #aaa !important; background-color: #000 !important; border-color: currentColor !important; }\");completion(true);;"
 }
