@@ -228,36 +228,36 @@ func getMissionData(byId: Int) -> MissionData? {
         data = MissionData(description: "廢棄小口徑主砲4根", require: 4, type: MissionRequireType.DESTROY_ITEM,
                 processor: {
                     bean in
-                    var count = 0
-                    if let b = bean as? JsonBean {
-                        count = b.params["api_slotitem_ids"]?
-                                .components(separatedBy: "%2C")
-                                .map { s in
-                                    let slotId = parse(value: s)
-                                    return Fleet.instance.slotMap[slotId]!
-                                }.filter { (slot: Slot) -> Bool in
-                                    slot.type == 1
-                                }.count ?? 0
-                    }
-                    return count
+                    //var count = 0
+                    //if let b = bean as? JsonBean {
+                        //count = b.params["api_slotitem_ids"]?
+                                //.components(separatedBy: "%2C")
+                                //.map { s in
+                                    //let slotId = parse(value: s)
+                                    //return Fleet.instance.slotMap[slotId]!
+                                //}.filter { (slot: Slot) -> Bool in
+                                    //slot.type == 1
+                                //}.count ?? 0
+                    //}
+                    return 0 //count
                 })
         break
     case 674:
         data = MissionData(description: "廢棄機槍3根", require: 3, type: MissionRequireType.DESTROY_ITEM,
                 processor: {
                     bean in
-                    var count = 0
-                    if let b = bean as? JsonBean {
-                        count = b.params["api_slotitem_ids"]?
-                                .components(separatedBy: "%2C")
-                                .map { s in
-                                    let slotId = parse(value: s)
-                                    return Fleet.instance.slotMap[slotId]!
-                                }.filter { (slot: Slot) -> Bool in
-                                    slot.type == 21
-                                }.count ?? 0
-                    }
-                    return count
+                    //var count = 0
+                    //if let b = bean as? JsonBean {
+                        //count = b.params["api_slotitem_ids"]?
+                                //.components(separatedBy: "%2C")
+                                //.map { s in
+                                    //let slotId = parse(value: s)
+                                    //return Fleet.instance.slotMap[slotId]!
+                                //}.filter { (slot: Slot) -> Bool in
+                                    //slot.type == 21
+                                //}.count ?? 0
+                    //}
+                    return 0 //count
                 })
         break
 
