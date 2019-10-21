@@ -225,7 +225,7 @@ func getMissionData(byId: Int) -> MissionData? {
                 })
         break
     case 673:
-        data = MissionData(description: "廢棄小口徑主砲4根", require: 4, type: MissionRequireType.DESTROY_ITEM,
+        data = MissionData(description: "廢棄小口徑主砲4根（計數器代表有無廢棄紀錄）", require: 1, type: MissionRequireType.DESTROY_ITEM,
                 processor: {
                     bean in
                     //var count = 0
@@ -239,11 +239,11 @@ func getMissionData(byId: Int) -> MissionData? {
                                     //slot.type == 1
                                 //}.count ?? 0
                     //}
-                    return 0 //count
+                    return 1 //count
                 })
         break
     case 674:
-        data = MissionData(description: "廢棄機槍3根", require: 3, type: MissionRequireType.DESTROY_ITEM,
+        data = MissionData(description: "廢棄機槍3根（計數器代表有無廢棄紀錄）", require: 1, type: MissionRequireType.DESTROY_ITEM,
                 processor: {
                     bean in
                     //var count = 0
@@ -257,7 +257,7 @@ func getMissionData(byId: Int) -> MissionData? {
                                     //slot.type == 21
                                 //}.count ?? 0
                     //}
-                    return 0 //count
+                    return 1 //count
                 })
         break
 

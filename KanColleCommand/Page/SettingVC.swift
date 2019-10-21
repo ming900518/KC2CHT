@@ -132,6 +132,11 @@ extension SettingVC: UITableViewDelegate {
                         UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
                     }
                 })
+                dialog.addAction(UIAlertAction(title: "微信", style: .default) { action in
+                    if let url = URL(string:"https://ming900518.github.io/page/wechat_qrcode.png") {
+                        UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
+                    }
+                })
 //                dialog.addAction(UIAlertAction(title: "微信", style: .default) { action in
 //                    PHPhotoLibrary.requestAuthorization { status in
 //                        switch (status) {

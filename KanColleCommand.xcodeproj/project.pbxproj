@@ -119,7 +119,6 @@
 		C60C8D6EC24C7B9BCAABCB18 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = C608D57A75850AD8AC34C891 /* Setting.swift */; };
 		C60CA431AF561B9291CA172D /* slot_17.png in Resources */ = {isa = PBXBuildFile; fileRef = C6033A047892D60D2381DF12 /* slot_17.png */; };
 		C60CC2D7C8DAB564E870B03B /* Oyodo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60516484616A00807A82136 /* Oyodo.swift */; };
-		C60CC94525AC55450271FEC5 /* wechat_qrcode.png in Resources */ = {isa = PBXBuildFile; fileRef = C60EAD3B341E8907BD9F2D39 /* wechat_qrcode.png */; };
 		C60CD193DE76711747D86253 /* slot_30.png in Resources */ = {isa = PBXBuildFile; fileRef = C602624AE92BC5B136058417 /* slot_30.png */; };
 		C60D1D1D7F958708DE7899A7 /* badly_damage_warning.png in Resources */ = {isa = PBXBuildFile; fileRef = C602F1421F7F8869EC85A87A /* badly_damage_warning.png */; };
 		C60D37EC324C68F57B3F9B2C /* Port.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60248A396108DE104485E9E /* Port.swift */; };
@@ -302,7 +301,6 @@
 		C60E384C65DD6853A2066230 /* SlotDeprive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlotDeprive.swift; sourceTree = "<group>"; };
 		C60E657E36BD1BDEEBFFE8E1 /* BattleNext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BattleNext.swift; sourceTree = "<group>"; };
 		C60E827F7B7EBF59C77EE148 /* MissionUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MissionUtils.swift; sourceTree = "<group>"; };
-		C60EAD3B341E8907BD9F2D39 /* wechat_qrcode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wechat_qrcode.png; sourceTree = "<group>"; };
 		C60EBD2F6C9FD7A64BC01E66 /* Practice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Practice.swift; sourceTree = "<group>"; };
 		C60EE05A6DB97CA59BDA9AE9 /* NyukyoStart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NyukyoStart.swift; sourceTree = "<group>"; };
 		C60EEDDE8EA04915F77E526C /* KanColleCommand.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KanColleCommand.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -595,7 +593,6 @@
 				C60C84330DAB1FCFD96089CD /* reload.png */,
 				C602F1421F7F8869EC85A87A /* badly_damage_warning.png */,
 				C6072A142333CBDE650ED8F4 /* setting.png */,
-				C60EAD3B341E8907BD9F2D39 /* wechat_qrcode.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -740,7 +737,6 @@
 				C60755B39CF8DD92AA4F79A6 /* reload.png in Resources */,
 				C60D1D1D7F958708DE7899A7 /* badly_damage_warning.png in Resources */,
 				C60414422912E77C7732510B /* setting.png in Resources */,
-				C60CC94525AC55450271FEC5 /* wechat_qrcode.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -930,7 +926,7 @@
 				INFOPLIST_FILE = KanColleCommand/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = "1.0 (TW.CHT-Release2.2)";
+				MARKETING_VERSION = "1.0 (TW.CHT-Release2.1.1)";
 				PRODUCT_BUNDLE_IDENTIFIER = tw.cctech.kancolle.command;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -953,7 +949,7 @@
 				INFOPLIST_FILE = KanColleCommand/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = "1.0 (TW.CHT-Release2.2)";
+				MARKETING_VERSION = "1.0 (TW.CHT-Release2.1.1)";
 				PRODUCT_BUNDLE_IDENTIFIER = tw.cctech.kancolle.command;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
