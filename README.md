@@ -44,3 +44,5 @@
 
 ## 聯繫我(Bug回報或功能建議)
 [Email](mailto:ming900518@gmail.com)
+
+[Twitter（請直接DM我）](https://twitter.com/mingchang137)
