@@ -39,6 +39,10 @@ class KCWebView: UIWebView {
         let url = URL(string: "about:blank")
         loadRequest(URLRequest(url: url!))
     }
+    func loadChanger() {
+        let url = URL(string: Constants.CHANGER)
+        loadRequest(URLRequest(url: url!))
+    }
 
     @objc private func gameStart(n: Notification) {
         OperationQueue.main.addOperation {
