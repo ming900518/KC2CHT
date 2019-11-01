@@ -4,10 +4,12 @@ class CacheManager {
 
     class func shouldCache(url: URL?) -> Bool {
         if let path = url?.path {
-            if (path.starts(with: "/kcs/") || path.starts(with: "/kcs2/")) {
+            if (path.starts(with: "/kcs/") || path.starts(with: "/kcs2/") || path.starts(with: "/page/")) {
                 return path.hasSuffix("js") ||
                         path.hasSuffix("json") ||
                         path.hasSuffix("mp3") ||
+                        path.hasSuffix("woff2") ||
+                        path.hasSuffix("jpeg") ||
                         path.hasSuffix("png")
             }
         }
