@@ -34,7 +34,7 @@ class SettingVC: UIViewController {
         }
 
         let titleText = UILabel()
-        titleText.text = "便攜式艦隊司令部-繁體版設定"
+        titleText.text = "iKanColleCommand Tweaked - Chinese Traditional"
         titleText.textColor = UIColor.black
         titleBar.addSubview(titleText)
         titleText.snp.makeConstraints { maker in
@@ -110,22 +110,27 @@ extension SettingVC: UITableViewDelegate {
                 selector.addAction(UIAlertAction(title: "取消", style: .cancel))
                 self.present(selector, animated: true)
             } else if (indexPath.row == 1) {
-                let dialog = UIAlertController(title: nil, message: "使用後遊戲會被登出", preferredStyle: .alert)
+                let dialog = UIAlertController(title: nil, message: "使用須知\n1. 這功能會清空App所下載的Cache和Cookies\n2. 下次遊戲載入時就會重新下載Cache\n3. 清除完畢後會開啟登入方式切換器", preferredStyle: .actionSheet)
                 dialog.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
-                dialog.addAction(UIAlertAction(title: "執行", style: .default) { action in
+                dialog.addAction(UIAlertAction(title: "我暸解了，執行清理", style: .destructive) { action in
                     if let cookies = HTTPCookieStorage.shared.cookies {
                         for cookie in cookies {
                             HTTPCookieStorage.shared.deleteCookie(cookie)
                         }
                     }
+                    CacheManager.clearCache()
                     NotificationCenter.default.post(Notification.init(name: Constants.RELOAD_GAME))
                     self.close()
                 })
                 self.present(dialog, animated: true)
             }
         } else if (indexPath.section == 2) {
-            if (indexPath.row == 1) {
-                let dialog = UIAlertController(title: "請選擇渠道", message: nil, preferredStyle: .alert)
+            if (indexPath.row == 0) {
+                    if let url = URL(string:"https://kc2tweaked.github.io") {
+                        UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
+                    }
+            } else if (indexPath.row == 1) {
+                let dialog = UIAlertController(title: "請選擇渠道", message: nil, preferredStyle: .actionSheet)
                 dialog.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
                 dialog.addAction(UIAlertAction(title: "支付寶", style: .default) { action in
                     if let url = URL(string: "https://qr.alipay.com/tsx04467wmwmuqfxcmwmt7e") {
@@ -200,8 +205,7 @@ extension SettingVC: UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDa
             } else if (indexPath.row == 1) {
                 let cell = UITableViewCell(style: .default, reuseIdentifier: cellIdentifier)
                 cell.backgroundColor = UIColor.white
-                cell.textLabel?.text = "清理Cookies"
-                cell.detailTextLabel?.text = "當遊戲出現問題時可以嘗試看看"
+                cell.textLabel?.text = "清理舊Cache和Cookies"
                 cell.accessoryType = .disclosureIndicator
                 return cell
             }
@@ -223,11 +227,10 @@ extension SettingVC: UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDa
             }
         } else if (indexPath.section == 2) {
             if (indexPath.row == 0) {
-                let cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellIdentifier)
+                let cell = UITableViewCell(style: .default, reuseIdentifier: cellIdentifier)
                 cell.backgroundColor = UIColor.white
-                cell.textLabel?.text = "提示：第一次遊玩遊戲時，會在背景下載緩存檔"
-                cell.detailTextLabel?.text = "重啟App就會使用緩存，讓遊戲更順暢喔"
-                cell.detailTextLabel?.textColor = UIColor.lightGray
+                cell.textLabel?.text = "Tweaked Version Homepage"
+                cell.accessoryType = .disclosureIndicator
                 return cell
             } else if (indexPath.row == 1) {
                 let cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellIdentifier)

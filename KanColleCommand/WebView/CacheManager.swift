@@ -47,6 +47,18 @@ class CacheManager {
         }
         return nil
     }
+    class func clearCache() {
+        let filePath = baseDir()
+        let fileManager = FileManager.default
+        do {
+            try fileManager.removeItem(atPath: filePath)
+        }
+        catch{
+            print("Error to clean cache, does cache ever exist?")
+        }
+        //try? FileManager.default.removeItem(at: filePathString)
+        return //nil
+    }
 
     class func isFileCached(url: URL?) -> Bool {
         if let url = url {
