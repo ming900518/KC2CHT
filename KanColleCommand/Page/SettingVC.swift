@@ -75,6 +75,7 @@ class SettingVC: UIViewController {
             maker.top.equalTo(toolbar.snp.bottom)
             maker.bottom.equalTo(self.view.snp.bottom)
         }
+        CacheManager.checkCachedfiles()
     }
 
     @objc func close() {
@@ -91,6 +92,7 @@ extension SettingVC: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath.section == 0) {
             if (indexPath.row == 0) {
+                print("[INFO] Retry setting started by user.")
                 let selector: UIAlertController = UIAlertController(title: "\n\n\n\n\n\n\n\n\n\n", message: nil, preferredStyle: .actionSheet)
                 let picker = UIPickerView()
                 selector.view.addSubview(picker)
@@ -106,13 +108,16 @@ extension SettingVC: UITableViewDelegate {
                     print("Selected : \(selected)")
                     Setting.saveRetryCount(value: selected)
                     self.settingTable.reloadData()
+                    print("[INFO] New retry setting has been set.")
                 })
                 selector.addAction(UIAlertAction(title: "取消", style: .cancel))
                 self.present(selector, animated: true)
             } else if (indexPath.row == 1) {
-                let dialog = UIAlertController(title: nil, message: "使用須知\n1. 這功能會清空App所下載的Cache和Cookies\n2. 下次遊戲載入時就會重新下載Cache\n3. 清除完畢後會開啟登入方式切換器", preferredStyle: .actionSheet)
+                print("[INFO] Cleaner started by user.")
+                let dialog = UIAlertController(title: nil, message: "使用須知\n\n1. 這功能會清空App所下載的Caches和Cookies\n2. 下次遊戲載入時就會重新下載Cache\n3. 清除完畢後會開啟登入方式切換器", preferredStyle: .actionSheet)
                 dialog.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
                 dialog.addAction(UIAlertAction(title: "我暸解了，執行清理", style: .destructive) { action in
+                    print("[INFO] Cleaner confirmed by user. Start cleaning.")
                     if let cookies = HTTPCookieStorage.shared.cookies {
                         for cookie in cookies {
                             HTTPCookieStorage.shared.deleteCookie(cookie)
@@ -120,6 +125,7 @@ extension SettingVC: UITableViewDelegate {
                     }
                     CacheManager.clearCache()
                     NotificationCenter.default.post(Notification.init(name: Constants.RELOAD_GAME))
+                    print("[INFO] Everything cleaned.")
                     self.close()
                 })
                 self.present(dialog, animated: true)
@@ -128,6 +134,7 @@ extension SettingVC: UITableViewDelegate {
             if (indexPath.row == 0) {
                     if let url = URL(string:"https://kc2tweaked.github.io") {
                         UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
+                        print("[INFO] Homepage opened.")
                     }
             } else if (indexPath.row == 1) {
                 let dialog = UIAlertController(title: "請選擇渠道", message: nil, preferredStyle: .actionSheet)
@@ -229,7 +236,7 @@ extension SettingVC: UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDa
             if (indexPath.row == 0) {
                 let cell = UITableViewCell(style: .default, reuseIdentifier: cellIdentifier)
                 cell.backgroundColor = UIColor.white
-                cell.textLabel?.text = "Tweaked Version Homepage"
+                cell.textLabel?.text = "前往修改版官方網站"
                 cell.accessoryType = .disclosureIndicator
                 return cell
             } else if (indexPath.row == 1) {

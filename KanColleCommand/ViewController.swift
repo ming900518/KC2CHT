@@ -102,6 +102,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     @objc func openSetting() {
         let settingVC = SettingVC()
         present(settingVC, animated: true)
+        print("[INFO] User opened setting.")
         //if #available(iOS 13.0, *) {
         //    settingVC.isModalInPresentation = true
         //}
@@ -110,6 +111,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     @objc func reloadGame() {
         self.webView.loadBlankPage()
         self.webView.loadChanger()
+        print("[INFO] Changer should start load now.")
     }
 
 }

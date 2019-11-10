@@ -75,7 +75,7 @@ extension KCWebView: UIWebViewDelegate {
                         Oyodo.attention().api(url: url, request: header, response: body.replacingOccurrences(of: "svdata=", with: ""))
                     }
                 } catch {
-                    print("Error parse response")
+                    print("[Error] Error parse response")
                 }
             }
             return false

@@ -303,7 +303,7 @@
 		C60E827F7B7EBF59C77EE148 /* MissionUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MissionUtils.swift; sourceTree = "<group>"; };
 		C60EBD2F6C9FD7A64BC01E66 /* Practice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Practice.swift; sourceTree = "<group>"; };
 		C60EE05A6DB97CA59BDA9AE9 /* NyukyoStart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NyukyoStart.swift; sourceTree = "<group>"; };
-		C60EEDDE8EA04915F77E526C /* KanColleCommand.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KanColleCommand.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C60EEDDE8EA04915F77E526C /* iKanColleCmd.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iKanColleCmd.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C60F38721E791BDA1AD8AB74 /* slot_39.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slot_39.png; sourceTree = "<group>"; };
 		C60FBA302BB12A91F89F5406 /* MissionResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MissionResult.swift; sourceTree = "<group>"; };
 		C60FE5A3EA598BCB448EB3D1 /* RequireInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequireInfo.swift; sourceTree = "<group>"; };
@@ -600,7 +600,7 @@
 		C60FBAC9174031D5C6987FCC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C60EEDDE8EA04915F77E526C /* KanColleCommand.app */,
+				C60EEDDE8EA04915F77E526C /* iKanColleCmd.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -633,7 +633,7 @@
 			);
 			name = KanColleCommand;
 			productName = KanColleCommand;
-			productReference = C60EEDDE8EA04915F77E526C /* KanColleCommand.app */;
+			productReference = C60EEDDE8EA04915F77E526C /* iKanColleCmd.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -928,7 +928,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = "1.0 (TW.CHT-Release2.2)";
 				PRODUCT_BUNDLE_IDENTIFIER = tw.cctech.kancolle.command;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = iKanColleCmd;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/KanColleCommand/Bridge-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -951,7 +951,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = "1.0 (TW.CHT-Release2.2)";
 				PRODUCT_BUNDLE_IDENTIFIER = tw.cctech.kancolle.command;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = iKanColleCmd;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/KanColleCommand/Bridge-Header.h";
 				SWIFT_VERSION = 5.0;
