@@ -5,7 +5,7 @@ import RxSwift
 
 class ViewController: UIViewController, UIScrollViewDelegate {
 
-    static let DEFAULT_BACKGROUND = UIColor(hexString: "#303030")
+    static let DEFAULT_BACKGROUND = UIColor(white: 0.23, alpha: 1)//UIColor(hexString: "#303030")
     private var webView: KCWebView!
     private var scrollView: UIScrollView!
     override var prefersStatusBarHidden: Bool {
@@ -18,7 +18,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         appDelegate.landscape = true
         UIApplication.shared.isIdleTimerDisabled = true
         //UIDevice.current.setValue(NSNumber(value: UIInterfaceOrientation.landscapeRight.rawValue), forKey: "orientation")
-        self.view.backgroundColor = UIColor.black
+        self.view.backgroundColor = UIColor.init(white: 0.185, alpha: 1)
 
         webView = KCWebView()
         webView.setup(parent: self.view)
@@ -63,20 +63,29 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         let settingBtn = UIButton(type: .custom)
         settingBtn.setImage(UIImage(named: "setting.png"), for: .normal)
         settingBtn.imageEdgeInsets = UIEdgeInsets.init(top: 8, left: 8, bottom: 8, right: 8)
-        settingBtn.backgroundColor = ViewController.DEFAULT_BACKGROUND
+        settingBtn.backgroundColor = UIColor.init(white: 0.185, alpha: 1)//ViewController.DEFAULT_BACKGROUND
         self.view.addSubview(settingBtn)
-        settingBtn.snp.makeConstraints { maker in
-            maker.width.equalTo(40)
-            maker.height.equalTo(40)
-            maker.right.equalTo(webView.snp.left)
-            maker.top.equalTo(webView.snp.top)
+        if (UIScreen.current <= .iPhone5_5) { //iPhone with Home Botton
+            settingBtn.snp.makeConstraints { maker in
+                maker.width.equalTo(40)
+                maker.height.equalTo(40)
+                maker.right.equalTo(webView.snp.left)
+                maker.top.equalTo(webView.snp.top)
+            }
+        } else {
+            settingBtn.snp.makeConstraints { maker in
+                maker.width.equalTo(40)
+                maker.height.equalTo(40)
+                maker.right.equalTo(webView.snp.left)
+                maker.top.equalTo(webView.snp.top).inset(11)
+            }
         }
         settingBtn.addTarget(self, action: #selector(openSetting), for: .touchUpInside)
 
         let refreshBtn = UIButton(type: .custom)
         refreshBtn.setImage(UIImage(named: "reload.png"), for: .normal)
         refreshBtn.imageEdgeInsets = UIEdgeInsets.init(top: 8, left: 8, bottom: 8, right: 8)
-        refreshBtn.backgroundColor = ViewController.DEFAULT_BACKGROUND
+        refreshBtn.backgroundColor = UIColor.init(white: 0.185, alpha: 1)//ViewController.DEFAULT_BACKGROUND
         self.view.addSubview(refreshBtn)
         refreshBtn.snp.makeConstraints { maker in
             maker.width.equalTo(40)

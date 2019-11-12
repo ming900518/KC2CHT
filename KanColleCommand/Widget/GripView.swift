@@ -17,7 +17,8 @@ class GripView: UIView {
     private let titles = Array(arrayLiteral: "艦\n隊", "戰\n鬥", "任\n務")
 
     public func gripTo(view: UIView) {
-        backgroundColor = UIColor(white: 0.144, alpha: 1)
+        //backgroundColor = UIColor(white: 0.144, alpha: 1)
+        backgroundColor = UIColor(white: 0.185, alpha: 1)
         self.snp.makeConstraints { maker in
             maker.height.equalTo(view.snp.height)
             maker.right.equalTo(view.snp.left)
