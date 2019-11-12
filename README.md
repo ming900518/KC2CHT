@@ -40,7 +40,7 @@
 [iOS端的設定](https://drive.google.com/file/d/1dPbtrt4gwdot0WhdZ5hTiTenc_4j1wem/view?usp=sharing)
 
 有越獄用戶安裝可以參考https://mrmad.com.tw/reprovision
-，可以自動重新簽名，或使用AppSync直接Fake Sign（進階）。
+，可以自動重新簽名，或使用AppSync直接Fake Sign（進階，[這裡](https://forum.gamer.com.tw/Co.php?bsn=24698&sn=126018&subbsn=1&bPage=0)有教學）。
 
 ## 聯繫我(Bug回報或功能建議)
 [Email](mailto:ming900518@gmail.com)
