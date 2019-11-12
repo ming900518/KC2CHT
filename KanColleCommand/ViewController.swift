@@ -65,19 +65,40 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         settingBtn.imageEdgeInsets = UIEdgeInsets.init(top: 8, left: 8, bottom: 8, right: 8)
         settingBtn.backgroundColor = UIColor.init(white: 0.185, alpha: 1)//ViewController.DEFAULT_BACKGROUND
         self.view.addSubview(settingBtn)
-        if (UIScreen.current <= .iPhone5_5) { //iPhone with Home Botton
+        if (UIScreen.current == .iPhone5_8) { //iPhone X XS 11Pro
             settingBtn.snp.makeConstraints { maker in
                 maker.width.equalTo(40)
                 maker.height.equalTo(40)
                 maker.right.equalTo(webView.snp.left)
-                maker.top.equalTo(webView.snp.top)
+                maker.top.equalTo(webView.snp.top).inset(11)
+            }
+        } else if (UIScreen.current == .iPhone6_1) { //iPhone XR 11
+            settingBtn.snp.makeConstraints { maker in
+                maker.width.equalTo(40)
+                maker.height.equalTo(40)
+                maker.right.equalTo(webView.snp.left)
+                maker.top.equalTo(webView.snp.top).inset(11)
+            }
+        } else if (UIScreen.current == .iPhone6_5) { //iPhone XS Max 11Pro Max
+            settingBtn.snp.makeConstraints { maker in
+                maker.width.equalTo(40)
+                maker.height.equalTo(40)
+                maker.right.equalTo(webView.snp.left)
+                maker.top.equalTo(webView.snp.top).inset(11)
+            }
+        } else if (UIScreen.current > .iPad10_5) { //iPad Pro
+            settingBtn.snp.makeConstraints { maker in
+                maker.width.equalTo(40)
+                maker.height.equalTo(40)
+                maker.right.equalTo(webView.snp.left)
+                maker.top.equalTo(webView.snp.top).inset(11)
             }
         } else {
             settingBtn.snp.makeConstraints { maker in
                 maker.width.equalTo(40)
                 maker.height.equalTo(40)
                 maker.right.equalTo(webView.snp.left)
-                maker.top.equalTo(webView.snp.top).inset(11)
+                maker.top.equalTo(webView.snp.top)
             }
         }
         settingBtn.addTarget(self, action: #selector(openSetting), for: .touchUpInside)
