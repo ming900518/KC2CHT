@@ -83,9 +83,9 @@ class SettingVC: UIViewController {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.landscape = true
         //UIDevice.current.setValue(NSNumber(value: UIInterfaceOrientation.landscapeRight.rawValue), forKey: "orientation")
-        
-         }
     }
+
+}
 
 extension SettingVC: UITableViewDelegate {
 
@@ -103,11 +103,6 @@ extension SettingVC: UITableViewDelegate {
                 picker.dataSource = self
                 picker.delegate = self
                 picker.selectRow(Setting.getRetryCount(), inComponent: 0, animated: false)
-                if let popoverController = selector.popoverPresentationController {
-                    popoverController.sourceView = self.view
-                    popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
-                    popoverController.permittedArrowDirections = []
-                }
                 selector.addAction(UIAlertAction(title: "確定", style: .default) { action in
                     let selected = picker.selectedRow(inComponent: 0)
                     print("Selected : \(selected)")
@@ -120,11 +115,6 @@ extension SettingVC: UITableViewDelegate {
             } else if (indexPath.row == 1) {
                 print("[INFO] Cleaner started by user.")
                 let dialog = UIAlertController(title: nil, message: "使用須知\n\n1. 這功能會清空App所下載的Caches和Cookies\n2. 下次遊戲載入時就會重新下載Caches，Cookies會自動重設\n3. 清除完畢後會開啟登入方式切換器", preferredStyle: .actionSheet)
-                if let popoverController = dialog.popoverPresentationController {
-                    popoverController.sourceView = self.view
-                    popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
-                    popoverController.permittedArrowDirections = []
-                }
                 dialog.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
                 dialog.addAction(UIAlertAction(title: "我暸解了，執行清理", style: .destructive) { action in
                     print("[INFO] Cleaner confirmed by user. Start cleaning.")
@@ -148,11 +138,6 @@ extension SettingVC: UITableViewDelegate {
                     }
             } else if (indexPath.row == 1) {
                 let dialog = UIAlertController(title: "請選擇渠道", message: nil, preferredStyle: .actionSheet)
-                if let popoverController = dialog.popoverPresentationController {
-                    popoverController.sourceView = self.view
-                    popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
-                    popoverController.permittedArrowDirections = []
-                }
                 dialog.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
                 dialog.addAction(UIAlertAction(title: "支付寶", style: .default) { action in
                     if let url = URL(string: "https://qr.alipay.com/tsx04467wmwmuqfxcmwmt7e") {
