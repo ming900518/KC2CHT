@@ -17,7 +17,6 @@
 
 #### [點此查看最新正式版](https://github.com/ming900518/KC2CHT/releases/tag/Release2.1.2)
 
-#### [目前沒有新Beta版]()
 
 
 #### 目前最新正式版本為1.0(TW.CHT.Release2.2)，我強烈建議使用最新正式版本進行遊玩。(更新日期:2019/11/14)
