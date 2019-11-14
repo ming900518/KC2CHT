@@ -15,7 +15,7 @@
 
 ## 如何安裝 (大陆地区用户请使用[这里](https://github.com/ming900518/iKanColleCommand)的版本)
 
-#### [點此查看最新正式版](https://github.com/ming900518/KC2CHT/releases/tag/Release2.1.2)
+#### [點此查看最新正式版](https://github.com/ming900518/KC2CHT/releases/tag/Release2.2)
 
 
 
