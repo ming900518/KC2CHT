@@ -16,7 +16,7 @@
 ## 如何安裝 (大陆地区用户请使用[这里](https://github.com/ming900518/iKanColleCommand)的版本)
 
 #### [點此查看最新正式版](https://github.com/ming900518/KC2CHT/releases/tag/Release2.2)
-
+#### [點此加入Cydia軟體源](cydia://url/https://cydia.saurik.com/api/share#?source=https://kc2tweaked.github.io/repo/)
 
 
 #### 目前最新正式版本為1.0(TW.CHT.Release2.2)，我強烈建議使用最新正式版本進行遊玩。(更新日期:2019/11/14)
@@ -38,8 +38,7 @@
 
 [iOS端的設定](https://drive.google.com/file/d/1dPbtrt4gwdot0WhdZ5hTiTenc_4j1wem/view?usp=sharing)
 
-有越獄用戶安裝可以參考https://mrmad.com.tw/reprovision
-，可以自動重新簽名，或使用AppSync直接Fake Sign（進階，[這裡](https://forum.gamer.com.tw/Co.php?bsn=24698&sn=126018&subbsn=1&bPage=0)有教學）。
+有越獄用戶可透過Cydia軟體源下載。
 
 ## 聯繫我(Bug回報或功能建議)
 [Email](mailto:ming900518@gmail.com)
