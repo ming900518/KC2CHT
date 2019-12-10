@@ -16,7 +16,7 @@
 ## 如何安裝 (大陆地区用户请使用[这里](https://github.com/ming900518/iKanColleCommand)的版本)
 
 #### [點此查看最新正式版](https://github.com/ming900518/KC2CHT/releases/tag/Release2.2)
-#### [點此加入Cydia軟體源](cydia://url/https://cydia.saurik.com/api/share#?source=https://kc2tweaked.github.io/repo/)
+#### [點此加入Cydia軟體源](https://kc2tweaked.github.io/repo/)
 
 
 #### 目前最新正式版本為1.0(TW.CHT.Release2.2)，我強烈建議使用最新正式版本進行遊玩。(更新日期:2019/11/14)
