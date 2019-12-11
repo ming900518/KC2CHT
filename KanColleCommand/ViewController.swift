@@ -143,5 +143,4 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         self.webView.loadChanger()
         print("[INFO] Changer should start load now.")
     }
-
 }
