@@ -47,9 +47,10 @@ class KCWebView: UIWebView {
     @objc private func gameStart(n: Notification) {
         OperationQueue.main.addOperation {
             self.stringByEvaluatingJavaScript(from: Constants.FULL_SCREEN_SCRIPT)
-            self.stringByEvaluatingJavaScript(from: Constants.BGMfuckOff)
+            //self.stringByEvaluatingJavaScript(from: Constants.BGMfuckOff)
             if (UIScreen.current <= .iPhone6_5) {
             self.stringByEvaluatingJavaScript(from: Constants.darkBG)
+            self.stringByEvaluatingJavaScript(from: Constants.makeABmove)
             }
         }
     }
