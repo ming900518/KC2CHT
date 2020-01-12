@@ -28,15 +28,7 @@
 
 原作者由於Apple不給審核，已經暫緩本程式的更新計畫，主版本將維持在1.0直到原作者發佈更新，本人仍會努力修復現有Bug，也希望有Swift程式設計經驗的提督能協助程式的完善。
 
-非越獄用戶安裝可以參考https://mrmad.com.tw/cydia-impactor
-，非企業簽證（沒有付蘋果299美金的人）的用戶每七天需要重新簽名安裝。
-#### 安裝過程的影片，如果一直無法安裝成功請照著影片中的步驟進行操作
-
-[macOS安裝過程](https://drive.google.com/file/d/1VLvUJZS1PwaenYvbD_G5gqoNbWrEFEvf/view?usp=sharing)
-
-[Windows安裝過程](https://drive.google.com/file/d/1GPyeAOcYsAzV32cND76GgW2_J9YvXiv7/view?usp=sharing)
-
-[iOS端的設定](https://drive.google.com/file/d/1dPbtrt4gwdot0WhdZ5hTiTenc_4j1wem/view?usp=sharing)
+#### 由於Apple更新了簽名要求，請至[官網](http://kc2tweaked.github.io)查看最新安裝方式！
 
 有越獄用戶可透過Cydia軟體源下載。
 
