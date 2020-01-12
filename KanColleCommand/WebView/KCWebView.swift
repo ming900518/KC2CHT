@@ -50,7 +50,7 @@ class KCWebView: UIWebView {
             //self.stringByEvaluatingJavaScript(from: Constants.BGMfuckOff)
             if (UIScreen.current <= .iPhone6_5) {
             self.stringByEvaluatingJavaScript(from: Constants.darkBG)
-            self.stringByEvaluatingJavaScript(from: Constants.makeABmove)
+            //self.stringByEvaluatingJavaScript(from: Constants.makeABmove)
             }
         }
     }
