@@ -23,6 +23,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         webView = KCWebView()
         webView.setup(parent: self.view)
         webView.load()
+        webView.scrollView.isScrollEnabled = true;
         self.webView.isOpaque = false;
         self.webView.backgroundColor = UIColor.black
         if #available(iOS 11.0, *) {

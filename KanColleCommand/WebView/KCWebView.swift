@@ -7,13 +7,26 @@ class KCWebView: UIWebView {
 
     func setup(parent: UIView) {
         parent.addSubview(self)
-        if (UIScreen.current <= .iPhone5_5) { //iPhone with Home Botton
+        if (UIScreen.current == .iPhone5_5) {
             self.snp.makeConstraints { maker in
                 maker.width.equalTo(parent.snp.width).inset(40)
-                maker.height.equalTo(self.snp.width).multipliedBy(Float(9) / Float(14.1))
+                maker.height.equalTo(self.snp.width).inset(131.2)
                 maker.top.equalTo(parent.snp.top)
                 maker.centerX.equalTo(parent.snp.centerX)
-                
+            }
+        } else if (UIScreen.current == .iPhone4_7) {
+            self.snp.makeConstraints { maker in
+                maker.width.equalTo(parent.snp.width).inset(40)
+                maker.height.equalTo(self.snp.width).inset(117.5)
+                maker.top.equalTo(parent.snp.top)
+                maker.centerX.equalTo(parent.snp.centerX)
+            }
+        } else if (UIScreen.current == .iPhone4_0) {
+            self.snp.makeConstraints { maker in
+                maker.width.equalTo(parent.snp.width).inset(40)
+                maker.height.equalTo(self.snp.width).inset(97.5)
+                maker.top.equalTo(parent.snp.top)
+                maker.centerX.equalTo(parent.snp.centerX)
             }
         } else {
             self.snp.makeConstraints { maker in
@@ -47,6 +60,7 @@ class KCWebView: UIWebView {
     @objc private func gameStart(n: Notification) {
         OperationQueue.main.addOperation {
             self.stringByEvaluatingJavaScript(from: Constants.FULL_SCREEN_SCRIPT)
+            self.stringByEvaluatingJavaScript(from: Constants.KBdonttouchmyscreen)
             //self.stringByEvaluatingJavaScript(from: Constants.BGMfuckOff)
             if (UIScreen.current <= .iPhone6_5) {
             self.stringByEvaluatingJavaScript(from: Constants.darkBG)
@@ -94,7 +108,11 @@ extension KCWebView: UIWebViewDelegate {
     public func webViewDidFinishLoad(_ webView: UIWebView) {
         OperationQueue.main.addOperation {
             self.stringByEvaluatingJavaScript(from: Constants.DMM_COOKIES)
+            //self.stringByEvaluatingJavaScript(from: Constants.KBdonttouchmyscreen)
         }
+        self.scrollView.minimumZoomScale = 1.0;
+        self.scrollView.maximumZoomScale = 1.0;
+        self.scrollView.zoomScale = 1.0;
     }
 
     public func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {

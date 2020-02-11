@@ -43,7 +43,7 @@ func getMissionData(byId: Int) -> MissionData? {
     //var data: MissionData? = nil
     let data: MissionData? = nil
     switch (byId) {
-
+    
     default:
         break
     }
