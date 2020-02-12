@@ -15,12 +15,12 @@
 
 ## 如何安裝 (大陆地区用户请使用[这里](https://github.com/ming900518/iKanColleCommand)的版本)
 
-#### [點此查看最新正式版](https://github.com/ming900518/KC2CHT/releases/tag/Release2.2.1)
+#### [點此查看最新正式版](https://github.com/ming900518/KC2CHT/releases/tag/Release2.2.2)
 #### [點此加入Cydia軟體源](https://kc2tweaked.github.io/repo/)
 #### Beta版已完全改用Cydia安裝，之後將不再提供ipa
 
 
-#### 目前最新正式版本為1.0(TW.CHT-Release2.2.1)，我強烈建議使用最新正式版本進行遊玩。(更新日期:2020/1/12)
+#### 目前最新正式版本為1.0(TW.CHT-Release2.2.2)，我強烈建議使用最新正式版本進行遊玩。(更新日期:2020/2/12)
 #### 由於本人沒有iOS 12的裝置可以Debug，且本程式已支援iOS 13，如遇到不預期的問題請更新iOS至最新版，謝謝。
 
 理論上支援所有iOS 11.4以上的所有iDevice（iPhone 5及更舊的32位元設備不支援）
