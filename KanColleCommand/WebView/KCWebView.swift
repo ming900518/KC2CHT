@@ -60,11 +60,8 @@ class KCWebView: UIWebView {
     @objc private func gameStart(n: Notification) {
         OperationQueue.main.addOperation {
             self.stringByEvaluatingJavaScript(from: Constants.FULL_SCREEN_SCRIPT)
-            self.stringByEvaluatingJavaScript(from: Constants.KBdonttouchmyscreen)
-            //self.stringByEvaluatingJavaScript(from: Constants.BGMfuckOff)
             if (UIScreen.current <= .iPhone6_5) {
             self.stringByEvaluatingJavaScript(from: Constants.darkBG)
-            //self.stringByEvaluatingJavaScript(from: Constants.makeABmove)
             }
         }
     }
@@ -108,7 +105,6 @@ extension KCWebView: UIWebViewDelegate {
     public func webViewDidFinishLoad(_ webView: UIWebView) {
         OperationQueue.main.addOperation {
             self.stringByEvaluatingJavaScript(from: Constants.DMM_COOKIES)
-            //self.stringByEvaluatingJavaScript(from: Constants.KBdonttouchmyscreen)
         }
         self.scrollView.minimumZoomScale = 1.0;
         self.scrollView.maximumZoomScale = 1.0;

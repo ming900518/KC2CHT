@@ -5,7 +5,7 @@ import RxSwift
 
 class ViewController: UIViewController, UIScrollViewDelegate {
 
-    static let DEFAULT_BACKGROUND = UIColor(white: 0.23, alpha: 1)//UIColor(hexString: "#303030")
+    static let DEFAULT_BACKGROUND = UIColor(white: 0.23, alpha: 1)
     private var webView: KCWebView!
     private var scrollView: UIScrollView!
     override var prefersStatusBarHidden: Bool {
@@ -17,7 +17,6 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.landscape = true
         UIApplication.shared.isIdleTimerDisabled = true
-        //UIDevice.current.setValue(NSNumber(value: UIInterfaceOrientation.landscapeRight.rawValue), forKey: "orientation")
         self.view.backgroundColor = UIColor.init(white: 0.185, alpha: 1)
 
         webView = KCWebView()
@@ -29,10 +28,6 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         if #available(iOS 11.0, *) {
             webView.scrollView.contentInsetAdjustmentBehavior = .always;
             webView.scalesPageToFit = true;
-            //webView.scrollView.delegate = self
-            //webView.scrollView.minimumZoomScale = 1.0
-            //webView.scrollView.maximumZoomScale = 1.0
-            //webView.scrollView.zoomScale = 1.0
         }
         NotificationCenter.default.addObserver(self, selector: #selector(reloadGame), name: Constants.RELOAD_GAME, object: nil)
 
