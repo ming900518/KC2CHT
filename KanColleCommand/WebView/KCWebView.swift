@@ -46,6 +46,7 @@ class KCWebView: UIWebView {
     func load() {
         let url = URL(string: Constants.HOME_PAGE)
         loadRequest(URLRequest(url: url!))
+        loadCookie()
     }
 
     func loadBlankPage() {
@@ -55,6 +56,29 @@ class KCWebView: UIWebView {
     func loadChanger() {
         let url = URL(string: Constants.CHANGER)
         loadRequest(URLRequest(url: url!))
+    }
+    func saveCookie() {
+        let cookieJar: HTTPCookieStorage = HTTPCookieStorage.shared
+        if let cookies = cookieJar.cookies {
+            let data: Data = NSKeyedArchiver.archivedData(withRootObject: cookies)
+            let ud: UserDefaults = UserDefaults.standard
+            ud.set(data, forKey: "cookie")
+        }
+    }
+
+    func loadCookie() {
+        let ud: UserDefaults = UserDefaults.standard
+        let data: Data? = ud.object(forKey: "cookie") as? Data
+        if let cookie = data {
+            let datas: NSArray? = NSKeyedUnarchiver.unarchiveObject(with: cookie) as? NSArray
+            if let cookies = datas {
+                for c in cookies {
+                    if let cookieObject = c as? HTTPCookie {
+                        HTTPCookieStorage.shared.setCookie(cookieObject)
+                    }
+                }
+            }
+        }
     }
 
     @objc private func gameStart(n: Notification) {
@@ -101,7 +125,7 @@ extension KCWebView: UIWebViewDelegate {
     public func webViewDidStartLoad(_ webView: UIWebView) {
 
     }
-
+    
     public func webViewDidFinishLoad(_ webView: UIWebView) {
         OperationQueue.main.addOperation {
             self.stringByEvaluatingJavaScript(from: Constants.DMM_COOKIES)
@@ -109,6 +133,7 @@ extension KCWebView: UIWebViewDelegate {
         self.scrollView.minimumZoomScale = 1.0;
         self.scrollView.maximumZoomScale = 1.0;
         self.scrollView.zoomScale = 1.0;
+        saveCookie()
     }
 
     public func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
