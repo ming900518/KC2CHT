@@ -1,5 +1,5 @@
 platform :ios, '10.0'
-use_frameworks!
+use_modular_headers!
 
 target :KanColleCommand do
   pod 'SnapKit'

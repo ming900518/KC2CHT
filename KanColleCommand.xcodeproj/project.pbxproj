@@ -11,6 +11,7 @@
 		423AF77A219FECC100C4BCE9 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 423AF779219FECC100C4BCE9 /* WebKit.framework */; };
 		42C20DA922C5B4A400235A19 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42C20DA822C5B4A400235A19 /* Photos.framework */; };
 		7AAE039023374CAB00FC27F8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AAE038F23374CAB00FC27F8 /* AudioToolbox.framework */; };
+		C18407F7E883A388E01EC15A /* libPods-KanColleCommand.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A215CC563D20C8D89C53CA /* libPods-KanColleCommand.a */; };
 		C600267289FBB1B5CB83D4F7 /* BattleNightSp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C600E2F28E1FB2811C399D06 /* BattleNightSp.swift */; };
 		C60032DCBAD6778EA3AB8E6A /* slot_36.png in Resources */ = {isa = PBXBuildFile; fileRef = C6025C1FA627C532327B8DE5 /* slot_36.png */; };
 		C600576CDD4CBA34995FE911 /* slot_32.png in Resources */ = {isa = PBXBuildFile; fileRef = C605E233C8A8C4329F2B809E /* slot_32.png */; };
@@ -151,7 +152,6 @@
 		C60F8E85C3EF7DE8B8BB9075 /* slot_12.png in Resources */ = {isa = PBXBuildFile; fileRef = C601FB15A67D3CB043A9CCA2 /* slot_12.png */; };
 		C60FBBD4A180D38C89FEA760 /* slot_37.png in Resources */ = {isa = PBXBuildFile; fileRef = C606278A5F4F5B2ABE2721B1 /* slot_37.png */; };
 		C60FE283DECB748D6AF52FFF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60977D55641E6FF5131EE0E /* Constants.swift */; };
-		CABACA2C6DCC15F3AAA97F0B /* Pods_KanColleCommand.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61B0E6346279897DF1C7D1A8 /* Pods_KanColleCommand.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -160,7 +160,6 @@
 		4211C351228C636100F7B267 /* Bridge-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridge-Header.h"; sourceTree = "<group>"; };
 		423AF779219FECC100C4BCE9 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		42C20DA822C5B4A400235A19 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
-		61B0E6346279897DF1C7D1A8 /* Pods_KanColleCommand.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KanColleCommand.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AAE038E23374CAB00FC27F8 /* KanColleCommand.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KanColleCommand.entitlements; sourceTree = "<group>"; };
 		7AAE038F23374CAB00FC27F8 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		7AFE95562339C57D006D8854 /* KanColleCommand.profdata */ = {isa = PBXFileReference; lastKnownFileType = file; path = KanColleCommand.profdata; sourceTree = "<group>"; };
@@ -309,6 +308,7 @@
 		C60FE5A3EA598BCB448EB3D1 /* RequireInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequireInfo.swift; sourceTree = "<group>"; };
 		C60FED5948C8DDD3C4C01BDE /* BattleResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BattleResult.swift; sourceTree = "<group>"; };
 		C60FF98AA6E3FDAC202E22EA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D7A215CC563D20C8D89C53CA /* libPods-KanColleCommand.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KanColleCommand.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -318,8 +318,8 @@
 			files = (
 				42C20DA922C5B4A400235A19 /* Photos.framework in Frameworks */,
 				423AF77A219FECC100C4BCE9 /* WebKit.framework in Frameworks */,
-				CABACA2C6DCC15F3AAA97F0B /* Pods_KanColleCommand.framework in Frameworks */,
 				7AAE039023374CAB00FC27F8 /* AudioToolbox.framework in Frameworks */,
+				C18407F7E883A388E01EC15A /* libPods-KanColleCommand.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,7 +340,7 @@
 				7AAE038F23374CAB00FC27F8 /* AudioToolbox.framework */,
 				42C20DA822C5B4A400235A19 /* Photos.framework */,
 				423AF779219FECC100C4BCE9 /* WebKit.framework */,
-				61B0E6346279897DF1C7D1A8 /* Pods_KanColleCommand.framework */,
+				D7A215CC563D20C8D89C53CA /* libPods-KanColleCommand.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -625,7 +625,6 @@
 				C600B767148ABC41D5EFCC26 /* Sources */,
 				C6004879D9A5BFFB6BD47C2A /* Frameworks */,
 				C600658DDED1A12D246083DA /* Resources */,
-				B83A133341B8D3E63C247C17 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -765,38 +764,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B83A133341B8D3E63C247C17 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-KanColleCommand/Pods-KanColleCommand-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/HandyJSON/HandyJSON.framework",
-				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
-				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
-				"${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework",
-				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/ScreenType/ScreenType.framework",
-				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
-				"${BUILT_PRODUCTS_DIR}/Toaster/Toaster.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HandyJSON.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ScreenType.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toaster.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KanColleCommand/Pods-KanColleCommand-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -926,7 +893,7 @@
 				INFOPLIST_FILE = KanColleCommand/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = "1.0 (TW.CHT-R2.2.3Beta1)";
+				MARKETING_VERSION = "1.0 (TW.CHT-R2.2.3Beta2)";
 				PRODUCT_BUNDLE_IDENTIFIER = tw.cctech.ikancollecmd;
 				PRODUCT_NAME = iKanColleCmd;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -951,7 +918,7 @@
 				INFOPLIST_FILE = KanColleCommand/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = "1.0 (TW.CHT-R2.2.3Beta1)";
+				MARKETING_VERSION = "1.0 (TW.CHT-R2.2.3Beta2)";
 				PRODUCT_BUNDLE_IDENTIFIER = tw.cctech.ikancollecmd;
 				PRODUCT_NAME = iKanColleCmd;
 				PROVISIONING_PROFILE_SPECIFIER = "";

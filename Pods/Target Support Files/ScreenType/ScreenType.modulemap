@@ -1,4 +1,4 @@
-framework module ScreenType {
+module ScreenType {
   umbrella header "ScreenType-umbrella.h"
 
   export *

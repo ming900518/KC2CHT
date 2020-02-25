@@ -32,7 +32,7 @@ class SettingVC: UIViewController {
         }
 
         let titleText = UILabel()
-        titleText.text = "iKanColleCommand Tweaked - Chinese Traditional"
+        titleText.text = "設定"
         titleText.textColor = UIColor.black
         titleBar.addSubview(titleText)
         titleText.snp.makeConstraints { maker in

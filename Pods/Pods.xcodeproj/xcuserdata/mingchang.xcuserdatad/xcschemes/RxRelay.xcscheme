@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4622BFEF3DC16E8BD15EEFC30D4D0084"
-               BuildableName = "RxRelay.framework"
+               BuildableName = "libRxRelay.a"
                BlueprintName = "RxRelay"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
