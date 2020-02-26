@@ -115,17 +115,6 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         let drawer = Drawer()
         drawer.attachTo(controller: self)
         
-        let fleetStat = UILabel()
-        fleetStat.adjustsFontSizeToFitWidth = true
-        fleetStat.textColor = UIColor.white
-        fleetStat.text = "艦隊資訊功能即將完工，敬請期待"
-        self.view.addSubview(fleetStat)
-        fleetStat.snp.makeConstraints { maker in
-            maker.width.equalTo(webView.snp.width)
-            maker.left.equalTo(webView.snp.left)
-            maker.right.equalTo(webView.snp.right)
-            maker.top.equalTo(webView.snp.bottom)
-        }
     }
 
     @objc func confirmRefresh() {

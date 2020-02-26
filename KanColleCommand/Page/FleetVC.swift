@@ -50,7 +50,7 @@ class FleetVC: UIViewController {
         fleetHint.snp.makeConstraints { maker in
             maker.left.equalTo(shipListView.snp.left).offset(8)
             maker.right.equalTo(shipListView.snp.right).offset(-8)
-            maker.top.equalTo(shipListView.snp.top).offset(8)
+            maker.top.equalTo(shipListView.snp.bottom).inset(24)//.offset(8)
         }
     }
 
