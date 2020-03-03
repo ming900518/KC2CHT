@@ -115,7 +115,7 @@ extension SettingVC: UITableViewDelegate {
                 self.present(selector, animated: true)
             } else if (indexPath.row == 1) {
                 print("[INFO] Cleaner started by user.")
-                let dialog = UIAlertController(title: nil, message: "使用須知\n\n1. 這功能會清空App所下載的Caches和Cookies\n2. 下次遊戲載入時就會重新下載Caches，Cookies會自動重設\n3. 清除完畢後會開啟登入方式切換器", preferredStyle: .actionSheet)
+                let dialog = UIAlertController(title: "使用須知", message: "1. 這功能會清空App所下載的Caches和Cookies\n2. 下次遊戲載入時就會重新下載Caches，Cookies會自動重設\n3. 清除完畢後會開啟登入方式切換器", preferredStyle: .actionSheet)
                 if let popoverController = dialog.popoverPresentationController {
                     popoverController.sourceView = self.view
                     popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
@@ -138,10 +138,20 @@ extension SettingVC: UITableViewDelegate {
             }
         } else if (indexPath.section == 2) {
             if (indexPath.row == 0) {
-                    if let url = URL(string:"https://kc2tweaked.github.io") {
-                        UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
-                        print("[INFO] Homepage opened.")
-                    }
+                let dialog = UIAlertController(title: nil, message: "確認開啟官方網站？", preferredStyle: .actionSheet)
+                if let popoverController = dialog.popoverPresentationController {
+                    popoverController.sourceView = self.view
+                    popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+                    popoverController.permittedArrowDirections = []
+                }
+                    dialog.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+                    dialog.addAction(UIAlertAction(title: "前往", style: .default) { action in
+                        if let url = URL(string:"https://kc2tweaked.github.io") {
+                            UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
+                            print("[INFO] Homepage opened.")
+                        }
+                })
+                self.present(dialog, animated: true)
             } else if (indexPath.row == 1) {
                 let dialog = UIAlertController(title: "請選擇渠道", message: nil, preferredStyle: .actionSheet)
                 if let popoverController = dialog.popoverPresentationController {

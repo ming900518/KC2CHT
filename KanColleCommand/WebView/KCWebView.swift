@@ -130,16 +130,13 @@ extension KCWebView: UIWebViewDelegate {
         OperationQueue.main.addOperation {
             self.stringByEvaluatingJavaScript(from: Constants.DMM_COOKIES)
         }
-        let url1 = URL(string: "https://ooi.moe/kancolle")
-        let url2 = URL(string: "http://tanaka.ooi.moe:11260/kancolle")
-        if webView.request?.url == url1 {
-        }
-        else if webView.request?.url == url2 {
-        }
-        else {
-            self.scrollView.minimumZoomScale = 1.0;
-            self.scrollView.maximumZoomScale = 1.0;
-            self.scrollView.zoomScale = 1.0;
+        let url = URL(string: "http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/")
+        if webView.request?.url == url {
+            if(UIScreen.current < .iPad9_7){
+                self.scrollView.minimumZoomScale = 1.0;
+                self.scrollView.maximumZoomScale = 1.0;
+                self.scrollView.zoomScale = 1.0;
+            }
         }
         saveCookie()
     }
