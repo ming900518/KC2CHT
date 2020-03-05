@@ -142,6 +142,26 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         self.webView.load()
     }
     
+    func cleaner() {
+        print("[INFO] Cleaner started by user.")
+        let dialog = UIAlertController(title: "使用須知", message: "1. 這功能會清空App所下載的Caches和Cookies\n2. 下次遊戲載入時就會重新下載Caches，Cookies會自動重設\n3. 清除完畢後會自動關閉本App以確保完整清除", preferredStyle: .alert)
+        dialog.addAction(UIAlertAction(title: "取消", style: .cancel) { action in
+            self.blankPage()
+        })
+        dialog.addAction(UIAlertAction(title: "我暸解了，執行清理", style: .destructive) { action in
+            print("[INFO] Cleaner confirmed by user. Start cleaning.")
+            if let cookies = HTTPCookieStorage.shared.cookies {
+                for cookie in cookies {
+                    HTTPCookieStorage.shared.deleteCookie(cookie)
+                }
+            }
+            CacheManager.clearCache()
+            print("[INFO] Everything cleaned.")
+            exit(0)
+        })
+        self.present(dialog, animated: true)
+    }
+    
     @objc func loginChanger(){
         let dialog = UIAlertController(title: "iKanColleCommand", message: "請選擇登入遊戲方式", preferredStyle: .alert)
         dialog.addAction(UIAlertAction(title: "修改Cookies直連（推薦）", style: .default) { action in
@@ -157,22 +177,29 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             self.webView.loadRequest(URLRequest(url: url!))
         })
         dialog.addAction(UIAlertAction(title: "取消", style: .destructive) { action in
-            let blank = "about:blank"
-            let currentPage = self.webView.request!.url!.absoluteString
-            if currentPage == blank {
-                let alert = UIAlertController(title: "選擇取消將會關閉本App", message: "遊戲尚未開啟", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "選擇登入方式", style: .cancel) { action in
-                    self.present(dialog, animated: true)
-                    })
-                alert.addAction(UIAlertAction(title: "關閉本App", style: .destructive) { action in
-                    exit(0)
-                    })
-                self.present(alert, animated: true)
-            }
-            else {
-                return
-            }
+            self.blankPage()
         })
         present(dialog, animated: true)
+    }
+    
+    @objc func blankPage(){
+        let blank = "about:blank"
+        let currentPage = self.webView.request!.url!.absoluteString
+        if currentPage == blank {
+            let alert = UIAlertController(title: "遊戲尚未開啟", message: "請選擇以下其中一種操作", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "返回選擇登入方式", style: .default) { action in
+                self.loginChanger()
+                })
+            alert.addAction(UIAlertAction(title: "清理Caches和Cookies", style: .default) { action in
+                self.cleaner()
+            })
+            alert.addAction(UIAlertAction(title: "關閉本App", style: .destructive) { action in
+                exit(0)
+                })
+            self.present(alert, animated: true)
+        }
+        else {
+            return
+        }
     }
 }

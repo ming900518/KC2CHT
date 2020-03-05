@@ -115,7 +115,7 @@ extension SettingVC: UITableViewDelegate {
                 self.present(selector, animated: true)
             } else if (indexPath.row == 1) {
                 print("[INFO] Cleaner started by user.")
-                let dialog = UIAlertController(title: "使用須知", message: "1. 這功能會清空App所下載的Caches和Cookies\n2. 下次遊戲載入時就會重新下載Caches，Cookies會自動重設\n3. 清除完畢後會開啟登入方式切換器", preferredStyle: .actionSheet)
+                let dialog = UIAlertController(title: "使用須知", message: "1. 這功能會清空App所下載的Caches和Cookies\n2. 下次遊戲載入時就會重新下載Caches，Cookies會自動重設\n3. 清除完畢後會自動關閉本App以確保完整清除", preferredStyle: .actionSheet)
                 if let popoverController = dialog.popoverPresentationController {
                     popoverController.sourceView = self.view
                     popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
@@ -130,9 +130,8 @@ extension SettingVC: UITableViewDelegate {
                         }
                     }
                     CacheManager.clearCache()
-                    NotificationCenter.default.post(Notification.init(name: Constants.RELOAD_GAME))
                     print("[INFO] Everything cleaned.")
-                    self.close()
+                    exit(0)
                 })
                 self.present(dialog, animated: true)
             }
@@ -204,7 +203,7 @@ extension SettingVC: UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDa
             } else if (indexPath.row == 1) {
                 let cell = UITableViewCell(style: .default, reuseIdentifier: cellIdentifier)
                 cell.backgroundColor = UIColor.white
-                cell.textLabel?.text = "清理舊Caches和Cookies"
+                cell.textLabel?.text = "清理Caches和Cookies"
                 cell.accessoryType = .disclosureIndicator
                 return cell
             }
