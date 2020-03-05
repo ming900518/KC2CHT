@@ -44,19 +44,17 @@ class KCWebView: UIWebView {
     }
 
     func load() {
-        let url = URL(string: Constants.HOME_PAGE)
+        let url = URL(string: "about:blank")
         loadRequest(URLRequest(url: url!))
         loadCookie()
     }
+    
 
     func loadBlankPage() {
         let url = URL(string: "about:blank")
         loadRequest(URLRequest(url: url!))
     }
-    func loadChanger() {
-        let url = URL(string: Constants.CHANGER)
-        loadRequest(URLRequest(url: url!))
-    }
+    
     func saveCookie() {
         let cookieJar: HTTPCookieStorage = HTTPCookieStorage.shared
         if let cookies = cookieJar.cookies {

@@ -11,6 +11,8 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     override var prefersStatusBarHidden: Bool {
         return true
     }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -116,14 +118,18 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         drawer.attachTo(controller: self)
         
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.loginChanger()
+    }
 
     @objc func confirmRefresh() {
-        let dialog = UIAlertController(title: nil, message: "前往登入方式切換器", preferredStyle: .alert)
-        dialog.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
-        dialog.addAction(UIAlertAction(title: "確定", style: .default) { action in
-            self.reloadGame()
-        })
-        present(dialog, animated: true)
+        //let dialog = UIAlertController(title: nil, message: "前往登入方式切換器", preferredStyle: .alert)
+        //dialog.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+        //dialog.addAction(UIAlertAction(title: "確定", style: .default) { action in
+            //self.reloadGame()
+        //})
+        self.loginChanger()
     }
 
     @objc func openSetting() {
@@ -133,6 +139,40 @@ class ViewController: UIViewController, UIScrollViewDelegate {
 
     @objc func reloadGame() {
         self.webView.loadBlankPage()
-        self.webView.loadChanger()
+        self.webView.load()
+    }
+    
+    @objc func loginChanger(){
+        let dialog = UIAlertController(title: "iKanColleCommand", message: "請選擇登入遊戲方式", preferredStyle: .alert)
+        dialog.addAction(UIAlertAction(title: "修改Cookies直連（推薦）", style: .default) { action in
+            let url = URL(string: Constants.HOME_PAGE)
+            self.webView.loadRequest(URLRequest(url: url!))
+        })
+        dialog.addAction(UIAlertAction(title: "ooi.moe（備用）", style: .default) { action in
+            let url = URL(string: Constants.OOI)
+            self.webView.loadRequest(URLRequest(url: url!))
+        })
+        dialog.addAction(UIAlertAction(title: "kancolle.su (Backup)", style: .default) { action in
+            let url = URL(string: Constants.kcsu)
+            self.webView.loadRequest(URLRequest(url: url!))
+        })
+        dialog.addAction(UIAlertAction(title: "取消", style: .destructive) { action in
+            let blank = "about:blank"
+            let currentPage = self.webView.request!.url!.absoluteString
+            if currentPage == blank {
+                let alert = UIAlertController(title: "選擇取消將會關閉本App", message: "遊戲尚未開啟", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "選擇登入方式", style: .cancel) { action in
+                    self.present(dialog, animated: true)
+                    })
+                alert.addAction(UIAlertAction(title: "關閉本App", style: .destructive) { action in
+                    exit(0)
+                    })
+                self.present(alert, animated: true)
+            }
+            else {
+                return
+            }
+        })
+        present(dialog, animated: true)
     }
 }
