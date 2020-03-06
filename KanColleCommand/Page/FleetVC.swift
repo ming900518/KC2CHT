@@ -290,13 +290,13 @@ private class ShipCell: UITableViewCell {
         }
 
         // Divider
-//        let divider = UIView()
-//        addSubview(divider)
-//        divider.snp.makeConstraints { maker in
-//            maker.width.equalTo(self)
-//            maker.height.equalTo(4)
-//            maker.bottom.equalTo(self)
-//        }
+        //let divider = UIView()
+        //addSubview(divider)
+        //divider.snp.makeConstraints { maker in
+            //maker.width.equalTo(self)
+            //maker.height.equalTo(4)
+            //maker.bottom.equalTo(self)
+        //}
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -322,9 +322,12 @@ private class ShipCell: UITableViewCell {
             condText.textColor = getConditionColor(cond: ship.condition)
             hpText.text = "\(max(ship.hp(), 1)) / \(ship.maxHp)"
             statusTag.image = getTagImage(shipId: ship.id)
-            if Fleet.instance.slotMap[ship.itemEx] != nil {
+            //if Fleet.instance.slotMap[ship.itemEx] != nil {
             if let exItem = Fleet.instance.slotMap[ship.itemEx] {
                 slotEx.image = UIImage.init(named: "slot_\(exItem.type).png")
+            }
+            else {
+                slotEx.image = UIImage.init(named: "slot_0.png")
             }
         } else {
             hp.set(percent: 0)
@@ -336,8 +339,7 @@ private class ShipCell: UITableViewCell {
             condText.text = ""
             hpText.text = ""
             statusTag.image = nil
-            slotEx.image = nil
+            slotEx.image = UIImage.init(named: "slot_0.png")
         }
     }
-}
 }
