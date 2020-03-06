@@ -219,7 +219,7 @@ class BattleVC: UIViewController {
             getText.text = "撈: \(Battle.instance.get)"
             break
         default:
-            nodeText.text = "未出擊"
+            nodeText.text = ""
             nextText.text = ""
             headingText.text = ""
             airCommandText.text = ""

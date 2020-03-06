@@ -131,7 +131,11 @@ extension SettingVC: UITableViewDelegate {
                     }
                     CacheManager.clearCache()
                     print("[INFO] Everything cleaned.")
-                    exit(0)
+                    let result = UIAlertController(title: "清理完成", message: "本App即將關閉", preferredStyle: .alert)
+                    result.addAction(UIAlertAction(title: "確定", style: .default) { action in
+                        exit(0)
+                    })
+                    self.present(result, animated: true)
                 })
                 self.present(dialog, animated: true)
             }
