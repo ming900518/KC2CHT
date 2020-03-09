@@ -56,6 +56,11 @@ class ViewController: UIViewController, UIScrollViewDelegate {
                 show = battleFleet >= 0 && Fleet.instance.isBadlyDamage(index: battleFleet)
             }
             badlyDamageWarning.isHidden = !show
+            let warningAlert = UIAlertController(title: "艦娘大破", message: "To be done.", preferredStyle: .alert)
+            warningAlert.addAction(UIAlertAction(title: "知道了", style: .destructive, handler: nil))
+            if show == true {
+                self.present(warningAlert, animated: true)
+            }
         }
 
         let settingBtn = UIButton(type: .custom)
