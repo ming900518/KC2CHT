@@ -141,20 +141,24 @@ extension SettingVC: UITableViewDelegate {
             }
         } else if (indexPath.section == 2) {
             if (indexPath.row == 0) {
-                let dialog = UIAlertController(title: nil, message: "確認開啟官方網站？", preferredStyle: .actionSheet)
-                if let popoverController = dialog.popoverPresentationController {
+                let info = UIAlertController(title: "關於本App", message: "修改自NGA用戶亖葉(UID42542015)於2019年7月4號發佈的iKanColleCommand專案，提供iOS用戶穩定的艦隊收藏遊戲環境和基本的輔助程式功能。\n\n修改者：Ming Chang\n\n特別感謝\nDavid Huang（修圖、巴哈文維護）\nJ. Hsu（給點子、支持我繼續開發）\n還有選擇使用本App的各位",preferredStyle: .actionSheet)
+                if let popoverController = info.popoverPresentationController {
                     popoverController.sourceView = self.view
                     popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
                     popoverController.permittedArrowDirections = []
                 }
-                    dialog.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
-                    dialog.addAction(UIAlertAction(title: "前往", style: .default) { action in
-                        if let url = URL(string:"https://kc2tweaked.github.io") {
-                            UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
-                            print("[INFO] Homepage opened.")
-                        }
+                info.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+                info.addAction(UIAlertAction(title: "前往本App官方網站", style: .default) { action in
+                    if let url = URL(string:"https://kc2tweaked.github.io") {
+                    UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
+                    }
                 })
-                self.present(dialog, animated: true)
+                info.addAction(UIAlertAction(title: "加入Discord", style: .default) { action in
+                    if let url = URL(string:"https://discord.gg/Yesf3cN") {
+                    UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
+                    }
+                })
+                self.present(info, animated: true)
             } else if (indexPath.row == 1) {
                 let dialog = UIAlertController(title: "請選擇渠道", message: nil, preferredStyle: .actionSheet)
                 if let popoverController = dialog.popoverPresentationController {
@@ -224,14 +228,14 @@ extension SettingVC: UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDa
                 let cell = UITableViewCell(style: .value1, reuseIdentifier: cellIdentifier)
                 cell.backgroundColor = UIColor.white
                 cell.textLabel?.text = "程式功能"
-                cell.detailTextLabel?.text = "基本遊戲、輔助程式、大破警告、Cookies修改"
+                cell.detailTextLabel?.text = "基本遊戲、輔助程式、增強型大破警告、Cookies修改"
                 return cell
             }
         } else if (indexPath.section == 2) {
             if (indexPath.row == 0) {
                 let cell = UITableViewCell(style: .default, reuseIdentifier: cellIdentifier)
                 cell.backgroundColor = UIColor.white
-                cell.textLabel?.text = "前往修改版官方網站"
+                cell.textLabel?.text = "關於本App"
                 cell.accessoryType = .disclosureIndicator
                 return cell
             } else if (indexPath.row == 1) {
