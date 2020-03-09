@@ -141,7 +141,7 @@ extension SettingVC: UITableViewDelegate {
             }
         } else if (indexPath.section == 2) {
             if (indexPath.row == 0) {
-                let info = UIAlertController(title: "關於本App", message: "修改自NGA用戶亖葉(UID42542015)於2019年7月4號發佈的iKanColleCommand專案，提供iOS用戶穩定的艦隊收藏遊戲環境和基本的輔助程式功能。\n\n修改者：Ming Chang\n\n特別感謝\nDavid Huang（修圖、巴哈文維護）\nJ. Hsu（給點子、支持我繼續開發）\n還有選擇使用本App的各位",preferredStyle: .actionSheet)
+                let info = UIAlertController(title: nil, message: "本App修改自NGA用戶亖葉(UID42542015)於2019年7月4號發佈的iKanColleCommand專案，提供iOS用戶穩定的艦隊收藏遊戲環境和基本的輔助程式功能。\n\n修改者：Ming Chang\n\n特別感謝\nDavid Huang（修圖、巴哈文維護）\nJoy Hsu（給點子、讓我花時間做了iPad支援結果她不用QQ）\n還有選擇使用本App的各位",preferredStyle: .actionSheet)
                 if let popoverController = info.popoverPresentationController {
                     popoverController.sourceView = self.view
                     popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)

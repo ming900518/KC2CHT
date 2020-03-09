@@ -42,24 +42,26 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         }
         Oyodo.attention().watch(data: Fleet.instance.shipWatcher) { (event: Event<Transform>) in
             var show = false
-            if (Battle.instance.friendCombined) {
-                var phase = Phase.Idle
-                do {
-                    phase = try Battle.instance.phase.value()
-                } catch {
-                    print("Error when call phase.value()")
-                }
-                show = (Fleet.instance.isBadlyDamage(index: 0) || Fleet.instance.isBadlyDamage(index: 1))
+            if Battle.instance.map != -1 {
+                if (Battle.instance.friendCombined) {
+                    var phase = Phase.Idle
+                        do {
+                            phase = try Battle.instance.phase.value()
+                        } catch {
+                            print("Error when call phase.value()")
+                        }
+                    show = (Fleet.instance.isBadlyDamage(index: 0) || Fleet.instance.isBadlyDamage(index: 1))
                         && (phase != Phase.Idle)
-            } else {
-                let battleFleet = Battle.instance.friendIndex
-                show = battleFleet >= 0 && Fleet.instance.isBadlyDamage(index: battleFleet)
-            }
-            badlyDamageWarning.isHidden = !show
-            let warningAlert = UIAlertController(title: "⚠️大破⚠️", message: "あうぅっ！ 痛いってばぁっ！\n(つД`)", preferredStyle: .alert)
-            warningAlert.addAction(UIAlertAction(title: "はい、はい、知っています", style: .destructive, handler: nil))
-            if show == true {
-                self.present(warningAlert, animated: true)
+                } else {
+                    let battleFleet = Battle.instance.friendIndex
+                    show = battleFleet >= 0 && Fleet.instance.isBadlyDamage(index: battleFleet)
+                }
+                badlyDamageWarning.isHidden = !show
+                let warningAlert = UIAlertController(title: "⚠️大破⚠️", message: "あうぅっ！ 痛いってばぁっ！\n(つД`)", preferredStyle: .alert)
+                warningAlert.addAction(UIAlertAction(title: "はい、はい、知っています", style: .destructive, handler: nil))
+                if show == true {
+                    self.present(warningAlert, animated: true)
+                }
             }
         }
 
