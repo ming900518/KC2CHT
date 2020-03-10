@@ -42,7 +42,6 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         }
         Oyodo.attention().watch(data: Fleet.instance.shipWatcher) { (event: Event<Transform>) in
             var show = false
-            if Battle.instance.map != -1 {
                 if (Battle.instance.friendCombined) {
                     var phase = Phase.Idle
                         do {
@@ -56,13 +55,24 @@ class ViewController: UIViewController, UIScrollViewDelegate {
                     let battleFleet = Battle.instance.friendIndex
                     show = battleFleet >= 0 && Fleet.instance.isBadlyDamage(index: battleFleet)
                 }
-                badlyDamageWarning.isHidden = !show
-                let warningAlert = UIAlertController(title: "⚠️大破⚠️", message: "あうぅっ！ 痛いってばぁっ！\n(つД`)", preferredStyle: .alert)
+                if Battle.instance.map != -1 {
+                    if Fleet.instance.isInExpedition(index: 0) == true {
+                        if Fleet.instance.isInExpedition(index: 1) == true {
+                            badlyDamageWarning.isHidden = !show
+                        }
+                    }
+                }
+                let warningAlert = UIAlertController(title: "⚠️ 大破 ⚠️", message: "あうぅっ！ 痛いってばぁっ！\n(つД`)", preferredStyle: .alert)
                 warningAlert.addAction(UIAlertAction(title: "はい、はい、知っています", style: .destructive, handler: nil))
                 if show == true {
-                    self.present(warningAlert, animated: true)
+                    if Battle.instance.map != -1 {
+                        if Fleet.instance.isInExpedition(index: 0) == true {
+                            if Fleet.instance.isInExpedition(index: 1) == true {
+                                self.present(warningAlert, animated: true)
+                            }
+                        }
+                    }
                 }
-            }
         }
 
         let settingBtn = UIButton(type: .custom)

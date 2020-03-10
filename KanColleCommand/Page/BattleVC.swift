@@ -181,6 +181,9 @@ class BattleVC: UIViewController {
         switch (phase) {
         case Phase.Start:
             nodeText.text = "\(Battle.instance.area)-\(Battle.instance.map)"
+            if nodeText.text == "-1--1" {
+                nodeText.text = "演習"
+            }
             let spot = MapSpotHelper.instance.getSpotMarker(area: Battle.instance.area, map: Battle.instance.map, route: Battle.instance.route)
             nextText.text = "羅盤: \(spot?[safe: 1] ?? "")"
             headingText.text = ""
@@ -190,6 +193,9 @@ class BattleVC: UIViewController {
             break
         case Phase.Next:
             nodeText.text = "\(Battle.instance.area)-\(Battle.instance.map)"
+            if nodeText.text == "-1--1" {
+                nodeText.text = "演習"
+            }
             let spot = MapSpotHelper.instance.getSpotMarker(area: Battle.instance.area, map: Battle.instance.map, route: Battle.instance.route)
             nextText.text = "羅盤: \(spot?[safe: 1] ?? "")"
             headingText.text = ""
