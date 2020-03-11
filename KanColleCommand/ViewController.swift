@@ -177,11 +177,11 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             let url = URL(string: Constants.HOME_PAGE)
             self.webView.loadRequest(URLRequest(url: url!))
         })
-        dialog.addAction(UIAlertAction(title: "ooi.moe（備用）", style: .default) { action in
+        dialog.addAction(UIAlertAction(title: "ooi.moe（備用1）", style: .default) { action in
             let url = URL(string: Constants.OOI)
             self.webView.loadRequest(URLRequest(url: url!))
         })
-        dialog.addAction(UIAlertAction(title: "kancolle.su (Backup)", style: .default) { action in
+        dialog.addAction(UIAlertAction(title: "kancolle.su（備用2）", style: .default) { action in
             let url = URL(string: Constants.kcsu)
             self.webView.loadRequest(URLRequest(url: url!))
         })
