@@ -106,17 +106,12 @@ extension Fleet {
     }
 
     func isBadlyDamage(index: Int) -> Bool {
-        if Battle.instance.map != -1 {
-            return getShips(index: index).filter { (ship: Ship) -> Bool in
-                let curr = ship.hp()
-                let total = ship.maxHp
-                let percent = Double(curr) / Double(total)
-                return percent >= 0.0 && percent < BADLY_DAMAGE
-            }.count > 0
-        }
-        else {
-            return false
-        }
+        return getShips(index: index).filter { (ship: Ship) -> Bool in
+            let curr = ship.hp()
+            let total = ship.maxHp
+            let percent = Double(curr) / Double(total)
+            return percent >= 0.0 && percent < BADLY_DAMAGE
+        }.count > 0
     }
 
     func isNeedSupply(index: Int) -> Bool {

@@ -141,14 +141,14 @@ extension SettingVC: UITableViewDelegate {
             }
         } else if (indexPath.section == 2) {
             if (indexPath.row == 0) {
-                let info = UIAlertController(title: "關於本App", message: "本App修改自NGA用戶亖葉(UID42542015)於2019年7月4號發佈的iKanColleCommand專案，提供iOS用戶穩定的艦隊收藏遊戲環境和基本的輔助程式功能。\n\n修改者：Ming Chang\n\n特別感謝\nDavid Huang（修圖、巴哈文維護）\n還有選擇使用本App的各位",preferredStyle: .actionSheet)
+                let info = UIAlertController(title: nil, message: "本App修改自NGA用戶亖葉(UID42542015)於2019年7月4號發佈的iKanColleCommand專案，提供iOS用戶穩定的艦隊收藏遊戲環境和基本的輔助程式功能。\n\n修改者：Ming Chang\n\n特別感謝\nDavid Huang（修圖、巴哈文維護）\n還有選擇使用本App的各位",preferredStyle: .actionSheet)
                 if let popoverController = info.popoverPresentationController {
                     popoverController.sourceView = self.view
                     popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
                     popoverController.permittedArrowDirections = []
                 }
                 info.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
-                info.addAction(UIAlertAction(title: "前往本修改版App官方網站", style: .default) { action in
+                info.addAction(UIAlertAction(title: "前往本App官方網站", style: .default) { action in
                     if let url = URL(string:"https://kc2tweaked.github.io") {
                     UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
                     }
