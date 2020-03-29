@@ -131,25 +131,84 @@ extension KCWebView: UIWebViewDelegate {
         let url1 = URL(string: "http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/")
         let url2 = URL(string: "http://ooi.moe/poi")
         let url3 = URL(string: "http://kancolle.su/poi")
-        let zoom = webView.bounds.size.height / webView.scrollView.contentSize.height * 0.1
         if webView.request?.url == url1 {
             if(UIScreen.current < .iPad9_7){
                 self.scrollView.minimumZoomScale = 1.0
                 self.scrollView.maximumZoomScale = 1.0
                 self.scrollView.zoomScale = 1.0
             } else {
-                self.scalesPageToFit = true
-                self.contentMode = .scaleAspectFit
-                self.scrollView.setZoomScale(zoom, animated: true)
+                print("Using iPad, nothing needs to be modified.")
             }
         } else if webView.request?.url == url2 {
-            self.scalesPageToFit = true
-            self.contentMode = .scaleAspectFit
-            self.scrollView.setZoomScale(zoom, animated: true)
+            print("Using non official login method, the screen zoom scale should be changed.")
+            if (UIScreen.current == .iPhone5_5) {
+                self.scrollView.minimumZoomScale = 0.545
+                self.scrollView.maximumZoomScale = 0.545
+                self.scrollView.zoomScale = 0.545
+                self.scrollView.isScrollEnabled = false
+            } else if (UIScreen.current == .iPhone6_5) {
+                self.scrollView.minimumZoomScale = 0.545
+                self.scrollView.maximumZoomScale = 0.545
+                self.scrollView.zoomScale = 0.545
+                self.scrollView.isScrollEnabled = false
+            } else if (UIScreen.current == .iPhone5_8) {
+                self.scrollView.minimumZoomScale = 0.495
+                self.scrollView.maximumZoomScale = 0.495
+                self.scrollView.zoomScale = 0.495
+                self.scrollView.isScrollEnabled = false
+            } else if (UIScreen.current == .iPhone6_1) {
+                self.scrollView.minimumZoomScale = 0.55
+                self.scrollView.maximumZoomScale = 0.55
+                self.scrollView.zoomScale = 0.55
+                self.scrollView.isScrollEnabled = false
+            } else if (UIScreen.current == .iPhone4_7) {
+                self.scrollView.minimumZoomScale = 0.49
+                self.scrollView.maximumZoomScale = 0.49
+                self.scrollView.zoomScale = 0.49
+                self.scrollView.isScrollEnabled = false
+            } else if (UIScreen.current == .iPhone4_0) {
+                self.scrollView.minimumZoomScale = 0.405
+                self.scrollView.maximumZoomScale = 0.405
+                self.scrollView.zoomScale = 0.405
+                self.scrollView.isScrollEnabled = false
+            } else {
+                print("Using iPad, nothing needs to be modified.")
+            }
         } else if webView.request?.url == url3 {
-            self.scalesPageToFit = true
-            self.contentMode = .scaleAspectFit
-            self.scrollView.setZoomScale(zoom, animated: true)
+            print("Using non official login method, the screen zoom scale should be changed.")
+            if (UIScreen.current == .iPhone5_5) {
+                self.scrollView.minimumZoomScale = 0.545
+                self.scrollView.maximumZoomScale = 0.545
+                self.scrollView.zoomScale = 0.545
+                self.scrollView.isScrollEnabled = false
+            } else if (UIScreen.current == .iPhone6_5) {
+                self.scrollView.minimumZoomScale = 0.545
+                self.scrollView.maximumZoomScale = 0.545
+                self.scrollView.zoomScale = 0.545
+                self.scrollView.isScrollEnabled = false
+            } else if (UIScreen.current == .iPhone5_8) {
+                self.scrollView.minimumZoomScale = 0.495
+                self.scrollView.maximumZoomScale = 0.495
+                self.scrollView.zoomScale = 0.495
+                self.scrollView.isScrollEnabled = false
+            } else if (UIScreen.current == .iPhone6_1) {
+                self.scrollView.minimumZoomScale = 0.55
+                self.scrollView.maximumZoomScale = 0.55
+                self.scrollView.zoomScale = 0.55
+                self.scrollView.isScrollEnabled = false
+            } else if (UIScreen.current == .iPhone4_7) {
+                self.scrollView.minimumZoomScale = 0.49
+                self.scrollView.maximumZoomScale = 0.49
+                self.scrollView.zoomScale = 0.49
+                self.scrollView.isScrollEnabled = false
+            } else if (UIScreen.current == .iPhone4_0) {
+                self.scrollView.minimumZoomScale = 0.405
+                self.scrollView.maximumZoomScale = 0.405
+                self.scrollView.zoomScale = 0.405
+                self.scrollView.isScrollEnabled = false
+            } else {
+                print("Using iPad, nothing needs to be modified.")
+            }
         }
         saveCookie()
     }
