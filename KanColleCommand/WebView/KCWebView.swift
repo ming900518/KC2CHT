@@ -140,11 +140,11 @@ extension KCWebView: UIWebViewDelegate {
                 print("Using iPad, nothing needs to be modified.")
             }
         } else if webView.request?.url == url2 {
-            print("Using non official login method, the screen zoom scale should be changed.")
+            print("Using non official login method, the screen zoom scale needs to be changed.")
             if (UIScreen.current == .iPhone5_5) {
-                self.scrollView.minimumZoomScale = 0.545
-                self.scrollView.maximumZoomScale = 0.545
-                self.scrollView.zoomScale = 0.545
+                self.scrollView.minimumZoomScale = 0.546
+                self.scrollView.maximumZoomScale = 0.546
+                self.scrollView.zoomScale = 0.546
                 self.scrollView.isScrollEnabled = false
             } else if (UIScreen.current == .iPhone6_5) {
                 self.scrollView.minimumZoomScale = 0.545
@@ -167,19 +167,19 @@ extension KCWebView: UIWebViewDelegate {
                 self.scrollView.zoomScale = 0.49
                 self.scrollView.isScrollEnabled = false
             } else if (UIScreen.current == .iPhone4_0) {
-                self.scrollView.minimumZoomScale = 0.405
-                self.scrollView.maximumZoomScale = 0.405
-                self.scrollView.zoomScale = 0.405
+                self.scrollView.minimumZoomScale = 0.41
+                self.scrollView.maximumZoomScale = 0.41
+                self.scrollView.zoomScale = 0.41
                 self.scrollView.isScrollEnabled = false
             } else {
                 print("Using iPad, nothing needs to be modified.")
             }
         } else if webView.request?.url == url3 {
-            print("Using non official login method, the screen zoom scale should be changed.")
+            print("Using non official login method, the screen zoom scale needs to be changed.")
             if (UIScreen.current == .iPhone5_5) {
-                self.scrollView.minimumZoomScale = 0.545
-                self.scrollView.maximumZoomScale = 0.545
-                self.scrollView.zoomScale = 0.545
+                self.scrollView.minimumZoomScale = 0.546
+                self.scrollView.maximumZoomScale = 0.546
+                self.scrollView.zoomScale = 0.546
                 self.scrollView.isScrollEnabled = false
             } else if (UIScreen.current == .iPhone6_5) {
                 self.scrollView.minimumZoomScale = 0.545
@@ -202,9 +202,9 @@ extension KCWebView: UIWebViewDelegate {
                 self.scrollView.zoomScale = 0.49
                 self.scrollView.isScrollEnabled = false
             } else if (UIScreen.current == .iPhone4_0) {
-                self.scrollView.minimumZoomScale = 0.405
-                self.scrollView.maximumZoomScale = 0.405
-                self.scrollView.zoomScale = 0.405
+                self.scrollView.minimumZoomScale = 0.41
+                self.scrollView.maximumZoomScale = 0.41
+                self.scrollView.zoomScale = 0.41
                 self.scrollView.isScrollEnabled = false
             } else {
                 print("Using iPad, nothing needs to be modified.")
