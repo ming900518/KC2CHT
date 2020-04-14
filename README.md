@@ -15,12 +15,12 @@
 
 ## 如何安裝
 
-#### [點此查看最新正式版](https://github.com/ming900518/KC2CHT/releases/tag/Release2.3)
+#### [點此查看最新正式版](https://github.com/ming900518/KC2CHT/releases/tag/Release2.3.1)
 #### [點此加入Cydia軟體源](https://kc2tweaked.github.io/repo/)
 #### Beta版已完全改用Cydia安裝，之後將不再提供ipa
 
 
-#### 目前最新正式版本為1.0(TW.CHT-Release2.3)，我強烈建議使用最新正式版本進行遊玩。(更新日期:2020/3/11)
+#### 目前最新正式版本為1.0(TW.CHT-Release2.3.1)，我強烈建議使用最新正式版本進行遊玩。(更新日期:2020/4/14)
 
 理論上支援所有iOS 11.4以上的所有iDevice（iPhone 5及更舊的32位元設備不支援）
 
