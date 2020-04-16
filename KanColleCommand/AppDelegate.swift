@@ -51,13 +51,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Saves changes in the application's managed object context before the application terminates.
     }
 
-//    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
-//        if (self.landscape) {
-//            return .landscapeRight;
-//        } else {
-//            return .portrait;
-//        }
-//    }
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        if (self.landscape) {
+            if (UIScreen.current >= .iPhone6_1) {
+                if (UIScreen.current < .iPad9_7) {
+                    return .landscapeRight;
+                } else {
+                    return .landscape
+                }
+            } else {
+                return .landscape
+            }
+        } else {
+            return .landscape
+        }
+    }
 
 }
 
