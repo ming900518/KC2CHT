@@ -1,12 +1,14 @@
 import UIKit
 import CoreData
 import AVFoundation
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var landscape: Bool = true
+    let notificationCenter = UNUserNotificationCenter.current()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -17,6 +19,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             try audioSession.setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.playback)), options:AVAudioSession.CategoryOptions(rawValue: AVAudioSession.CategoryOptions.mixWithOthers.rawValue))//AVAudioSessionCategoryPlayback
         } catch {
             print("Got error in set AVAudioSession")
+        }
+        let options: UNAuthorizationOptions = [.alert, .sound, .badge]
+        notificationCenter.requestAuthorization(options: options) {
+            (didAllow, error) in
+            if !didAllow {
+                print("User has declined notifications")
+            }
+        }
+        notificationCenter.getNotificationSettings { (settings) in
+          if settings.authorizationStatus != .authorized {
+            print("User has declined notifications (in settings)")
+          }
         }
         return true
     }
@@ -32,6 +46,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        let content = UNMutableNotificationContent()
+        content.title = "背景運作提醒"
+        content.body = "App已進入背景運作，由於遊戲Token有時效性，請儘速回到App或結束本App。"
+        content.sound = UNNotificationSound.default
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+        let identifier = "Local Notification"
+        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+        notificationCenter.add(request) { (error) in
+            if let error = error {
+                print("Error \(error.localizedDescription)")
+            }
+        }
 
     }
 

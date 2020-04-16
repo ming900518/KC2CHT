@@ -2,6 +2,7 @@ import UIKit
 import SnapKit
 import WebKit
 import RxSwift
+import UserNotifications
 
 class ViewController: UIViewController, UIScrollViewDelegate {
 
@@ -56,10 +57,25 @@ class ViewController: UIViewController, UIScrollViewDelegate {
                     show = battleFleet >= 0 && Fleet.instance.isBadlyDamage(index: battleFleet)
                 }
                 badlyDamageWarning.isHidden = !show
-                let warningAlert = UIAlertController(title: "⚠️ 大破 ⚠️", message: "あうぅっ！ 痛いってばぁっ！\n(つД`)", preferredStyle: .alert)
-                warningAlert.addAction(UIAlertAction(title: "はい、はい、知っています", style: .destructive, handler: nil))
+                //let warningAlert = UIAlertController(title: "⚠️ 大破 ⚠️", message: "あうぅっ！ 痛いってばぁっ！\n(つД`)", preferredStyle: .alert)
+                //warningAlert.addAction(UIAlertAction(title: "はい、はい、知っています", style: .destructive, handler: nil))
+                //if show == true {
+                    //self.present(warningAlert, animated: true)
+                //}
+                let notificationCenter = UNUserNotificationCenter.current()
+                let warningAlert = UNMutableNotificationContent()
+                warningAlert.title = "⚠️ 大破 ⚠️"
+                warningAlert.body = "あうぅっ！ 痛いってばぁっ！\n(つД`)"
+                warningAlert.sound = UNNotificationSound.default
+                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+                let identifier = "Local Notification"
+                let request = UNNotificationRequest(identifier: identifier, content: warningAlert, trigger: trigger)
                 if show == true {
-                    self.present(warningAlert, animated: true)
+                    notificationCenter.add(request) { (error) in
+                        if let error = error {
+                            print("Error \(error.localizedDescription)")
+                        }
+                    }
                 }
         }
 
