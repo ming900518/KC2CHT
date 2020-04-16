@@ -139,6 +139,31 @@ extension SettingVC: UITableViewDelegate {
                 })
                 self.present(dialog, animated: true)
             }
+        } else if (indexPath.section == 1) {
+            if (indexPath.row == 1) {
+                let info = UIAlertController(title: "請選擇大破警告的類型，目前使用：類型\(Setting.getwarningAlert())", message: "預設類型2，未開啟推播通知預設類型1\n選擇類型2的情況下關閉推播通知會自動改為類型1" ,preferredStyle: .actionSheet)
+                if let popoverController = info.popoverPresentationController {
+                    popoverController.sourceView = self.view
+                    popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+                    popoverController.permittedArrowDirections = []
+                }
+                info.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+                info.addAction(UIAlertAction(title: "1. 增強型（警告視窗）", style: .default) { action in
+                    Setting.savewarningAlert(value: 1)
+                })
+                info.addAction(UIAlertAction(title: "2. 增強型（推播通知）", style: .default) { action in
+                    Setting.savewarningAlert(value: 2)
+                })
+                info.addAction(UIAlertAction(title: "3. 一般型（僅有畫面紅框）", style: .default) { action in
+                    Setting.savewarningAlert(value: 3)
+                })
+                info.addAction(UIAlertAction(title: "4. 關閉所有大破警告", style: .default) { action in
+                    Setting.savewarningAlert(value: 4)
+                })
+                self.present(info, animated: true)
+                print("Selected: ", Setting.getwarningAlert())
+                self.settingTable.reloadData()
+            }
         } else if (indexPath.section == 2) {
             if (indexPath.row == 0) {
                 let info = UIAlertController(title: "關於本App", message: "本App修改自NGA用戶亖葉(UID42542015)於2019年7月4號發佈的iKanColleCommand專案，提供iOS用戶穩定的艦隊收藏遊戲環境和基本的輔助程式功能。\n\n修改者：Ming Chang\n\n特別感謝\nDavid Huang（修圖、巴哈文維護）\n還有選擇使用本App的各位",preferredStyle: .actionSheet)
@@ -229,6 +254,7 @@ extension SettingVC: UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDa
                 cell.backgroundColor = UIColor.white
                 cell.textLabel?.text = "程式功能"
                 cell.detailTextLabel?.text = "基本遊戲、輔助程式、增強型大破警告、Cookies修改"
+                cell.accessoryType = .disclosureIndicator
                 return cell
             }
         } else if (indexPath.section == 2) {

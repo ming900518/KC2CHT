@@ -16,5 +16,14 @@ class Setting {
     static func saveRetryCount(value: Int) {
         UserDefaults.standard.set(value, forKey: kRetryCount)
     }
+    
+    private static let kwarningAlert = "warningAlert" //重试次数
 
+    static func getwarningAlert() -> Int {
+        return UserDefaults.standard.integer(forKey: kwarningAlert)
+    }
+
+    static func savewarningAlert(value: Int) {
+        UserDefaults.standard.set(value, forKey: kwarningAlert)
+    }
 }

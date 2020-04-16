@@ -8,10 +8,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var landscape: Bool = true
+    var optionallyStoreTheFirstLaunchFlag = false
     let notificationCenter = UNUserNotificationCenter.current()
+    let isFirstLaunch = UserDefaults.isFirstLaunch()
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {optionallyStoreTheFirstLaunchFlag = UserDefaults.isFirstLaunch()
         URLProtocol.registerClass(WebHandler.self)
         UMConfigure.initWithAppkey("5cdc24183fc1955cd000113f", channel: "Main")
         do {
@@ -21,17 +22,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Got error in set AVAudioSession")
         }
         let options: UNAuthorizationOptions = [.alert, .sound, .badge]
+        let notificationCenter = UNUserNotificationCenter.current()
         notificationCenter.requestAuthorization(options: options) {
             (didAllow, error) in
             if !didAllow {
                 print("User has declined notifications")
+                if self.isFirstLaunch == true {
+                    Setting.savewarningAlert(value: 1)
+                }
+            } else {
+                if self.isFirstLaunch == true {
+                    Setting.savewarningAlert(value: 2)
+                }
             }
         }
         notificationCenter.getNotificationSettings { (settings) in
-          if settings.authorizationStatus != .authorized {
-            print("User has declined notifications (in settings)")
-          }
+            if settings.authorizationStatus != .authorized {
+                print("User has declined notifications (in settings)")
+                if Setting.getwarningAlert() == 2 {
+                    Setting.savewarningAlert(value: 1)
+                }
+            }
         }
+        UNUserNotificationCenter.current().delegate = self
         return true
     }
 
@@ -46,29 +59,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-        let content = UNMutableNotificationContent()
-        content.title = "背景運作提醒"
-        content.body = "App已進入背景運作，由於遊戲Token有時效性，請儘速回到App或結束本App。"
-        content.sound = UNNotificationSound.default
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
-        let identifier = "Local Notification"
-        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
-        notificationCenter.add(request) { (error) in
-            if let error = error {
-                print("Error \(error.localizedDescription)")
-            }
-        }
 
     }
 
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.getNotificationSettings { (settings) in
+            if settings.authorizationStatus != .authorized {
+                print("User has declined notifications (in settings)")
+                if Setting.getwarningAlert() == 2 {
+                    Setting.savewarningAlert(value: 1)
+                }
+            }
+        }
     }
 
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.getNotificationSettings { (settings) in
+            if settings.authorizationStatus != .authorized {
+                print("User has declined notifications (in settings)")
+                if Setting.getwarningAlert() == 2 {
+                    Setting.savewarningAlert(value: 1)
+                }
+            }
+        }
     }
 
 
@@ -76,7 +97,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
     }
-
+    
+    func applicationDidReceiveMemoryWarning(_ application: UIApplication) {
+        print("RAM Warning!")
+        let notificationCenter = UNUserNotificationCenter.current()
+        let content = UNMutableNotificationContent()
+        content.title = "RAM用量提醒"
+        content.body = "RAM即將用盡，請盡快結束當前遊戲階段"
+        content.sound = UNNotificationSound.default
+        let identifier = "RAM Warning Notification"
+        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: nil)
+        notificationCenter.add(request) { (error) in
+            if let error = error {
+                print("Error \(error.localizedDescription)")
+            }
+        }
+    }
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
         if (self.landscape) {
             if (UIScreen.current >= .iPhone6_1) {
@@ -98,4 +134,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
 	return input.rawValue
+}
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
+ 
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.badge, .sound, .alert])
+    }
+}
+
+extension UserDefaults {
+    // check for is first launch - only true on first invocation after app install, false on all further invocations
+    // Note: Store this value in AppDelegate if you have multiple places where you are checking for this flag
+    static func isFirstLaunch() -> Bool {
+        let hasBeenLaunchedBeforeFlag = "hasBeenLaunchedBeforeFlag"
+        let isFirstLaunch = !UserDefaults.standard.bool(forKey: hasBeenLaunchedBeforeFlag)
+        if (isFirstLaunch) {
+            UserDefaults.standard.set(true, forKey: hasBeenLaunchedBeforeFlag)
+            UserDefaults.standard.synchronize()
+        }
+        return isFirstLaunch
+    }
 }

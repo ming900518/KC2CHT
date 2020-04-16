@@ -87,6 +87,18 @@ class KCWebView: UIWebView {
             }
         }
     }
+    
+    private var isConnectedToVpn: Bool {
+        if let settings = CFNetworkCopySystemProxySettings()?.takeRetainedValue() as? Dictionary<String, Any>,
+            let scopes = settings["__SCOPED__"] as? [String:Any] {
+            for (key, _) in scopes {
+             if key.contains("tap") || key.contains("tun") || key.contains("ppp") || key.contains("ipsec") {
+                    return true
+                }
+            }
+        }
+        return false
+    }
 }
 
 
@@ -125,8 +137,10 @@ extension KCWebView: UIWebViewDelegate {
     }
     
     public func webViewDidFinishLoad(_ webView: UIWebView) {
-        OperationQueue.main.addOperation {
-            self.stringByEvaluatingJavaScript(from: Constants.DMM_COOKIES)
+        if self.isConnectedToVpn == false {
+            OperationQueue.main.addOperation {
+                self.stringByEvaluatingJavaScript(from: Constants.DMM_COOKIES)
+            }
         }
         let url1 = URL(string: "http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/")
         let url2 = URL(string: "http://ooi.moe/poi")

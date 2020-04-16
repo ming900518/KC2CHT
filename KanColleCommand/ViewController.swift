@@ -34,6 +34,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         }
         NotificationCenter.default.addObserver(self, selector: #selector(reloadGame), name: Constants.RELOAD_GAME, object: nil)
 
+        if Setting.getwarningAlert() != 4 {
         let badlyDamageWarning = UIImageView(image: UIImage(named: "badly_damage_warning.png")?.resizableImage(
                 withCapInsets: UIEdgeInsets.init(top: 63, left: 63, bottom: 63, right: 63), resizingMode: .stretch))
         badlyDamageWarning.isHidden = true
@@ -57,19 +58,20 @@ class ViewController: UIViewController, UIScrollViewDelegate {
                     show = battleFleet >= 0 && Fleet.instance.isBadlyDamage(index: battleFleet)
                 }
                 badlyDamageWarning.isHidden = !show
-                //let warningAlert = UIAlertController(title: "⚠️ 大破 ⚠️", message: "あうぅっ！ 痛いってばぁっ！\n(つД`)", preferredStyle: .alert)
-                //warningAlert.addAction(UIAlertAction(title: "はい、はい、知っています", style: .destructive, handler: nil))
-                //if show == true {
-                    //self.present(warningAlert, animated: true)
-                //}
+            if Setting.getwarningAlert() == 1 {
+                let warningAlert = UIAlertController(title: "⚠️ 大破 ⚠️", message: "あうぅっ！ 痛いってばぁっ！\n(つД`)", preferredStyle: .alert)
+                warningAlert.addAction(UIAlertAction(title: "はい、はい、知っています", style: .destructive, handler: nil))
+                if show == true {
+                    self.present(warningAlert, animated: true)
+                }
+            } else if Setting.getwarningAlert() == 2 {
                 let notificationCenter = UNUserNotificationCenter.current()
                 let warningAlert = UNMutableNotificationContent()
                 warningAlert.title = "⚠️ 大破 ⚠️"
-                warningAlert.body = "あうぅっ！ 痛いってばぁっ！\n(つД`)"
+                warningAlert.body = "あうぅっ！ 痛いってばぁっ！(つД`)"
                 warningAlert.sound = UNNotificationSound.default
-                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
-                let identifier = "Local Notification"
-                let request = UNNotificationRequest(identifier: identifier, content: warningAlert, trigger: trigger)
+                let identifier = "EHDA Notification"
+                let request = UNNotificationRequest(identifier: identifier, content: warningAlert, trigger: nil)
                 if show == true {
                     notificationCenter.add(request) { (error) in
                         if let error = error {
@@ -77,8 +79,9 @@ class ViewController: UIViewController, UIScrollViewDelegate {
                         }
                     }
                 }
+            }
         }
-
+        }
         let settingBtn = UIButton(type: .custom)
         settingBtn.setImage(UIImage(named: "setting.png"), for: .normal)
         settingBtn.imageEdgeInsets = UIEdgeInsets.init(top: 8, left: 8, bottom: 8, right: 8)
@@ -192,14 +195,55 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         dialog.addAction(UIAlertAction(title: "修改Cookies直連（推薦）", style: .default) { action in
             let url = URL(string: Constants.HOME_PAGE)
             self.webView.loadRequest(URLRequest(url: url!))
+            if self.isConnectedToVpn == true {
+                UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+                UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+                let notificationCenter = UNUserNotificationCenter.current()
+                let content = UNMutableNotificationContent()
+                content.title = "偵測到使用VPN"
+                content.body = "Cookies修改功能已經關閉\nACGP用戶請至設定中將大小調整為1，以免出現白邊"
+                let identifier = "ooi Notification"
+                let request = UNNotificationRequest(identifier: identifier, content: content, trigger: nil)
+                notificationCenter.add(request) { (error) in
+                    if let error = error {
+                        print("Error \(error.localizedDescription)")
+                    }
+                }
+            }
         })
         dialog.addAction(UIAlertAction(title: "ooi.moe（備用1）", style: .default) { action in
             let url = URL(string: Constants.OOI)
             self.webView.loadRequest(URLRequest(url: url!))
+            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+            UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+            let notificationCenter = UNUserNotificationCenter.current()
+            let content = UNMutableNotificationContent()
+            content.title = "ooi.moe登入方式提示"
+            content.body = "請選擇以「在POI中运行」方式登入以獲得最佳遊戲體驗"
+            let identifier = "ooi Notification"
+            let request = UNNotificationRequest(identifier: identifier, content: content, trigger: nil)
+            notificationCenter.add(request) { (error) in
+                if let error = error {
+                    print("Error \(error.localizedDescription)")
+                }
+            }
         })
         dialog.addAction(UIAlertAction(title: "kancolle.su（備用2）", style: .default) { action in
             let url = URL(string: Constants.kcsu)
             self.webView.loadRequest(URLRequest(url: url!))
+            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+            UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+            let notificationCenter = UNUserNotificationCenter.current()
+            let content = UNMutableNotificationContent()
+            content.title = "kancolle.su登入方式提示"
+            content.body = "請選擇以「Fullscreen - Optimised for poi and smartphones」方式登入以獲得最佳遊戲體驗"
+            let identifier = "kcsu Notification"
+            let request = UNNotificationRequest(identifier: identifier, content: content, trigger: nil)
+            notificationCenter.add(request) { (error) in
+                if let error = error {
+                    print("Error \(error.localizedDescription)")
+                }
+            }
         })
         dialog.addAction(UIAlertAction(title: "取消", style: .destructive) { action in
             self.blankPage()
@@ -226,5 +270,16 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         else {
             return
         }
+    }
+    private var isConnectedToVpn: Bool {
+        if let settings = CFNetworkCopySystemProxySettings()?.takeRetainedValue() as? Dictionary<String, Any>,
+            let scopes = settings["__SCOPED__"] as? [String:Any] {
+            for (key, _) in scopes {
+             if key.contains("tap") || key.contains("tun") || key.contains("ppp") || key.contains("ipsec") {
+                    return true
+                }
+            }
+        }
+        return false
     }
 }
