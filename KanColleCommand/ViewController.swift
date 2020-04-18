@@ -34,7 +34,6 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         }
         NotificationCenter.default.addObserver(self, selector: #selector(reloadGame), name: Constants.RELOAD_GAME, object: nil)
 
-        if Setting.getwarningAlert() != 4 {
         let badlyDamageWarning = UIImageView(image: UIImage(named: "badly_damage_warning.png")?.resizableImage(
                 withCapInsets: UIEdgeInsets.init(top: 63, left: 63, bottom: 63, right: 63), resizingMode: .stretch))
         badlyDamageWarning.isHidden = true
@@ -80,7 +79,6 @@ class ViewController: UIViewController, UIScrollViewDelegate {
                     }
                 }
             }
-        }
         }
         let settingBtn = UIButton(type: .custom)
         settingBtn.setImage(UIImage(named: "setting.png"), for: .normal)

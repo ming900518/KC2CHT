@@ -157,9 +157,6 @@ extension SettingVC: UITableViewDelegate {
                 info.addAction(UIAlertAction(title: "3. 一般型（僅有畫面紅框）", style: .default) { action in
                     Setting.savewarningAlert(value: 3)
                 })
-                info.addAction(UIAlertAction(title: "4. 關閉所有大破警告", style: .default) { action in
-                    Setting.savewarningAlert(value: 4)
-                })
                 self.present(info, animated: true)
                 print("Selected: ", Setting.getwarningAlert())
                 self.settingTable.reloadData()
@@ -253,7 +250,7 @@ extension SettingVC: UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDa
                 let cell = UITableViewCell(style: .value1, reuseIdentifier: cellIdentifier)
                 cell.backgroundColor = UIColor.white
                 cell.textLabel?.text = "程式功能"
-                cell.detailTextLabel?.text = "基本遊戲、輔助程式、增強型大破警告、Cookies修改"
+                cell.detailTextLabel?.text = "基本遊戲、輔助程式、大破警告類型\(Setting.getwarningAlert())、Cookies修改"
                 cell.accessoryType = .disclosureIndicator
                 return cell
             }
