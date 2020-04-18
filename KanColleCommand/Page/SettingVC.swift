@@ -150,12 +150,15 @@ extension SettingVC: UITableViewDelegate {
                 info.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
                 info.addAction(UIAlertAction(title: "1. 增強型（警告視窗）", style: .default) { action in
                     Setting.savewarningAlert(value: 1)
+                    self.close()
                 })
                 info.addAction(UIAlertAction(title: "2. 增強型（推播通知）", style: .default) { action in
                     Setting.savewarningAlert(value: 2)
+                    self.close()
                 })
                 info.addAction(UIAlertAction(title: "3. 一般型（僅有畫面紅框）", style: .default) { action in
                     Setting.savewarningAlert(value: 3)
+                    self.close()
                 })
                 self.present(info, animated: true)
                 print("Selected: ", Setting.getwarningAlert())
@@ -231,7 +234,7 @@ extension SettingVC: UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDa
                 cell.accessoryType = .disclosureIndicator
                 return cell
             } else if (indexPath.row == 1) {
-                let cell = UITableViewCell(style: .default, reuseIdentifier: cellIdentifier)
+                let cell = UITableViewCell(style: .value1, reuseIdentifier: cellIdentifier)
                 cell.backgroundColor = UIColor.white
                 cell.textLabel?.text = "清理Caches和Cookies"
                 cell.accessoryType = .disclosureIndicator
@@ -250,7 +253,7 @@ extension SettingVC: UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDa
                 let cell = UITableViewCell(style: .value1, reuseIdentifier: cellIdentifier)
                 cell.backgroundColor = UIColor.white
                 cell.textLabel?.text = "程式功能"
-                cell.detailTextLabel?.text = "基本遊戲、輔助程式、大破警告類型\(Setting.getwarningAlert())、Cookies修改"
+                cell.detailTextLabel?.text = "基本遊戲、輔助程式、大破警告 (類型\(Setting.getwarningAlert()))、Cookies修改"
                 cell.accessoryType = .disclosureIndicator
                 return cell
             }

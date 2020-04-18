@@ -179,9 +179,9 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             }
             CacheManager.clearCache()
             print("[INFO] Everything cleaned.")
-            let result = UIAlertController(title: "清理完成", message: "本App即將關閉", preferredStyle: .alert)
+            let result = UIAlertController(title: "清理完成", message: nil, preferredStyle: .alert)
             result.addAction(UIAlertAction(title: "確定", style: .default) { action in
-                exit(0)
+                self.blankPage()
             })
             self.present(result, animated: true)
         })
