@@ -190,7 +190,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     
     @objc func loginChanger(){
         let dialog = UIAlertController(title: "iKanColleCommand", message: "請選擇登入遊戲方式", preferredStyle: .alert)
-        dialog.addAction(UIAlertAction(title: "修改Cookies直連（推薦）", style: .default) { action in
+        dialog.addAction(UIAlertAction(title: "官方DMM網站（VPN/日本可用）", style: .default) { action in
             let url = URL(string: Constants.HOME_PAGE)
             self.webView.loadRequest(URLRequest(url: url!))
             if self.isConnectedToVpn == true {
@@ -199,7 +199,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
                 let notificationCenter = UNUserNotificationCenter.current()
                 let content = UNMutableNotificationContent()
                 content.title = "偵測到使用VPN"
-                content.body = "Cookies修改功能已經關閉\nACGP用戶請至設定中將大小調整為1，以免出現白邊"
+                content.body = "ACGP用戶請至設定中將大小調整為1，以免出現白邊"
                 let identifier = "ooi Notification"
                 let request = UNNotificationRequest(identifier: identifier, content: content, trigger: nil)
                 notificationCenter.add(request) { (error) in
@@ -209,14 +209,14 @@ class ViewController: UIViewController, UIScrollViewDelegate {
                 }
             }
         })
-        dialog.addAction(UIAlertAction(title: "ooi.moe（備用1）", style: .default) { action in
+        dialog.addAction(UIAlertAction(title: "緩存系統ooi（全球用戶可用）", style: .default) { action in
             let url = URL(string: Constants.OOI)
             self.webView.loadRequest(URLRequest(url: url!))
             UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
             UNUserNotificationCenter.current().removeAllDeliveredNotifications()
             let notificationCenter = UNUserNotificationCenter.current()
             let content = UNMutableNotificationContent()
-            content.title = "ooi.moe登入方式提示"
+            content.title = "ooi登入方式提示"
             content.body = "請選擇以「在POI中运行」方式登入以獲得最佳遊戲體驗"
             let identifier = "ooi Notification"
             let request = UNNotificationRequest(identifier: identifier, content: content, trigger: nil)
@@ -226,7 +226,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
                 }
             }
         })
-        dialog.addAction(UIAlertAction(title: "kancolle.su（備用2）", style: .default) { action in
+        dialog.addAction(UIAlertAction(title: "緩存系統kancolle.su（大陸地區以外）", style: .default) { action in
             let url = URL(string: Constants.kcsu)
             self.webView.loadRequest(URLRequest(url: url!))
             UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
