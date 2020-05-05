@@ -15,12 +15,16 @@ class SettingVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let backgroundColor = UIColor(hexString: "#FBFBFB")
-        self.view.backgroundColor = backgroundColor
+        let toolbar = UIView()
+        if #available(iOS 13.0, *) {
+            self.view.backgroundColor = UIColor.systemBackground
+            toolbar.backgroundColor = UIColor.systemBackground
+        } else {
+            self.view.backgroundColor = UIColor(hexString: "#FBFBFB")
+            toolbar.backgroundColor = UIColor(hexString: "#FBFBFB")
+        }
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.landscape = true
-        let toolbar = UIView()
-        toolbar.backgroundColor = backgroundColor
         self.view.addSubview(toolbar)
 
         let titleBar = UIView()
@@ -33,7 +37,11 @@ class SettingVC: UIViewController {
 
         let titleText = UILabel()
         titleText.text = "設定"
-        titleText.textColor = UIColor.black
+        if #available(iOS 13.0, *) {
+            titleText.textColor = UIColor.label
+        } else {
+            titleText.textColor = UIColor.black
+        }
         titleBar.addSubview(titleText)
         titleText.snp.makeConstraints { maker in
             maker.center.equalTo(titleBar.snp.center)
@@ -46,7 +54,11 @@ class SettingVC: UIViewController {
         }
 
         let toolbarDivider = UIView()
-        toolbarDivider.backgroundColor = UIColor(hexString: "#DDDDDD")
+        if #available(iOS 13.0, *) {
+            toolbarDivider.backgroundColor = UIColor.separator
+        } else {
+            toolbarDivider.backgroundColor = UIColor(hexString: "#DDDDDD")
+        }
         toolbar.addSubview(toolbarDivider)
         toolbarDivider.snp.makeConstraints { maker in
             maker.width.equalTo(toolbar.snp.width)
@@ -66,7 +78,11 @@ class SettingVC: UIViewController {
         settingTable = UITableView(frame: CGRect.zero, style: .grouped)
         settingTable.delegate = self
         settingTable.dataSource = self
-        settingTable.backgroundColor = UIColor.clear
+        if #available(iOS 13.0, *) {
+            settingTable.backgroundColor = UIColor.systemGroupedBackground
+        } else {
+            settingTable.backgroundColor = UIColor.clear
+        }
         self.view.addSubview(settingTable)
         settingTable.snp.makeConstraints { maker in
             maker.width.equalTo(self.view.snp.width)
@@ -228,14 +244,22 @@ extension SettingVC: UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDa
         if (indexPath.section == 0) {
             if (indexPath.row == 0) {
                 let cell = UITableViewCell(style: .value1, reuseIdentifier: cellIdentifier)
-                cell.backgroundColor = UIColor.white
+                if #available(iOS 13.0, *) {
+                    cell.backgroundColor = UIColor.secondarySystemBackground
+                } else {
+                    cell.backgroundColor = UIColor.white
+                }
                 cell.textLabel?.text = "連接重試次數 (0為不重試)"
                 cell.detailTextLabel?.text = "\(Setting.getRetryCount())"
                 cell.accessoryType = .disclosureIndicator
                 return cell
             } else if (indexPath.row == 1) {
                 let cell = UITableViewCell(style: .value1, reuseIdentifier: cellIdentifier)
-                cell.backgroundColor = UIColor.white
+                if #available(iOS 13.0, *) {
+                    cell.backgroundColor = UIColor.secondarySystemBackground
+                } else {
+                    cell.backgroundColor = UIColor.white
+                }
                 cell.textLabel?.text = "清理Caches和Cookies"
                 cell.accessoryType = .disclosureIndicator
                 return cell
@@ -243,7 +267,11 @@ extension SettingVC: UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDa
         } else if (indexPath.section == 1) {
             if (indexPath.row == 0) {
                 let cell = UITableViewCell(style: .value1, reuseIdentifier: cellIdentifier)
-                cell.backgroundColor = UIColor.white
+                if #available(iOS 13.0, *) {
+                    cell.backgroundColor = UIColor.secondarySystemBackground
+                } else {
+                    cell.backgroundColor = UIColor.white
+                }
                 cell.textLabel?.text = "當前版本"
                 if let versionCode = Bundle.main.infoDictionary?["CFBundleShortVersionString"] {
                     cell.detailTextLabel?.text = "\(versionCode)"
@@ -251,7 +279,11 @@ extension SettingVC: UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDa
                 return cell
             } else if (indexPath.row == 1) {
                 let cell = UITableViewCell(style: .value1, reuseIdentifier: cellIdentifier)
-                cell.backgroundColor = UIColor.white
+                if #available(iOS 13.0, *) {
+                    cell.backgroundColor = UIColor.secondarySystemBackground
+                } else {
+                    cell.backgroundColor = UIColor.white
+                }
                 cell.textLabel?.text = "程式功能"
                 cell.detailTextLabel?.text = "基本遊戲、輔助程式、大破警告 (類型\(Setting.getwarningAlert()))"//Cookies修改
                 cell.accessoryType = .disclosureIndicator
@@ -260,13 +292,21 @@ extension SettingVC: UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDa
         } else if (indexPath.section == 2) {
             if (indexPath.row == 0) {
                 let cell = UITableViewCell(style: .default, reuseIdentifier: cellIdentifier)
-                cell.backgroundColor = UIColor.white
+                if #available(iOS 13.0, *) {
+                    cell.backgroundColor = UIColor.secondarySystemBackground
+                } else {
+                    cell.backgroundColor = UIColor.white
+                }
                 cell.textLabel?.text = "關於本App"
                 cell.accessoryType = .disclosureIndicator
                 return cell
             } else if (indexPath.row == 1) {
                 let cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellIdentifier)
-                cell.backgroundColor = UIColor.white
+                if #available(iOS 13.0, *) {
+                    cell.backgroundColor = UIColor.secondarySystemBackground
+                } else {
+                    cell.backgroundColor = UIColor.white
+                }
                 cell.textLabel?.text = "捐贈原作者（非修改版作者）"
                 cell.detailTextLabel?.text = "支持原本的大佬吧～我就不用了，大家玩得開心最重要"
                 cell.detailTextLabel?.textColor = UIColor.lightGray

@@ -212,34 +212,38 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         dialog.addAction(UIAlertAction(title: "緩存系統ooi（全球用戶可用）", style: .default) { action in
             let url = URL(string: Constants.OOI)
             self.webView.loadRequest(URLRequest(url: url!))
-            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-            UNUserNotificationCenter.current().removeAllDeliveredNotifications()
-            let notificationCenter = UNUserNotificationCenter.current()
-            let content = UNMutableNotificationContent()
-            content.title = "ooi登入方式提示"
-            content.body = "請選擇以「在POI中运行」方式登入以獲得最佳遊戲體驗"
-            let identifier = "ooi Notification"
-            let request = UNNotificationRequest(identifier: identifier, content: content, trigger: nil)
-            notificationCenter.add(request) { (error) in
-                if let error = error {
-                    print("Error \(error.localizedDescription)")
+            if UIScreen.current <= .iPhone6_5 {
+                UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+                UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+                let notificationCenter = UNUserNotificationCenter.current()
+                let content = UNMutableNotificationContent()
+                content.title = "ooi登入方式提示"
+                content.body = "請選擇以「在POI中运行」方式登入以獲得最佳遊戲體驗"
+                let identifier = "ooi Notification"
+                let request = UNNotificationRequest(identifier: identifier, content: content, trigger: nil)
+                notificationCenter.add(request) { (error) in
+                    if let error = error {
+                        print("Error \(error.localizedDescription)")
+                    }
                 }
             }
         })
         dialog.addAction(UIAlertAction(title: "緩存系統kancolle.su（大陸地區以外）", style: .default) { action in
             let url = URL(string: Constants.kcsu)
             self.webView.loadRequest(URLRequest(url: url!))
-            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-            UNUserNotificationCenter.current().removeAllDeliveredNotifications()
-            let notificationCenter = UNUserNotificationCenter.current()
-            let content = UNMutableNotificationContent()
-            content.title = "kancolle.su登入方式提示"
-            content.body = "請選擇以「Fullscreen - Optimised for poi and smartphones」方式登入以獲得最佳遊戲體驗"
-            let identifier = "kcsu Notification"
-            let request = UNNotificationRequest(identifier: identifier, content: content, trigger: nil)
-            notificationCenter.add(request) { (error) in
-                if let error = error {
-                    print("Error \(error.localizedDescription)")
+            if UIScreen.current <= .iPhone6_5 {
+                UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+                UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+                let notificationCenter = UNUserNotificationCenter.current()
+                let content = UNMutableNotificationContent()
+                content.title = "kancolle.su登入方式提示"
+                content.body = "請選擇以「Fullscreen - Optimised for poi and smartphones」方式登入以獲得最佳遊戲體驗"
+                let identifier = "kcsu Notification"
+                let request = UNNotificationRequest(identifier: identifier, content: content, trigger: nil)
+                notificationCenter.add(request) { (error) in
+                    if let error = error {
+                        print("Error \(error.localizedDescription)")
+                    }
                 }
             }
         })

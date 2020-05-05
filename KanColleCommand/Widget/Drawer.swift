@@ -96,11 +96,11 @@ class Drawer: UIView {
 
     @objc private func onTap() {
         if (expanded) {
-            UIView.animate(withDuration: 0.5,
+            UIView.animate(withDuration: 0.3,
                     animations: { () -> Void in self.maskingView.alpha = 0 },
                     completion: { b in self.maskingView.isHidden = true }
             )
-            UIView.animate(withDuration: 0.5) { () -> Void in
+            UIView.animate(withDuration: 0.3) { () -> Void in
                 self.positionConstraint?.update(offset: 0)
                 self.superview?.layoutIfNeeded()
             }
@@ -127,10 +127,10 @@ extension Drawer: GripDelegate {
         }
         if (!expanded) {
             self.maskingView.isHidden = false
-            UIView.animate(withDuration: 0.5,
+            UIView.animate(withDuration: 0.3,
                     animations: { () -> Void in self.maskingView.alpha = 1 }
             )
-            UIView.animate(withDuration: 0.5) { () -> Void in
+            UIView.animate(withDuration: 0.3) { () -> Void in
                 self.positionConstraint?.update(offset: -self.kWidth)
                 self.superview?.layoutIfNeeded()
             }
