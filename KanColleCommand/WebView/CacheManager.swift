@@ -89,6 +89,6 @@ class CacheManager {
     }
 
     private class func baseDir() -> String {
-        return NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).last! + "/cache"
+        return NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last!
         }
     }
