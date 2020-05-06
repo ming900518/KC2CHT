@@ -17,7 +17,7 @@ class Setting {
         UserDefaults.standard.set(value, forKey: kRetryCount)
     }
     
-    private static let kwarningAlert = "warningAlert" //重试次数
+    private static let kwarningAlert = "warningAlert" //大破警告種類
 
     static func getwarningAlert() -> Int {
         return UserDefaults.standard.integer(forKey: kwarningAlert)
@@ -25,5 +25,15 @@ class Setting {
 
     static func savewarningAlert(value: Int) {
         UserDefaults.standard.set(value, forKey: kwarningAlert)
+    }
+    
+    private static let kchangeCacheDir = "changeCacheDir" //變更緩存目錄
+    
+    static func getchangeCacheDir() -> Int {
+        return UserDefaults.standard.integer(forKey: kchangeCacheDir)
+    }
+
+    static func savechangeCacheDir(value: Int) {
+        UserDefaults.standard.set(value, forKey: kchangeCacheDir)
     }
 }

@@ -182,45 +182,72 @@ extension SettingVC: UITableViewDelegate {
             }
         } else if (indexPath.section == 2) {
             if (indexPath.row == 0) {
-                let info = UIAlertController(title: "關於本App", message: "本App修改自NGA用戶亖葉(UID42542015)於2019年7月4號發佈的iKanColleCommand專案，提供iOS用戶穩定的艦隊收藏遊戲環境和基本的輔助程式功能。\n\n修改者：Ming Chang\n\n特別感謝\nDavid Huang（修圖、巴哈文維護）\n@Senka_Viewer（OOI相關技術支援）\n還有選擇使用本App的各位",preferredStyle: .actionSheet)
-                if let popoverController = info.popoverPresentationController {
-                    popoverController.sourceView = self.view
-                    popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
-                    popoverController.permittedArrowDirections = []
-                }
-                info.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
-                info.addAction(UIAlertAction(title: "前往本修改版App官方網站", style: .default) { action in
-                    if let url = URL(string:"https://kc2tweaked.github.io") {
-                    UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
-                    }
-                })
-                info.addAction(UIAlertAction(title: "加入Discord", style: .default) { action in
-                    if let url = URL(string:"https://discord.gg/Yesf3cN") {
-                    UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
-                    }
-                })
-                self.present(info, animated: true)
-            } else if (indexPath.row == 1) {
-                let dialog = UIAlertController(title: "請選擇渠道", message: nil, preferredStyle: .actionSheet)
+                let dialog = UIAlertController(title: "免責聲明", message: "1. 本功能開啟後，用戶能自行修改Cache內容\n2. 啟用本功能後除非刪除本App重新安裝，否則無法關閉\n3. 啟用前會先清理緩存，功能啟用完成後會關閉本App\n4. 如自行修改造成遊戲不穩定或白底黑字的狀況，本App相關所有開發者均不對此負責", preferredStyle: .actionSheet)
                 if let popoverController = dialog.popoverPresentationController {
                     popoverController.sourceView = self.view
                     popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
                     popoverController.permittedArrowDirections = []
                 }
                 dialog.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
-                dialog.addAction(UIAlertAction(title: "支付寶", style: .default) { action in
-                    if let url = URL(string: "https://qr.alipay.com/tsx04467wmwmuqfxcmwmt7e") {
-                        UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
+                dialog.addAction(UIAlertAction(title: "我已理解，啟用本功能", style: .destructive) { action in
+                    print("[INFO] Cleaner confirmed by user. Start cleaning.")
+                    if let cookies = HTTPCookieStorage.shared.cookies {
+                        for cookie in cookies {
+                            HTTPCookieStorage.shared.deleteCookie(cookie)
+                        }
                     }
-                })
-                dialog.addAction(UIAlertAction(title: "微信", style: .default) { action in
-                    if let url = URL(string:"https://ming900518.github.io/page/wechat_qrcode.png") {
-                        UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
-                    }
+                    CacheManager.clearCache()
+                    print("[INFO] Everything cleaned.")
+                    Setting.savechangeCacheDir(value: 1)
+                    let result = UIAlertController(title: "功能開啟完成", message: "本App即將關閉", preferredStyle: .alert)
+                    result.addAction(UIAlertAction(title: "確定", style: .default) { action in
+                        exit(0)
+                    })
+                    self.present(result, animated: true)
                 })
                 self.present(dialog, animated: true)
             }
-        }
+        } else if (indexPath.section == 3) {
+                   if (indexPath.row == 0) {
+                       let info = UIAlertController(title: "關於本App", message: "本App修改自NGA用戶亖葉(UID42542015)於2019年7月4號發佈的iKanColleCommand專案，提供iOS用戶穩定的艦隊收藏遊戲環境和基本的輔助程式功能。\n\n修改者：Ming Chang\n\n特別感謝\nDavid Huang（修圖、巴哈文維護）\n@Senka_Viewer（OOI相關技術支援）",preferredStyle: .actionSheet)
+                       if let popoverController = info.popoverPresentationController {
+                           popoverController.sourceView = self.view
+                           popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+                           popoverController.permittedArrowDirections = []
+                       }
+                       info.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+                       info.addAction(UIAlertAction(title: "前往本修改版App官方網站", style: .default) { action in
+                           if let url = URL(string:"https://kc2tweaked.github.io") {
+                           UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
+                           }
+                       })
+                       info.addAction(UIAlertAction(title: "加入Discord", style: .default) { action in
+                           if let url = URL(string:"https://discord.gg/Yesf3cN") {
+                           UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
+                           }
+                       })
+                       self.present(info, animated: true)
+                   } else if (indexPath.row == 1) {
+                       let dialog = UIAlertController(title: "請選擇渠道", message: nil, preferredStyle: .actionSheet)
+                       if let popoverController = dialog.popoverPresentationController {
+                           popoverController.sourceView = self.view
+                           popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+                           popoverController.permittedArrowDirections = []
+                       }
+                       dialog.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+                       dialog.addAction(UIAlertAction(title: "支付寶", style: .default) { action in
+                           if let url = URL(string: "https://qr.alipay.com/tsx04467wmwmuqfxcmwmt7e") {
+                               UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
+                           }
+                       })
+                       dialog.addAction(UIAlertAction(title: "微信", style: .default) { action in
+                           if let url = URL(string:"https://ming900518.github.io/page/wechat_qrcode.png") {
+                               UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
+                           }
+                       })
+                       self.present(dialog, animated: true)
+                   }
+               }
 
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -233,7 +260,7 @@ extension SettingVC: UITableViewDelegate {
 extension SettingVC: UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
 
     public func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 4
     }
 
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -273,6 +300,7 @@ extension SettingVC: UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDa
                     cell.backgroundColor = UIColor.white
                 }
                 cell.textLabel?.text = "當前版本"
+                cell.isUserInteractionEnabled = false
                 if let versionCode = Bundle.main.infoDictionary?["CFBundleShortVersionString"] {
                     cell.detailTextLabel?.text = "\(versionCode)"
                 }
@@ -291,29 +319,61 @@ extension SettingVC: UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDa
             }
         } else if (indexPath.section == 2) {
             if (indexPath.row == 0) {
-                let cell = UITableViewCell(style: .default, reuseIdentifier: cellIdentifier)
-                if #available(iOS 13.0, *) {
-                    cell.backgroundColor = UIColor.secondarySystemBackground
-                } else {
-                    cell.backgroundColor = UIColor.white
-                }
-                cell.textLabel?.text = "關於本App"
-                cell.accessoryType = .disclosureIndicator
-                return cell
-            } else if (indexPath.row == 1) {
                 let cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellIdentifier)
                 if #available(iOS 13.0, *) {
                     cell.backgroundColor = UIColor.secondarySystemBackground
                 } else {
                     cell.backgroundColor = UIColor.white
                 }
-                cell.textLabel?.text = "捐贈原作者（非修改版作者）"
-                cell.detailTextLabel?.text = "支持原本的大佬吧～我就不用了，大家玩得開心最重要"
+                cell.textLabel?.text = "File Sharing (Beta Feature)"
                 cell.detailTextLabel?.textColor = UIColor.lightGray
-                cell.accessoryType = .disclosureIndicator
+                if Setting.getchangeCacheDir() == 1 {
+                    cell.isUserInteractionEnabled = false
+                    cell.textLabel?.isEnabled = false
+                    cell.detailTextLabel?.text = "本功能已經開啟，如需關閉請移除本App重新安裝"
+                    cell.accessoryType = .checkmark
+                } else {
+                    cell.detailTextLabel?.text = "啟用本功能後無需越獄即可使用iFunBox等檔案管理工具對緩存進行修改"
+                    cell.accessoryType = .disclosureIndicator
+                }
+                return cell
+            } else if (indexPath.row == 1) {
+                let cell = UITableViewCell(style: .value1, reuseIdentifier: cellIdentifier)
+                if #available(iOS 13.0, *) {
+                    cell.backgroundColor = UIColor.secondarySystemBackground
+                } else {
+                    cell.backgroundColor = UIColor.white
+                }
+                cell.textLabel?.text = "更多功能研發中......"
+                cell.isUserInteractionEnabled = false
+                cell.textLabel?.isEnabled = false
                 return cell
             }
-        }
+        } else if (indexPath.section == 3) {
+                   if (indexPath.row == 0) {
+                       let cell = UITableViewCell(style: .default, reuseIdentifier: cellIdentifier)
+                       if #available(iOS 13.0, *) {
+                           cell.backgroundColor = UIColor.secondarySystemBackground
+                       } else {
+                           cell.backgroundColor = UIColor.white
+                       }
+                       cell.textLabel?.text = "關於本App"
+                       cell.accessoryType = .disclosureIndicator
+                       return cell
+                   } else if (indexPath.row == 1) {
+                       let cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellIdentifier)
+                       if #available(iOS 13.0, *) {
+                           cell.backgroundColor = UIColor.secondarySystemBackground
+                       } else {
+                           cell.backgroundColor = UIColor.white
+                       }
+                       cell.textLabel?.text = "捐贈原作者（非修改版作者）"
+                       cell.detailTextLabel?.text = "支持原本的大佬吧～我就不用了，大家玩得開心最重要"
+                       cell.detailTextLabel?.textColor = UIColor.lightGray
+                       cell.accessoryType = .disclosureIndicator
+                       return cell
+                   }
+               }
     return UITableViewCell(style: .default, reuseIdentifier: cellIdentifier)
     }
 
