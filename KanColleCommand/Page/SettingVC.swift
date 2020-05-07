@@ -18,10 +18,10 @@ class SettingVC: UIViewController {
         let toolbar = UIView()
         if #available(iOS 13.0, *) {
             self.view.backgroundColor = UIColor.systemBackground
-            toolbar.backgroundColor = UIColor.systemBackground
+            //toolbar.backgroundColor = UIColor.systemFill
         } else {
             self.view.backgroundColor = UIColor(hexString: "#FBFBFB")
-            toolbar.backgroundColor = UIColor(hexString: "#FBFBFB")
+            //toolbar.backgroundColor = UIColor(hexString: "#FBFBFB")
         }
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.landscape = true
@@ -103,7 +103,34 @@ extension SettingVC: UITableViewDelegate {
 
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath.section == 0) {
-            if (indexPath.row == 0) {
+            if (indexPath.row == 1) {
+                let info = UIAlertController(title: "請選擇大破警告的類型", message: "選擇類型2的情況下關閉推播通知會自動改為類型1\n\n目前使用：類型\(Setting.getwarningAlert())" ,preferredStyle: .actionSheet)
+                if let popoverController = info.popoverPresentationController {
+                    popoverController.sourceView = self.view
+                    popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+                    popoverController.permittedArrowDirections = []
+                }
+                info.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+                info.addAction(UIAlertAction(title: "1. 增強型（警告視窗）", style: .default) { action in
+                    Setting.savewarningAlert(value: 1)
+                    self.close()
+                })
+                info.addAction(UIAlertAction(title: "2. 增強型（推播通知）", style: .default) { action in
+                    Setting.savewarningAlert(value: 2)
+                    self.close()
+                })
+                info.addAction(UIAlertAction(title: "3. 一般型（僅有畫面紅框）", style: .default) { action in
+                    Setting.savewarningAlert(value: 3)
+                    self.close()
+                })
+                self.present(info, animated: true)
+                print("Selected: ", Setting.getwarningAlert())
+                self.settingTable.reloadData()
+            } else if (indexPath.section == 2){
+                //App Appearance
+            }
+        } else if (indexPath.section == 1) {
+            if (indexPath.row == 0){
                 print("[INFO] Retry setting started by user.")
                 let selector: UIAlertController = UIAlertController(title: "\n\n\n\n\n\n\n\n\n\n", message: nil, preferredStyle: .actionSheet)
                 let picker = UIPickerView()
@@ -154,35 +181,8 @@ extension SettingVC: UITableViewDelegate {
                     self.present(result, animated: true)
                 })
                 self.present(dialog, animated: true)
-            }
-        } else if (indexPath.section == 1) {
-            if (indexPath.row == 1) {
-                let info = UIAlertController(title: "請選擇大破警告的類型，目前使用：類型\(Setting.getwarningAlert())", message: "預設類型2，未開啟推播通知預設類型1\n選擇類型2的情況下關閉推播通知會自動改為類型1" ,preferredStyle: .actionSheet)
-                if let popoverController = info.popoverPresentationController {
-                    popoverController.sourceView = self.view
-                    popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
-                    popoverController.permittedArrowDirections = []
-                }
-                info.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
-                info.addAction(UIAlertAction(title: "1. 增強型（警告視窗）", style: .default) { action in
-                    Setting.savewarningAlert(value: 1)
-                    self.close()
-                })
-                info.addAction(UIAlertAction(title: "2. 增強型（推播通知）", style: .default) { action in
-                    Setting.savewarningAlert(value: 2)
-                    self.close()
-                })
-                info.addAction(UIAlertAction(title: "3. 一般型（僅有畫面紅框）", style: .default) { action in
-                    Setting.savewarningAlert(value: 3)
-                    self.close()
-                })
-                self.present(info, animated: true)
-                print("Selected: ", Setting.getwarningAlert())
-                self.settingTable.reloadData()
-            }
-        } else if (indexPath.section == 2) {
-            if (indexPath.row == 0) {
-                let dialog = UIAlertController(title: "免責聲明", message: "1. 本功能開啟後，用戶能自行修改Cache內容\n2. 啟用本功能後除非刪除本App重新安裝，否則無法關閉\n3. 啟用前會先清理緩存，功能啟用完成後會關閉本App\n4. 如自行修改造成遊戲不穩定或白底黑字的狀況，本App相關所有開發者均不對此負責", preferredStyle: .actionSheet)
+            } else if (indexPath.row == 2) {
+                let dialog = UIAlertController(title: "功能說明", message: "1. 本功能開啟後，用戶能自行修改Cache內容\n2. 啟用本功能後除非刪除本App重新安裝，否則無法關閉\n3. 啟用前會先清理緩存，功能啟用完成後會關閉本App\n\n免責聲明：如自行修改造成遊戲不穩定或白底黑字的狀況，本App相關所有開發者均不對此負責", preferredStyle: .actionSheet)
                 if let popoverController = dialog.popoverPresentationController {
                     popoverController.sourceView = self.view
                     popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
@@ -207,48 +207,47 @@ extension SettingVC: UITableViewDelegate {
                 })
                 self.present(dialog, animated: true)
             }
-        } else if (indexPath.section == 3) {
-                   if (indexPath.row == 0) {
-                       let info = UIAlertController(title: "關於本App", message: "本App修改自NGA用戶亖葉(UID42542015)於2019年7月4號發佈的iKanColleCommand專案，提供iOS用戶穩定的艦隊收藏遊戲環境和基本的輔助程式功能。\n\n修改者：Ming Chang\n\n特別感謝\nDavid Huang（修圖、巴哈文維護）\n@Senka_Viewer（OOI相關技術支援）",preferredStyle: .actionSheet)
-                       if let popoverController = info.popoverPresentationController {
-                           popoverController.sourceView = self.view
-                           popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
-                           popoverController.permittedArrowDirections = []
-                       }
-                       info.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
-                       info.addAction(UIAlertAction(title: "前往本修改版App官方網站", style: .default) { action in
-                           if let url = URL(string:"https://kc2tweaked.github.io") {
-                           UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
-                           }
-                       })
-                       info.addAction(UIAlertAction(title: "加入Discord", style: .default) { action in
-                           if let url = URL(string:"https://discord.gg/Yesf3cN") {
-                           UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
-                           }
-                       })
-                       self.present(info, animated: true)
-                   } else if (indexPath.row == 1) {
-                       let dialog = UIAlertController(title: "請選擇渠道", message: nil, preferredStyle: .actionSheet)
-                       if let popoverController = dialog.popoverPresentationController {
-                           popoverController.sourceView = self.view
-                           popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
-                           popoverController.permittedArrowDirections = []
-                       }
-                       dialog.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
-                       dialog.addAction(UIAlertAction(title: "支付寶", style: .default) { action in
-                           if let url = URL(string: "https://qr.alipay.com/tsx04467wmwmuqfxcmwmt7e") {
-                               UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
-                           }
-                       })
-                       dialog.addAction(UIAlertAction(title: "微信", style: .default) { action in
-                           if let url = URL(string:"https://ming900518.github.io/page/wechat_qrcode.png") {
-                               UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
-                           }
-                       })
-                       self.present(dialog, animated: true)
-                   }
-               }
-
+        } else if (indexPath.section == 2) {
+            if (indexPath.row == 0) {
+                let info = UIAlertController(title: "關於本App", message: "本App修改自NGA用戶亖葉(UID42542015)於2019年7月4號發佈的iKanColleCommand專案，提供iOS用戶穩定的艦隊收藏遊戲環境和基本的輔助程式功能。\n\n修改者：Ming Chang\n\n特別感謝\nDavid Huang（修圖、巴哈文維護）\n@Senka_Viewer（OOI相關技術支援）",preferredStyle: .actionSheet)
+                if let popoverController = info.popoverPresentationController {
+                    popoverController.sourceView = self.view
+                    popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+                    popoverController.permittedArrowDirections = []
+                }
+                info.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+                info.addAction(UIAlertAction(title: "前往本修改版App官方網站", style: .default) { action in
+                    if let url = URL(string:"https://kc2tweaked.github.io") {
+                    UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
+                    }
+                })
+                info.addAction(UIAlertAction(title: "加入Discord", style: .default) { action in
+                    if let url = URL(string:"https://discord.gg/Yesf3cN") {
+                    UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
+                    }
+                })
+                self.present(info, animated: true)
+            } else if (indexPath.row == 1) {
+                let dialog = UIAlertController(title: "請選擇渠道", message: nil, preferredStyle: .actionSheet)
+                if let popoverController = dialog.popoverPresentationController {
+                    popoverController.sourceView = self.view
+                    popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+                    popoverController.permittedArrowDirections = []
+                }
+                dialog.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+                dialog.addAction(UIAlertAction(title: "支付寶", style: .default) { action in
+                    if let url = URL(string: "https://qr.alipay.com/tsx04467wmwmuqfxcmwmt7e") {
+                        UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
+                    }
+                })
+                dialog.addAction(UIAlertAction(title: "微信", style: .default) { action in
+                    if let url = URL(string:"https://ming900518.github.io/page/wechat_qrcode.png") {
+                        UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
+                    }
+                })
+                self.present(dialog, animated: true)
+            }
+        }
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
@@ -260,46 +259,25 @@ extension SettingVC: UITableViewDelegate {
 extension SettingVC: UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
 
     public func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 3
     }
 
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 3
     }
-
+    
+    public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let title2 = section == 2 ? "其他" : nil
+        let title1 = section == 1 ? "連線與緩存" : title2
+        let title = section == 0 ? "App設定" : title1
+        return title
+    }
+    
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.section == 0) {
             if (indexPath.row == 0) {
                 let cell = UITableViewCell(style: .value1, reuseIdentifier: cellIdentifier)
-                if #available(iOS 13.0, *) {
-                    cell.backgroundColor = UIColor.secondarySystemBackground
-                } else {
-                    cell.backgroundColor = UIColor.white
-                }
-                cell.textLabel?.text = "連接重試次數 (0為不重試)"
-                cell.detailTextLabel?.text = "\(Setting.getRetryCount())"
-                cell.accessoryType = .disclosureIndicator
-                return cell
-            } else if (indexPath.row == 1) {
-                let cell = UITableViewCell(style: .value1, reuseIdentifier: cellIdentifier)
-                if #available(iOS 13.0, *) {
-                    cell.backgroundColor = UIColor.secondarySystemBackground
-                } else {
-                    cell.backgroundColor = UIColor.white
-                }
-                cell.textLabel?.text = "清理Caches和Cookies"
-                cell.accessoryType = .disclosureIndicator
-                return cell
-            }
-        } else if (indexPath.section == 1) {
-            if (indexPath.row == 0) {
-                let cell = UITableViewCell(style: .value1, reuseIdentifier: cellIdentifier)
-                if #available(iOS 13.0, *) {
-                    cell.backgroundColor = UIColor.secondarySystemBackground
-                } else {
-                    cell.backgroundColor = UIColor.white
-                }
-                cell.textLabel?.text = "當前版本"
+                cell.textLabel?.text = "App版本"
                 cell.isUserInteractionEnabled = false
                 if let versionCode = Bundle.main.infoDictionary?["CFBundleShortVersionString"] {
                     cell.detailTextLabel?.text = "\(versionCode)"
@@ -307,73 +285,63 @@ extension SettingVC: UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDa
                 return cell
             } else if (indexPath.row == 1) {
                 let cell = UITableViewCell(style: .value1, reuseIdentifier: cellIdentifier)
-                if #available(iOS 13.0, *) {
-                    cell.backgroundColor = UIColor.secondarySystemBackground
-                } else {
-                    cell.backgroundColor = UIColor.white
-                }
-                cell.textLabel?.text = "程式功能"
-                cell.detailTextLabel?.text = "基本遊戲、輔助程式、大破警告 (類型\(Setting.getwarningAlert()))"//Cookies修改
+                cell.textLabel?.text = "大破警告設定"
+                cell.detailTextLabel?.text = "類型\(Setting.getwarningAlert())"
                 cell.accessoryType = .disclosureIndicator
                 return cell
-            }
-        } else if (indexPath.section == 2) {
-            if (indexPath.row == 0) {
-                let cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellIdentifier)
-                if #available(iOS 13.0, *) {
-                    cell.backgroundColor = UIColor.secondarySystemBackground
-                } else {
-                    cell.backgroundColor = UIColor.white
-                }
-                cell.textLabel?.text = "File Sharing (Beta Feature)"
-                cell.detailTextLabel?.textColor = UIColor.lightGray
-                if Setting.getchangeCacheDir() == 1 {
-                    cell.isUserInteractionEnabled = false
-                    cell.textLabel?.isEnabled = false
-                    cell.detailTextLabel?.text = "本功能已經開啟，如需關閉請移除本App重新安裝"
-                    cell.accessoryType = .checkmark
-                } else {
-                    cell.detailTextLabel?.text = "啟用本功能後無需越獄即可使用iFunBox等檔案管理工具對緩存進行修改"
-                    cell.accessoryType = .disclosureIndicator
-                }
-                return cell
-            } else if (indexPath.row == 1) {
+            } else if (indexPath.row == 2) {
                 let cell = UITableViewCell(style: .value1, reuseIdentifier: cellIdentifier)
-                if #available(iOS 13.0, *) {
-                    cell.backgroundColor = UIColor.secondarySystemBackground
-                } else {
-                    cell.backgroundColor = UIColor.white
-                }
-                cell.textLabel?.text = "更多功能研發中......"
+                cell.textLabel?.text = "外觀設定（即將推出，敬請期待）"
                 cell.isUserInteractionEnabled = false
                 cell.textLabel?.isEnabled = false
                 return cell
             }
-        } else if (indexPath.section == 3) {
-                   if (indexPath.row == 0) {
-                       let cell = UITableViewCell(style: .default, reuseIdentifier: cellIdentifier)
-                       if #available(iOS 13.0, *) {
-                           cell.backgroundColor = UIColor.secondarySystemBackground
-                       } else {
-                           cell.backgroundColor = UIColor.white
-                       }
-                       cell.textLabel?.text = "關於本App"
-                       cell.accessoryType = .disclosureIndicator
-                       return cell
-                   } else if (indexPath.row == 1) {
-                       let cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellIdentifier)
-                       if #available(iOS 13.0, *) {
-                           cell.backgroundColor = UIColor.secondarySystemBackground
-                       } else {
-                           cell.backgroundColor = UIColor.white
-                       }
-                       cell.textLabel?.text = "捐贈原作者（非修改版作者）"
-                       cell.detailTextLabel?.text = "支持原本的大佬吧～我就不用了，大家玩得開心最重要"
-                       cell.detailTextLabel?.textColor = UIColor.lightGray
-                       cell.accessoryType = .disclosureIndicator
-                       return cell
-                   }
-               }
+        } else if (indexPath.section == 1) {
+            if (indexPath.row == 0) {
+                let cell = UITableViewCell(style: .value1, reuseIdentifier: cellIdentifier)
+                cell.textLabel?.text = "連接重試次數 (0為不重試)"
+                cell.detailTextLabel?.text = "\(Setting.getRetryCount())"
+                cell.accessoryType = .disclosureIndicator
+                return cell
+            } else if (indexPath.row == 1) {
+                let cell = UITableViewCell(style: .value1, reuseIdentifier: cellIdentifier)
+                cell.textLabel?.text = "清理Caches和Cookies"
+                cell.accessoryType = .disclosureIndicator
+                return cell
+            } else if (indexPath.row == 2) {
+                let cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellIdentifier)
+                cell.textLabel?.text = "啟用App File Sharing (Beta)"
+                cell.detailTextLabel?.textColor = UIColor.lightGray
+                if Setting.getchangeCacheDir() == 1 {
+                    cell.isUserInteractionEnabled = false
+                    cell.textLabel?.isEnabled = false
+                    cell.detailTextLabel?.text = "本功能已經啟用，如需關閉需移除本App重新安裝"
+                } else {
+                    cell.detailTextLabel?.text = "啟用本功能後無需越獄即可使用iFunBox等檔案管理工具對Cache進行修改"
+                    cell.accessoryType = .disclosureIndicator
+                }
+                return cell
+            }
+        } else if (indexPath.section == 2) {
+            if (indexPath.row == 0) {
+                let cell = UITableViewCell(style: .default, reuseIdentifier: cellIdentifier)
+                cell.textLabel?.text = "關於本App"
+                cell.accessoryType = .disclosureIndicator
+                return cell
+            } else if (indexPath.row == 1) {
+                let cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellIdentifier)
+                cell.textLabel?.text = "捐贈原作者"
+                cell.detailTextLabel?.text = "支持原本的大佬吧～"
+                cell.detailTextLabel?.textColor = UIColor.lightGray
+                cell.accessoryType = .disclosureIndicator
+                return cell
+            } else if (indexPath.row == 2) {
+                let cell = UITableViewCell(style: .default, reuseIdentifier: cellIdentifier)
+                cell.isHidden = true
+                cell.isUserInteractionEnabled = false
+                return cell
+            }
+        }
     return UITableViewCell(style: .default, reuseIdentifier: cellIdentifier)
     }
 
