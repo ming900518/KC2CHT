@@ -36,4 +36,24 @@ class Setting {
     static func savechangeCacheDir(value: Int) {
         UserDefaults.standard.set(value, forKey: kchangeCacheDir)
     }
+    
+    private static let kfirstStartup = "firstStartup" //首次啟動
+    
+    static func getfirstStartup() -> Int {
+        return UserDefaults.standard.integer(forKey: kfirstStartup)
+    }
+
+    static func savefirstStartup(value: Int) {
+        UserDefaults.standard.set(value, forKey: kfirstStartup)
+    }
+    
+    private static let kconnection = "connection" //連線方式
+    
+    static func getconnection() -> Int {
+        return UserDefaults.standard.integer(forKey: kconnection)
+    }
+
+    static func saveconnection(value: Int) {
+        UserDefaults.standard.set(value, forKey: kconnection)
+    }
 }

@@ -44,7 +44,17 @@ class KCWebView: UIWebView {
     }
 
     func load() {
-        let url = URL(string: "about:blank")
+        var connection = String()
+        if Setting.getconnection() == 0 {
+            connection = "about:blank"
+        } else if Setting.getconnection() == 1 {
+            connection = Constants.HOME_PAGE
+        } else if Setting.getconnection() == 2 {
+            connection = Constants.OOI
+        } else if Setting.getconnection() == 3 {
+            connection = Constants.kcsu
+        }
+        let url = URL(string: connection)
         loadRequest(URLRequest(url: url!))
         loadCookie()
     }

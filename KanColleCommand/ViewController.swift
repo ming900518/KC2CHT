@@ -25,6 +25,23 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         webView = KCWebView()
         webView.setup(parent: self.view)
         webView.load()
+        if Setting.getconnection() == 1 {
+            if self.isConnectedToVpn == true {
+                UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+                UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+                let notificationCenter = UNUserNotificationCenter.current()
+                let content = UNMutableNotificationContent()
+                content.title = "偵測到使用VPN"
+                content.body = "ACGP用戶請至設定中將大小調整為1，以免出現白邊"
+                let identifier = "VPN Notification"
+                let request = UNNotificationRequest(identifier: identifier, content: content, trigger: nil)
+                notificationCenter.add(request) { (error) in
+                    if let error = error {
+                        print("Error \(error.localizedDescription)")
+                    }
+                }
+            }
+        }
         webView.scrollView.isScrollEnabled = true;
         self.webView.isOpaque = false;
         self.webView.backgroundColor = UIColor.black
@@ -142,16 +159,32 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.loginChanger()
+        if Setting.getfirstStartup() == 0 {
+            self.loginChanger()
+        } else {
+            if Setting.getconnection() == 0{
+                let alert = UIAlertController(title: "未選擇預設登入方式", message: "請選擇以下其中一種操作", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "選擇預設登入方式", style: .default) { action in
+                    self.loginChanger()
+                })
+                alert.addAction(UIAlertAction(title: "清理Caches和Cookies", style: .default) { action in
+                    self.cleaner()
+                })
+                alert.addAction(UIAlertAction(title: "關閉本App", style: .destructive) { action in
+                    exit(0)
+                    })
+                self.present(alert, animated: true)
+            }
+        }
     }
 
     @objc func confirmRefresh() {
-        //let dialog = UIAlertController(title: nil, message: "前往登入方式切換器", preferredStyle: .alert)
-        //dialog.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
-        //dialog.addAction(UIAlertAction(title: "確定", style: .default) { action in
-            //self.reloadGame()
-        //})
-        self.loginChanger()
+        let dialog = UIAlertController(title: nil, message: "重新整理頁面", preferredStyle: .alert)
+        dialog.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+        dialog.addAction(UIAlertAction(title: "確定", style: .default) { action in
+            self.reloadGame()
+        })
+        present(dialog, animated: true)
     }
 
     @objc func openSetting() {
@@ -189,27 +222,14 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     }
     
     @objc func loginChanger(){
-        let dialog = UIAlertController(title: "iKanColleCommand", message: "請選擇登入遊戲方式", preferredStyle: .alert)
+        let dialog = UIAlertController(title: "歡迎使用iKanColleCommand", message: "請選擇預設登入遊戲方式\n需要變更可至設定中進行變更", preferredStyle: .alert)
         dialog.addAction(UIAlertAction(title: "官方DMM網站（VPN/日本可用）", style: .default) { action in
+            Setting.saveconnection(value: 1)
             let url = URL(string: Constants.HOME_PAGE)
             self.webView.loadRequest(URLRequest(url: url!))
-            if self.isConnectedToVpn == true {
-                UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-                UNUserNotificationCenter.current().removeAllDeliveredNotifications()
-                let notificationCenter = UNUserNotificationCenter.current()
-                let content = UNMutableNotificationContent()
-                content.title = "偵測到使用VPN"
-                content.body = "ACGP用戶請至設定中將大小調整為1，以免出現白邊"
-                let identifier = "ooi Notification"
-                let request = UNNotificationRequest(identifier: identifier, content: content, trigger: nil)
-                notificationCenter.add(request) { (error) in
-                    if let error = error {
-                        print("Error \(error.localizedDescription)")
-                    }
-                }
-            }
         })
         dialog.addAction(UIAlertAction(title: "緩存系統ooi（全球用戶可用）", style: .default) { action in
+            Setting.saveconnection(value: 2)
             let url = URL(string: Constants.OOI)
             self.webView.loadRequest(URLRequest(url: url!))
             if UIScreen.current <= .iPhone6_5 {
@@ -217,7 +237,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
                 UNUserNotificationCenter.current().removeAllDeliveredNotifications()
                 let notificationCenter = UNUserNotificationCenter.current()
                 let content = UNMutableNotificationContent()
-                content.title = "ooi登入方式提示"
+                content.title = "首次使用ooi登入方式提示"
                 content.body = "請選擇以「在POI中运行」方式登入以獲得最佳遊戲體驗"
                 let identifier = "ooi Notification"
                 let request = UNNotificationRequest(identifier: identifier, content: content, trigger: nil)
@@ -229,6 +249,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             }
         })
         dialog.addAction(UIAlertAction(title: "緩存系統kancolle.su（大陸地區以外）", style: .default) { action in
+            Setting.saveconnection(value: 3)
             let url = URL(string: Constants.kcsu)
             self.webView.loadRequest(URLRequest(url: url!))
             if UIScreen.current <= .iPhone6_5 {
@@ -236,7 +257,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
                 UNUserNotificationCenter.current().removeAllDeliveredNotifications()
                 let notificationCenter = UNUserNotificationCenter.current()
                 let content = UNMutableNotificationContent()
-                content.title = "kancolle.su登入方式提示"
+                content.title = "首次使用kancolle.su登入方式提示"
                 content.body = "請選擇以「Fullscreen - Optimised for poi and smartphones」方式登入以獲得最佳遊戲體驗"
                 let identifier = "kcsu Notification"
                 let request = UNNotificationRequest(identifier: identifier, content: content, trigger: nil)
@@ -251,6 +272,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             self.blankPage()
         })
         present(dialog, animated: true)
+        Setting.savefirstStartup(value: 1)
     }
     
     @objc func blankPage(){
@@ -258,9 +280,9 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         let currentPage = self.webView.request!.url!.absoluteString
         if currentPage == blank {
             let alert = UIAlertController(title: "遊戲尚未開啟", message: "請選擇以下其中一種操作", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "返回選擇登入方式", style: .default) { action in
-                self.loginChanger()
-                })
+            alert.addAction(UIAlertAction(title: "嘗試重新整理", style: .default) { action in
+                self.reloadGame()
+            })
             alert.addAction(UIAlertAction(title: "清理Caches和Cookies", style: .default) { action in
                 self.cleaner()
             })
