@@ -56,4 +56,14 @@ class Setting {
     static func saveconnection(value: Int) {
         UserDefaults.standard.set(value, forKey: kconnection)
     }
+    
+    private static let kAppIcon = "AppIconChange"
+    
+    static func getAppIconChange() -> Int {
+        return UserDefaults.standard.integer(forKey: kAppIcon)
+    }
+
+    static func saveAppIconChange(value: Int) {
+        UserDefaults.standard.set(value, forKey: kAppIcon)
+    }
 }

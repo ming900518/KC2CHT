@@ -336,9 +336,13 @@ extension SettingVC: UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDa
                 return cell
             } else if (indexPath.row == 2) {
                 let cell = UITableViewCell(style: .value1, reuseIdentifier: cellIdentifier)
-                cell.textLabel?.text = "App Icon 切換"
+                cell.textLabel?.text = "App Icon切換"
                 let switchView = UISwitch(frame: .zero)
-                switchView.setOn(false, animated: true)
+                if Setting.getAppIconChange() == 0 {
+                    switchView.setOn(false, animated: false)
+                } else {
+                    switchView.setOn(true, animated: false)
+                }
                 switchView.tag = indexPath.row // for detect which row switch Changed
                 switchView.addTarget(self, action: #selector(self.switchChanged(_:)), for: .valueChanged)
                 cell.accessoryView = switchView
@@ -425,10 +429,12 @@ extension SettingVC: UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDa
                         print("Done!")
                     }
                 }
+                Setting.saveAppIconChange(value: 1)
             }
         } else {
             print("change to primary icon")
             UIApplication.shared.setAlternateIconName(nil)
+            Setting.saveAppIconChange(value: 0)
         }
     }
 

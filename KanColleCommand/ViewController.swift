@@ -153,8 +153,6 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         }
         refreshBtn.addTarget(self, action: #selector(confirmRefresh), for: .touchUpInside)
 
-        let drawer = Drawer()
-        drawer.attachTo(controller: self)
         
     }
     
@@ -305,5 +303,16 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             }
         }
         return false
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        webView.isHidden = true
+        webView.removeFromSuperview()
+        Drawer().removeFromSuperview()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        webView.setup(parent: self.view)
+        let drawer = Drawer()
+        drawer.attachTo(controller: self)
+        webView.isHidden = false
     }
 }
