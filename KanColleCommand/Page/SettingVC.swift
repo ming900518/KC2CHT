@@ -336,9 +336,12 @@ extension SettingVC: UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDa
                 return cell
             } else if (indexPath.row == 2) {
                 let cell = UITableViewCell(style: .value1, reuseIdentifier: cellIdentifier)
-                cell.textLabel?.text = "App外觀（即將推出，敬請期待）"
-                cell.isUserInteractionEnabled = false
-                cell.textLabel?.isEnabled = false
+                cell.textLabel?.text = "App Icon 切換"
+                let switchView = UISwitch(frame: .zero)
+                switchView.setOn(false, animated: true)
+                switchView.tag = indexPath.row // for detect which row switch Changed
+                switchView.addTarget(self, action: #selector(self.switchChanged(_:)), for: .valueChanged)
+                cell.accessoryView = switchView
                 return cell
             }
         } else if (indexPath.section == 1) {
@@ -407,6 +410,26 @@ extension SettingVC: UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDa
 
     public func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return "\(row)"
+    }
+    
+    @objc public func switchChanged(_ sender : UISwitch!){
+        print("table row switch Changed \(sender.tag)")
+        print("The switch is \(sender.isOn ? "ON" : "OFF")")
+        if sender.isOn == true {
+            if UIApplication.shared.supportsAlternateIcons {
+                print("current icon is primary icon, change to alternative icon")
+                UIApplication.shared.setAlternateIconName("AlternateIcon"){ error in
+                    if let error = error {
+                        print(error.localizedDescription)
+                    } else {
+                        print("Done!")
+                    }
+                }
+            }
+        } else {
+            print("change to primary icon")
+            UIApplication.shared.setAlternateIconName(nil)
+        }
     }
 
 }
