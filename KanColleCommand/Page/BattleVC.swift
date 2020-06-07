@@ -27,7 +27,11 @@ class BattleVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = ViewController.DEFAULT_BACKGROUND
+        if Setting.getUsePic() == 0 {
+            self.view.backgroundColor = ViewController.DEFAULT_BACKGROUND
+        } else {
+            self.view.backgroundColor = ViewController.DEFAULT_BACKGROUND.withAlphaComponent(0.7)
+        }
         setupList()
         setupInfoViews()
         watchBattle()

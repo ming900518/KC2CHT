@@ -95,12 +95,26 @@ class Drawer: UIView {
     }
 
     @objc private func onTap() {
+        var drawerDuration: Double?
+        if Setting.getDrawerDuration() == 0 {
+            drawerDuration = 0
+        } else if Setting.getDrawerDuration() == 1 {
+            drawerDuration = 0.2
+        } else if Setting.getDrawerDuration() == 2 {
+            drawerDuration = 0.4
+        } else if Setting.getDrawerDuration() == 3 {
+            drawerDuration = 0.6
+        } else if Setting.getDrawerDuration() == 4 {
+            drawerDuration = 0.8
+        } else if Setting.getDrawerDuration() == 5 {
+            drawerDuration = 1
+        }
         if (expanded) {
-            UIView.animate(withDuration: 0.3,
+            UIView.animate(withDuration: drawerDuration ?? 0.4,
                     animations: { () -> Void in self.maskingView.alpha = 0 },
                     completion: { b in self.maskingView.isHidden = true }
             )
-            UIView.animate(withDuration: 0.3) { () -> Void in
+            UIView.animate(withDuration: drawerDuration ?? 0.4) { () -> Void in
                 self.positionConstraint?.update(offset: 0)
                 self.superview?.layoutIfNeeded()
             }
@@ -116,21 +130,44 @@ extension Drawer: GripDelegate {
     func onCheck(index: Int) {
         switch (index) {
         case 1:
+            battleVC.view.isHidden = false
             bringSubviewToFront(battleVC.view)
+            missionVC.view.isHidden = true
+            fleetVC.view.isHidden = true
             break
         case 2:
+            missionVC.view.isHidden = false
             bringSubviewToFront(missionVC.view)
+            battleVC.view.isHidden = true
+            fleetVC.view.isHidden = true
             break
         default:
+            fleetVC.view.isHidden = false
             bringSubviewToFront(fleetVC.view)
+            missionVC.view.isHidden = true
+            battleVC.view.isHidden = true
             break
+        }
+        var drawerDuration: Double?
+        if Setting.getDrawerDuration() == 0 {
+            drawerDuration = 0
+        } else if Setting.getDrawerDuration() == 1 {
+            drawerDuration = 0.2
+        } else if Setting.getDrawerDuration() == 2 {
+            drawerDuration = 0.4
+        } else if Setting.getDrawerDuration() == 3 {
+            drawerDuration = 0.6
+        } else if Setting.getDrawerDuration() == 4 {
+            drawerDuration = 0.8
+        } else if Setting.getDrawerDuration() == 5 {
+            drawerDuration = 1
         }
         if (!expanded) {
             self.maskingView.isHidden = false
-            UIView.animate(withDuration: 0.3,
+            UIView.animate(withDuration: drawerDuration ?? 0.4,
                     animations: { () -> Void in self.maskingView.alpha = 1 }
             )
-            UIView.animate(withDuration: 0.3) { () -> Void in
+            UIView.animate(withDuration: drawerDuration ?? 0.4) { () -> Void in
                 self.positionConstraint?.update(offset: -self.kWidth)
                 self.superview?.layoutIfNeeded()
             }

@@ -66,4 +66,24 @@ class Setting {
     static func saveAppIconChange(value: Int) {
         UserDefaults.standard.set(value, forKey: kAppIcon)
     }
+    
+    private static let kUsePic = "UsePic"
+    
+    static func getUsePic() -> Int {
+        return UserDefaults.standard.integer(forKey: kUsePic)
+    }
+
+    static func saveUsePic(value: Int) {
+        UserDefaults.standard.set(value, forKey: kUsePic)
+    }
+    
+    private static let kDrawerDuration = "SetDrawerAnimationDuration"
+    
+    static func getDrawerDuration() -> Int {
+        return UserDefaults.standard.integer(forKey: kDrawerDuration)
+    }
+
+    static func saveDrawerDuration(value: Int) {
+        UserDefaults.standard.set(value, forKey: kDrawerDuration)
+    }
 }

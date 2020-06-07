@@ -26,6 +26,7 @@
 		7A2216E824837115005F7AA2 /* AlternateIcon60x60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A2216DA24837115005F7AA2 /* AlternateIcon60x60@3x.png */; };
 		7AAE039023374CAB00FC27F8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AAE038F23374CAB00FC27F8 /* AudioToolbox.framework */; };
 		7ACE2D5B247774FD007F4F57 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7ACE2D5A247774FD007F4F57 /* Settings.bundle */; };
+		7AFCA242248C987300A991F3 /* AppearanceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFCA241248C987300A991F3 /* AppearanceVC.swift */; };
 		C18407F7E883A388E01EC15A /* libPods-KanColleCommand.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A215CC563D20C8D89C53CA /* libPods-KanColleCommand.a */; };
 		C600267289FBB1B5CB83D4F7 /* BattleNightSp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C600E2F28E1FB2811C399D06 /* BattleNightSp.swift */; };
 		C60032DCBAD6778EA3AB8E6A /* slot_36.png in Resources */ = {isa = PBXBuildFile; fileRef = C6025C1FA627C532327B8DE5 /* slot_36.png */; };
@@ -192,6 +193,7 @@
 		7AAE038E23374CAB00FC27F8 /* KanColleCommand.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KanColleCommand.entitlements; sourceTree = "<group>"; };
 		7AAE038F23374CAB00FC27F8 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		7ACE2D5A247774FD007F4F57 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		7AFCA241248C987300A991F3 /* AppearanceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceVC.swift; sourceTree = "<group>"; };
 		7AFE95562339C57D006D8854 /* KanColleCommand.profdata */ = {isa = PBXFileReference; lastKnownFileType = file; path = KanColleCommand.profdata; sourceTree = "<group>"; };
 		A13C1AA5A0C1AE357F660C12 /* Pods-KanColleCommand.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KanColleCommand.release.xcconfig"; path = "Pods/Target Support Files/Pods-KanColleCommand/Pods-KanColleCommand.release.xcconfig"; sourceTree = "<group>"; };
 		C600010C70E9931478A661DB /* DestroyItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestroyItem.swift; sourceTree = "<group>"; };
@@ -586,6 +588,7 @@
 				C602AA615C49053A678E2107 /* BattleVC.swift */,
 				C604D66013768942680732EA /* MissionVC.swift */,
 				C60BA2F315190D76C746A3F4 /* SettingVC.swift */,
+				7AFCA241248C987300A991F3 /* AppearanceVC.swift */,
 			);
 			path = Page;
 			sourceTree = "<group>";
@@ -850,6 +853,7 @@
 				C6036A28F3CABAA0233A4253 /* AppDelegate.swift in Sources */,
 				C602569B2F6BC8FBC5614C09 /* KanColleCommand.xcdatamodeld in Sources */,
 				C6064A58220B8304A0405325 /* ViewController.swift in Sources */,
+				7AFCA242248C987300A991F3 /* AppearanceVC.swift in Sources */,
 				C607EA6D9705FB67766730F9 /* WebHandler.swift in Sources */,
 				C603DED3E2CE59CD95419684 /* CacheManager.swift in Sources */,
 				C60BA0B9848CD566ADC37678 /* Utils.swift in Sources */,
@@ -973,7 +977,7 @@
 				INFOPLIST_FILE = KanColleCommand/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = "1.0 (TW.CHT-R2.5Beta5)";
+				MARKETING_VERSION = "1.0 (TW.CHT-R2.5Beta6)";
 				PRODUCT_BUNDLE_IDENTIFIER = tw.cctech.ikancollecmd;
 				PRODUCT_NAME = iKanColleCmd;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1005,7 +1009,7 @@
 				INFOPLIST_FILE = KanColleCommand/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = "1.0 (TW.CHT-R2.5Beta5)";
+				MARKETING_VERSION = "1.0 (TW.CHT-R2.5Beta6)";
 				PRODUCT_BUNDLE_IDENTIFIER = tw.cctech.ikancollecmd;
 				PRODUCT_NAME = iKanColleCmd;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1078,6 +1082,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/KanColleCommand/Bridge-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VALID_ARCHS = "arm64 arm64e";
 			};
 			name = Debug;
 		};
@@ -1129,10 +1134,12 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/KanColleCommand/Bridge-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "arm64 arm64e";
 			};
 			name = Release;
 		};

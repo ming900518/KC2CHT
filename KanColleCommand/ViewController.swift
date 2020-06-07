@@ -21,6 +21,12 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         appDelegate.landscape = true
         UIApplication.shared.isIdleTimerDisabled = true
         self.view.backgroundColor = UIColor.init(white: 0.185, alpha: 1)
+        
+        if Setting.getfirstStartup() != 0 {
+            if Setting.getconnection() == 0 {
+                self.loginChanger()
+            }
+        }
 
         webView = KCWebView()
         webView.setup(parent: self.view)
@@ -152,6 +158,25 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             maker.top.equalTo(settingBtn.snp.bottom)
         }
         refreshBtn.addTarget(self, action: #selector(confirmRefresh), for: .touchUpInside)
+        
+        let appearanceBtn = UIButton(type: .custom)
+        if #available(iOS 13.0, *) {
+            let boldConfig = UIImage.SymbolConfiguration(weight: .bold)
+            appearanceBtn.setImage(UIImage(systemName: "pencil", withConfiguration: boldConfig), for: .normal)
+            appearanceBtn.tintColor = UIColor.white
+        } else {
+            appearanceBtn.setImage(UIImage(named: "refresh.png"), for: .normal)
+        }
+        appearanceBtn.imageEdgeInsets = UIEdgeInsets.init(top: 8, left: 8, bottom: 8, right: 8)
+        appearanceBtn.backgroundColor = UIColor.init(white: 0.185, alpha: 1)//ViewController.DEFAULT_BACKGROUND
+        self.view.addSubview(appearanceBtn)
+        appearanceBtn.snp.makeConstraints { maker in
+            maker.width.equalTo(40)
+            maker.height.equalTo(40)
+            maker.right.equalTo(refreshBtn.snp.right)
+            maker.bottom.equalTo(view.snp.bottom).inset(20)
+        }
+        appearanceBtn.addTarget(self, action: #selector(openAppearance), for: .touchUpInside)
 
         Drawer().attachTo(controller: self)
     }
@@ -188,6 +213,11 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     @objc func openSetting() {
         let settingVC = SettingVC()
         present(settingVC, animated: true)
+    }
+    
+    @objc func openAppearance() {
+        let appearanceVC = AppearanceVC()
+        present(appearanceVC, animated: true)
     }
 
     @objc func reloadGame() {
@@ -277,10 +307,20 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         let blank = "about:blank"
         let currentPage = self.webView.request!.url!.absoluteString
         if currentPage == blank {
-            let alert = UIAlertController(title: "遊戲尚未開啟", message: "請選擇以下其中一種操作", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "嘗試重新整理", style: .default) { action in
-                self.reloadGame()
-            })
+            var titleText: String?
+            if Setting.getconnection() == 0 {
+                titleText = "未選擇預設登入方式"
+            } else {
+                titleText = "遊戲尚未開啟"
+            }
+            let alert = UIAlertController(title: titleText, message: "請選擇以下其中一種操作", preferredStyle: .alert)
+            if Setting.getconnection() == 0 {
+                alert.addAction(UIAlertAction(title: "選擇預設登入方式", style: .default) { action in
+                    self.loginChanger()
+                })
+            } else {
+                
+            }
             alert.addAction(UIAlertAction(title: "清理Caches和Cookies", style: .default) { action in
                 self.cleaner()
             })
@@ -288,8 +328,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
                 exit(0)
                 })
             self.present(alert, animated: true)
-        }
-        else {
+        } else {
             return
         }
     }
