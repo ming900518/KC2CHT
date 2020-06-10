@@ -106,7 +106,30 @@ class AppearanceVC: UIViewController, UIImagePickerControllerDelegate , UIPicker
 
 extension AppearanceVC: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (indexPath.section == 1) {
+        if (indexPath.section == 0) {
+            if (indexPath.row == 0) {
+                let dialog = UIAlertController(title: "請選擇樣式", message: nil, preferredStyle: .actionSheet)
+                if let popoverController = dialog.popoverPresentationController {
+                    popoverController.sourceView = self.view
+                    popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+                    popoverController.permittedArrowDirections = []
+                }
+                dialog.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+                dialog.addAction(UIAlertAction(title: "預設", style: .default) { action in
+                    Setting.saveUseTheme(value: 0)
+                    let result = UIAlertController(title: "請重啟App以套用", message: nil, preferredStyle: .alert)
+                    result.addAction(UIAlertAction(title: "確定", style: .default, handler: nil))
+                    self.present(result, animated: true)
+                })
+                dialog.addAction(UIAlertAction(title: "黑玻璃透明", style: .default) { action in
+                    Setting.saveUseTheme(value: 1)
+                    let result = UIAlertController(title: "請重啟App以套用", message: nil, preferredStyle: .alert)
+                    result.addAction(UIAlertAction(title: "確定", style: .default, handler: nil))
+                    self.present(result, animated: true)
+                })
+                self.present(dialog, animated: true)
+            }
+        } else if (indexPath.section == 1) {
             if (indexPath.row == 0) {
                 print("[INFO] Duration setting started by user.")
                 let selector: UIAlertController = UIAlertController(title: "\n\n\n\n\n\n\n\n\n\n", message: nil, preferredStyle: .actionSheet)
@@ -156,16 +179,13 @@ extension AppearanceVC: UITableViewDataSource {
         if (indexPath.section == 0) {
             if (indexPath.row == 0) {
                 let cell = UITableViewCell(style: .value1, reuseIdentifier: cellIdentifier)
-                cell.textLabel?.text = "使用圖片作為輔助程式背景"
-                let switchView = UISwitch(frame: .zero)
-                if Setting.getUsePic() == 0 {
-                    switchView.setOn(false, animated: false)
+                cell.textLabel?.text = "輔助程式主題"
+                if Setting.getUseTheme() == 0 {
+                    cell.detailTextLabel?.text = "預設"
                 } else {
-                    switchView.setOn(true, animated: false)
+                    cell.detailTextLabel?.text = "黑玻璃透明"
                 }
-                switchView.tag = indexPath.row // for detect which row switch Changed
-                switchView.addTarget(self, action: #selector(self.switchChanged(_:)), for: .valueChanged)
-                cell.accessoryView = switchView
+                cell.accessoryType = .disclosureIndicator
                 return cell
             }
         } else if (indexPath.section == 1) {
@@ -180,70 +200,7 @@ extension AppearanceVC: UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         return UITableViewCell(style: .default, reuseIdentifier: cellIdentifier)
     }
-    @objc public func switchChanged(_ sender : UISwitch!){
-        print("table row switch Changed \(sender.tag)")
-        print("The switch is \(sender.isOn ? "ON" : "OFF")")
-        if sender.isOn == true {
-            Setting.saveUsePic(value: 1)
-            let alert = UIAlertController(title: "選擇圖片方式", message: nil, preferredStyle: .actionSheet)
-            if let popoverController = alert.popoverPresentationController {
-                popoverController.sourceView = self.view
-                popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
-                popoverController.permittedArrowDirections = []
-            }
-            alert.addAction(UIAlertAction(title: "開啟相機", style: .default) { action in
-                self.openCamera()
-            })
-            alert.addAction(UIAlertAction(title: "從相簿中選擇", style: .default) { action in
-                self.openGallery()
-            })
-            alert.addAction(UIAlertAction.init(title: "取消", style: .cancel) { action in
-                Setting.saveUsePic(value: 0)
-                self.appearanceTable.reloadData()
-                let result = UIAlertController(title: "操作已取消", message: "本App即將關閉", preferredStyle: .alert)
-                result.addAction(UIAlertAction(title: "確定", style: .default) { action in
-                    exit(0)
-                })
-                self.present(result, animated: true)
-            })
-            self.present(alert, animated: true, completion: nil)
-        } else {
-            Setting.saveUsePic(value: 0)
-            let result = UIAlertController(title: "設定已還原", message: "本App即將關閉", preferredStyle: .alert)
-            result.addAction(UIAlertAction(title: "確定", style: .default) { action in
-                exit(0)
-            })
-            self.present(result, animated: true)
-        }
-    }
-    public func openCamera() {
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
-            let imagePicker = UIImagePickerController()
-            imagePicker.delegate = self
-            imagePicker.sourceType = UIImagePickerController.SourceType.camera
-            self.present(imagePicker, animated: true, completion: nil)
-        } else {
-            let alert = UIAlertController(title: "Warning", message: "You don't have camera", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-            Setting.saveUsePic(value: 0)
-            self.appearanceTable.reloadData()
-        }
-    }
-    public func openGallery() {
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary){
-            let imagePicker = UIImagePickerController()
-            imagePicker.delegate = self
-            imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
-            self.present(imagePicker, animated: true, completion: nil)
-        } else {
-            let alert = UIAlertController(title: "Warning", message: "You don't have permission to access gallery.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-            Setting.saveUsePic(value: 0)
-            self.appearanceTable.reloadData()
-        }
-    }
+    
     public func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
         return CGFloat(40)
     }

@@ -90,7 +90,6 @@ class CacheManager {
 
     private class func baseDir() -> String {
         if Setting.getchangeCacheDir() == 1 {
-            print("[WARN] BETA FEATURE 1 HAS BEEN ACTIVATED, NOT GOING TO SAVE ANY CACHES IN THE OLD DIR.")
             print("[INFO] Using Documents as cache dir.")
             return NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last!
         } else {

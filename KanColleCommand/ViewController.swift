@@ -20,7 +20,11 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.landscape = true
         UIApplication.shared.isIdleTimerDisabled = true
-        self.view.backgroundColor = UIColor.init(white: 0.185, alpha: 1)
+        if Setting.getUseTheme() == 1 {
+            self.view.backgroundColor = UIColor.init(white: 0, alpha: 1)
+        } else {
+            self.view.backgroundColor = UIColor.init(white: 0.185, alpha: 1)
+        }
         
         if Setting.getfirstStartup() != 0 {
             if Setting.getconnection() == 0 {
@@ -106,7 +110,11 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         let settingBtn = UIButton(type: .custom)
         settingBtn.setImage(UIImage(named: "setting.png"), for: .normal)
         settingBtn.imageEdgeInsets = UIEdgeInsets.init(top: 8, left: 8, bottom: 8, right: 8)
-        settingBtn.backgroundColor = UIColor.init(white: 0.185, alpha: 1)
+        if Setting.getUseTheme() == 1 {
+            settingBtn.backgroundColor = UIColor.init(white: 0, alpha: 1)
+        } else {
+            settingBtn.backgroundColor = UIColor.init(white: 0.185, alpha: 1)
+        }
         self.view.addSubview(settingBtn)
         if (UIScreen.current == .iPhone5_8) { //iPhone X XS 11Pro
             settingBtn.snp.makeConstraints { maker in
@@ -149,7 +157,11 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         let refreshBtn = UIButton(type: .custom)
         refreshBtn.setImage(UIImage(named: "reload.png"), for: .normal)
         refreshBtn.imageEdgeInsets = UIEdgeInsets.init(top: 8, left: 8, bottom: 8, right: 8)
-        refreshBtn.backgroundColor = UIColor.init(white: 0.185, alpha: 1)//ViewController.DEFAULT_BACKGROUND
+        if Setting.getUseTheme() == 1 {
+            refreshBtn.backgroundColor = UIColor.init(white: 0, alpha: 1)
+        } else {
+            refreshBtn.backgroundColor = UIColor.init(white: 0.185, alpha: 1)
+        }
         self.view.addSubview(refreshBtn)
         refreshBtn.snp.makeConstraints { maker in
             maker.width.equalTo(40)
@@ -168,12 +180,16 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             appearanceBtn.setImage(UIImage(named: "refresh.png"), for: .normal)
         }
         appearanceBtn.imageEdgeInsets = UIEdgeInsets.init(top: 8, left: 8, bottom: 8, right: 8)
-        appearanceBtn.backgroundColor = UIColor.init(white: 0.185, alpha: 1)//ViewController.DEFAULT_BACKGROUND
+        if Setting.getUseTheme() == 1 {
+            appearanceBtn.backgroundColor = UIColor.init(white: 0, alpha: 1)
+        } else {
+            appearanceBtn.backgroundColor = UIColor.init(white: 0.185, alpha: 1)
+        }
         self.view.addSubview(appearanceBtn)
         appearanceBtn.snp.makeConstraints { maker in
             maker.width.equalTo(40)
             maker.height.equalTo(40)
-            maker.right.equalTo(refreshBtn.snp.right)
+            maker.centerX.equalTo(refreshBtn.snp.centerX)
             maker.bottom.equalTo(view.snp.bottom).inset(20)
         }
         appearanceBtn.addTarget(self, action: #selector(openAppearance), for: .touchUpInside)

@@ -67,14 +67,14 @@ class Setting {
         UserDefaults.standard.set(value, forKey: kAppIcon)
     }
     
-    private static let kUsePic = "UsePic"
+    private static let kUseTheme = "UseTheme"
     
-    static func getUsePic() -> Int {
-        return UserDefaults.standard.integer(forKey: kUsePic)
+    static func getUseTheme() -> Int {
+        return UserDefaults.standard.integer(forKey: kUseTheme)
     }
 
-    static func saveUsePic(value: Int) {
-        UserDefaults.standard.set(value, forKey: kUsePic)
+    static func saveUseTheme(value: Int) {
+        UserDefaults.standard.set(value, forKey: kUseTheme)
     }
     
     private static let kDrawerDuration = "SetDrawerAnimationDuration"
