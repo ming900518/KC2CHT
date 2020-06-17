@@ -37,17 +37,19 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         webView.load()
         if Setting.getconnection() == 1 {
             if self.isConnectedToVpn == true {
-                UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-                UNUserNotificationCenter.current().removeAllDeliveredNotifications()
-                let notificationCenter = UNUserNotificationCenter.current()
-                let content = UNMutableNotificationContent()
-                content.title = "偵測到使用VPN"
-                content.body = "ACGP用戶請至設定中將大小調整為1，以免出現白邊"
-                let identifier = "VPN Notification"
-                let request = UNNotificationRequest(identifier: identifier, content: content, trigger: nil)
-                notificationCenter.add(request) { (error) in
-                    if let error = error {
-                        print("Error \(error.localizedDescription)")
+                if Setting.getfirstStartup() != 0 {
+                    UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+                    UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+                    let notificationCenter = UNUserNotificationCenter.current()
+                    let content = UNMutableNotificationContent()
+                    content.title = "偵測到使用VPN"
+                    content.body = "ACGP用戶請至設定中將大小調整為1，以免出現白邊"
+                    let identifier = "VPN Notification"
+                    let request = UNNotificationRequest(identifier: identifier, content: content, trigger: nil)
+                    notificationCenter.add(request) { (error) in
+                        if let error = error {
+                            print("Error \(error.localizedDescription)")
+                        }
                     }
                 }
             }

@@ -191,7 +191,7 @@ extension AppearanceVC: UITableViewDataSource {
         } else if (indexPath.section == 1) {
             if (indexPath.row == 0) {
                 let cell = UITableViewCell(style: .value1, reuseIdentifier: cellIdentifier)
-                cell.textLabel?.text = "輔助程式彈出速度"
+                cell.textLabel?.text = "輔助程式彈出速度（數值越小越快）"
                 cell.detailTextLabel?.text = "\(Setting.getDrawerDuration())"
                 cell.accessoryType = .disclosureIndicator
                 return cell

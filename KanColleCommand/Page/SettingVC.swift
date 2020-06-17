@@ -219,30 +219,57 @@ extension SettingVC: UITableViewDelegate {
                 })
                 self.present(dialog, animated: true)
             } else if (indexPath.row == 2) {
-                let dialog = UIAlertController(title: "功能說明", message: "1. 本功能開啟後，用戶能自行修改Cache內容\n2. 啟用本功能後除非刪除本App重新安裝，否則無法關閉\n3. 啟用前會先清理緩存，功能啟用完成後會關閉本App\n\n免責聲明：如自行修改造成遊戲不穩定或白底黑字的狀況，本App相關所有開發者均不對此負責", preferredStyle: .actionSheet)
-                if let popoverController = dialog.popoverPresentationController {
-                    popoverController.sourceView = self.view
-                    popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
-                    popoverController.permittedArrowDirections = []
-                }
-                dialog.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
-                dialog.addAction(UIAlertAction(title: "我已理解，啟用本功能", style: .destructive) { action in
-                    print("[INFO] Cleaner confirmed by user. Start cleaning.")
-                    if let cookies = HTTPCookieStorage.shared.cookies {
-                        for cookie in cookies {
-                            HTTPCookieStorage.shared.deleteCookie(cookie)
-                        }
+                if Setting.getchangeCacheDir() == 0 {
+                    let dialog = UIAlertController(title: "功能說明", message: "1. 本功能開啟後，用戶能自行修改Cache內容\n2. 啟用前會先清理緩存，功能啟用完成後會關閉本App\n\n免責聲明：如自行修改造成遊戲不穩定或白底黑字的狀況，本App相關所有開發者均不對此負責",    preferredStyle: .actionSheet)
+                    if let popoverController = dialog.popoverPresentationController {
+                        popoverController.sourceView = self.view
+                        popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+                        popoverController.permittedArrowDirections = []
                     }
-                    CacheManager.clearCache()
-                    print("[INFO] Everything cleaned.")
-                    Setting.savechangeCacheDir(value: 1)
-                    let result = UIAlertController(title: "功能開啟完成", message: "本App即將關閉", preferredStyle: .alert)
-                    result.addAction(UIAlertAction(title: "確定", style: .default) { action in
-                        exit(0)
+                    dialog.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+                    dialog.addAction(UIAlertAction(title: "我已理解，啟用本功能", style: .destructive) { action in
+                        print("[INFO] Cleaner confirmed by user. Start cleaning.")
+                        if let cookies = HTTPCookieStorage.shared.cookies {
+                            for cookie in cookies {
+                                HTTPCookieStorage.shared.deleteCookie(cookie)
+                            }
+                        }
+                        CacheManager.clearCache()
+                        print("[INFO] Everything cleaned.")
+                        Setting.savechangeCacheDir(value: 1)
+                        let result = UIAlertController(title: "功能開啟完成", message: "本App即將關閉", preferredStyle: .alert)
+                        result.addAction(UIAlertAction(title: "確定", style: .default) { action in
+                            exit(0)
+                        })
+                        self.present(result, animated: true)
                     })
-                    self.present(result, animated: true)
-                })
-                self.present(dialog, animated: true)
+                    self.present(dialog, animated: true)
+                } else {
+                    let dialog = UIAlertController(title: "功能說明", message: "1. 本功能關閉後，用戶不再能自行修改Cache內容\n2. 關閉前會先清理緩存，所有之前做出的變更均會被刪除，功能關閉完成後會關閉本App", preferredStyle: .actionSheet)
+                    if let popoverController = dialog.popoverPresentationController {
+                        popoverController.sourceView = self.view
+                        popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+                        popoverController.permittedArrowDirections = []
+                    }
+                    dialog.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+                    dialog.addAction(UIAlertAction(title: "關閉本功能", style: .destructive) { action in
+                        print("[INFO] Cleaner confirmed by user. Start cleaning.")
+                        if let cookies = HTTPCookieStorage.shared.cookies {
+                            for cookie in cookies {
+                                HTTPCookieStorage.shared.deleteCookie(cookie)
+                            }
+                        }
+                        CacheManager.clearCache()
+                        print("[INFO] Everything cleaned.")
+                        Setting.savechangeCacheDir(value: 0)
+                        let result = UIAlertController(title: "功能關閉完成", message: "本App即將關閉", preferredStyle: .alert)
+                        result.addAction(UIAlertAction(title: "確定", style: .default) { action in
+                            exit(0)
+                        })
+                        self.present(result, animated: true)
+                    })
+                    self.present(dialog, animated: true)
+                }
             }
         } else if (indexPath.section == 2) {
             if (indexPath.row == 1) {
@@ -362,16 +389,14 @@ extension SettingVC: UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDa
                 return cell
             } else if (indexPath.row == 2) {
                 let cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellIdentifier)
-                cell.textLabel?.text = "啟用App File Sharing"
+                cell.textLabel?.text = "App File Sharing"
                 cell.detailTextLabel?.textColor = UIColor.lightGray
-                if Setting.getchangeCacheDir() == 1 {
-                    cell.isUserInteractionEnabled = false
-                    cell.textLabel?.isEnabled = false
-                    cell.detailTextLabel?.text = "本功能已經啟用，如需關閉需移除本App重新安裝"
+                if Setting.getchangeCacheDir() == 0 {
+                    cell.detailTextLabel?.text = "功能尚未啟用，啟用本功能後無需越獄即可使用iFunBox等檔案管理工具對Cache進行修改"
                 } else {
-                    cell.detailTextLabel?.text = "啟用本功能後無需越獄即可使用iFunBox等檔案管理工具對Cache進行修改"
-                    cell.accessoryType = .disclosureIndicator
+                    cell.detailTextLabel?.text = "功能已啟用"
                 }
+                cell.accessoryType = .disclosureIndicator
                 return cell
             }
         } else if (indexPath.section == 2) {
