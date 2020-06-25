@@ -157,6 +157,10 @@ extension AppearanceVC: UITableViewDelegate {
                 selector.addAction(UIAlertAction(title: "取消", style: .cancel))
                 self.present(selector, animated: true)
             }
+        } else if (indexPath.section == 2) {
+            if (indexPath.row == 0) {
+                exit(0)
+            }
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -168,7 +172,7 @@ extension AppearanceVC: UITableViewDelegate {
 
 extension AppearanceVC: UITableViewDataSource {
     public func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
 
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -196,7 +200,14 @@ extension AppearanceVC: UITableViewDataSource {
                 cell.accessoryType = .disclosureIndicator
                 return cell
             }
-        }
+        } else if (indexPath.section == 2) {
+                   if (indexPath.row == 0) {
+                    let cell = UITableViewCell(style: .value1, reuseIdentifier: cellIdentifier)
+                    cell.textLabel?.text = "關閉本App"
+                    cell.textLabel?.textColor = UIColor.systemBlue
+                    return cell
+                   }
+               }
         tableView.deselectRow(at: indexPath, animated: true)
         return UITableViewCell(style: .default, reuseIdentifier: cellIdentifier)
     }

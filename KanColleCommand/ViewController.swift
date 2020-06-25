@@ -269,8 +269,13 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     
     @objc func loginChanger(){
         let dialog = UIAlertController(title: "歡迎使用iKanColleCommand", message: "請選擇預設登入遊戲方式\n需要變更可至設定中進行變更", preferredStyle: .alert)
-        dialog.addAction(UIAlertAction(title: "官方DMM網站（VPN/日本可用）", style: .default) { action in
+        dialog.addAction(UIAlertAction(title: "官方DMM網站（VPN/日本）", style: .default) { action in
             Setting.saveconnection(value: 1)
+            let url = URL(string: Constants.HOME_PAGE)
+            self.webView.loadRequest(URLRequest(url: url!))
+        })
+        dialog.addAction(UIAlertAction(title: "官方DMM網站（烤餅乾，海外）", style: .default) { action in
+            Setting.saveconnection(value: 4)
             let url = URL(string: Constants.HOME_PAGE)
             self.webView.loadRequest(URLRequest(url: url!))
         })

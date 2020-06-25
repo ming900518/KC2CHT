@@ -110,11 +110,13 @@ extension SettingVC: UITableViewDelegate {
             if (indexPath.row == 0) {
                 var connection = String()
                 if Setting.getconnection() == 1{
-                    connection = "官方DMM網站"
+                    connection = "官方DMM網站（VPN/日本）"
                 } else if Setting.getconnection() == 2 {
                     connection = "緩存系統ooi"
                 } else if Setting.getconnection() == 3 {
                     connection = "緩存系統kancolle.su"
+                } else if Setting.getconnection() == 4 {
+                    connection = "官方DMM網站（烤餅乾，海外）"
                 } else {
                     connection = "未知"
                 }
@@ -125,8 +127,12 @@ extension SettingVC: UITableViewDelegate {
                     popoverController.permittedArrowDirections = []
                 }
                 info.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
-                info.addAction(UIAlertAction(title: "官方DMM網站（VPN/日本可用）", style: .default) { action in
+                info.addAction(UIAlertAction(title: "官方DMM網站（VPN/日本）", style: .default) { action in
                     Setting.saveconnection(value: 1)
+                    self.close()
+                })
+                info.addAction(UIAlertAction(title: "官方DMM網站（烤餅乾，海外）", style: .default) { action in
+                    Setting.saveconnection(value: 4)
                     self.close()
                 })
                 info.addAction(UIAlertAction(title: "緩存系統ooi（全球用戶可用）", style: .default) { action in
@@ -273,7 +279,7 @@ extension SettingVC: UITableViewDelegate {
             }
         } else if (indexPath.section == 2) {
             if (indexPath.row == 1) {
-                let info = UIAlertController(title: "關於本App", message: "本App修改自NGA用戶亖葉(UID42542015)於2019年7月4號發佈的iKanColleCommand專案，提供iOS用戶穩定的艦隊收藏遊戲環境和基本的輔助程式功能。\n\n修改者：Ming Chang\n\n特別感謝\nDavid Huang（修圖、巴哈文維護）\n@Senka_Viewer（OOI相關技術支援）",preferredStyle: .actionSheet)
+                let info = UIAlertController(title: "關於本App", message: "本App修改自NGA用戶亖葉(UID42542015)於2019年7月4號發佈的iKanColleCommand專案，提供iOS用戶穩定的艦隊收藏遊戲環境和基本的輔助程式功能。\n\n修改者：Ming Chang\n\n特別感謝\nDavid Huang（圖形技術支援、巴哈文維護）\n@Senka_Viewer（OOI相關技術支援）",preferredStyle: .actionSheet)
                 if let popoverController = info.popoverPresentationController {
                     popoverController.sourceView = self.view
                     popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)

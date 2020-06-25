@@ -147,9 +147,11 @@ extension KCWebView: UIWebViewDelegate {
     }
     
     public func webViewDidFinishLoad(_ webView: UIWebView) {
-        //OperationQueue.main.addOperation {
-            //self.stringByEvaluatingJavaScript(from: Constants.DMM_COOKIES)
-        //}
+        if Setting.getconnection() == 4 {
+            OperationQueue.main.addOperation {
+                self.stringByEvaluatingJavaScript(from: Constants.DMM_COOKIES)
+            }
+        }
         let url1 = URL(string: "http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/")
         let url2 = URL(string: "http://ooi.moe/poi")
         let url3 = URL(string: "http://kancolle.su/poi")
