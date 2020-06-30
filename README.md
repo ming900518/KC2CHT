@@ -15,12 +15,13 @@
 
 ## 如何安裝
 
-#### [點此查看最新正式版](https://github.com/ming900518/KC2CHT/releases/tag/Release2.5)
+#### [點此查看最新正式版](https://github.com/ming900518/KC2CHT/releases/tag/Release2.5-NoAssist)
 #### [點此加入Cydia軟體源](https://kc2tweaked.github.io/repo/)
 #### Beta版已完全改用Cydia安裝，之後將不再提供ipa
 
 
-#### 目前最新正式版本為1.0(TW.CHT-Release2.5)，我強烈建議使用最新正式版本進行遊玩。(更新日期:2020/6/25)
+#### 目前最新正式版本為1.0(TW.CHT-Release2.5-NoAssist)，我強烈建議使用最新正式版本進行遊玩。(更新日期:2020/6/30)
+#### 最近一次的維護後，艦これ回傳的API似乎有變動，導致本App會在按下GAME START後崩潰，目前最新的版本暫時關閉了所有輔助程式功能，使用本App出擊時請注意艦娘及裝備狀態以免發生憾事，本人不會對個人操作失誤導致的任何損失（如沈船或裝備消失）負責。
 
 理論上支援所有iOS 11.4以上的所有iDevice（iPhone 5及更舊的32位元設備不支援，非iOS 13用戶請使用帶有bigger字樣的版本）
 
@@ -36,3 +37,5 @@
 [Email](mailto:ming900518@gmail.com)
 
 [Twitter（請直接DM我）](https://twitter.com/mingchang137)
+
+[Discord](https://discord.gg/Yesf3cN)
