@@ -115,29 +115,29 @@ class KCWebView: UIWebView {
 extension KCWebView: UIWebViewDelegate {
 
     public func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: NavigationType) -> Bool {
-//        if (request.url?.scheme == "kcwebview") {
-//            if let params = request.url?.query {
-//                do {
-//                    let decoded = params.removingPercentEncoding!
-//                            .replacingOccurrences(of: "\\n", with: "")
-//                            .replacingOccurrences(of: " ", with: "")
-//                    let jsonData = decoded.data(using: .utf8)!
-//                    let dic = try JSONSerialization.jsonObject(with: jsonData) as? [String: String]
-//                    let url: String = dic?["url"] ?? ""
-//                    let header: String = dic?["request"] ?? ""
-//                    let body: String = dic?["response"] ?? ""
-//                    if (url.contains("kcsapi")) {
-//                        print(url)
-//                        print(header)
-//                        print(body)
-//                        Oyodo.attention().api(url: url, request: header, response: body.replacingOccurrences(of: "svdata=", with: ""))
-//                    }
-//                } catch {
-//                    print("[Error] Error parse response")
-//                }
-//            }
-//            return false
-//        }
+        if (request.url?.scheme == "kcwebview") {
+            if let params = request.url?.query {
+                do {
+                    let decoded = params.removingPercentEncoding!
+                            .replacingOccurrences(of: "\\n", with: "")
+                            .replacingOccurrences(of: " ", with: "")
+                    let jsonData = decoded.data(using: .utf8)!
+                    let dic = try JSONSerialization.jsonObject(with: jsonData) as? [String: String]
+                    let url: String = dic?["url"] ?? ""
+                    let header: String = dic?["request"] ?? ""
+                    let body: String = dic?["response"] ?? ""
+                    if (url.contains("kcsapi")) {
+                        print(url)
+                        print(header)
+                        print(body)
+                        Oyodo.attention().api(url: url, request: header, response: body.replacingOccurrences(of: "svdata=", with: ""))
+                    }
+                } catch {
+                    print("[Error] Error parse response")
+                }
+            }
+            return false
+        }
 
         return true
     }

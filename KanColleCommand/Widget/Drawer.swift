@@ -9,7 +9,7 @@ import SnapKit
 
 class Drawer: UIView {
 
-    private let kWidth = 40
+    private let kWidth = 400
     private var currPosition: Int = 0
     private var expanded = false
 
@@ -163,14 +163,14 @@ extension Drawer: GripDelegate {
             drawerDuration = 1
         }
         if (!expanded) {
-//            self.maskingView.isHidden = false
-//            UIView.animate(withDuration: drawerDuration ?? 0.4,
-//                    animations: { () -> Void in self.maskingView.alpha = 1 }
-//            )
-//            UIView.animate(withDuration: drawerDuration ?? 0.4) { () -> Void in
-//                self.positionConstraint?.update(offset: -self.kWidth)
-//                self.superview?.layoutIfNeeded()
-//            }
+            self.maskingView.isHidden = false
+            UIView.animate(withDuration: drawerDuration ?? 0.4,
+                    animations: { () -> Void in self.maskingView.alpha = 1 }
+            )
+            UIView.animate(withDuration: drawerDuration ?? 0.4) { () -> Void in
+                self.positionConstraint?.update(offset: -self.kWidth)
+                self.superview?.layoutIfNeeded()
+            }
             expanded = true
         }
     }

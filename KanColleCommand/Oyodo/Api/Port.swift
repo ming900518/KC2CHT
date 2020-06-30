@@ -79,6 +79,8 @@ class PortApiData: HandyJSON {
     var api_p_bgm_id: Int = 0
     var api_parallel_quest_count: Int = 0
     var api_combined_flag: Int = 0
+    var api_dest_ship_slot: Int = 0
+    var api_event_object: ApiEventObj = ApiEventObj()
 
     required init() {
 
@@ -212,5 +214,14 @@ class ApiBasic: HandyJSON {
 
     required init() {
 
+    }
+}
+
+class ApiEventObj: HandyJSON {
+    var api_m_flag: Int = 0
+    var api_c_num: Int = 0
+        
+    required init(){
+            
     }
 }

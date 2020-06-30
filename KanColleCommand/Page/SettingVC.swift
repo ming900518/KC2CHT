@@ -348,11 +348,13 @@ extension SettingVC: UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDa
             if (indexPath.row == 0) {
                 var connection = String()
                 if Setting.getconnection() == 1{
-                    connection = "官方DMM網站"
+                    connection = "官方DMM網站（VPN/日本）"
                 } else if Setting.getconnection() == 2 {
                     connection = "緩存系統ooi"
                 } else if Setting.getconnection() == 3 {
                     connection = "緩存系統kancolle.su"
+                } else if Setting.getconnection() == 4 {
+                    connection = "官方DMM網站（烤餅乾，海外）"
                 } else {
                     connection = "未知"
                 }
@@ -364,10 +366,8 @@ extension SettingVC: UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDa
             } else if (indexPath.row == 1) {
                 let cell = UITableViewCell(style: .value1, reuseIdentifier: cellIdentifier)
                 cell.textLabel?.text = "大破警告"
-                cell.detailTextLabel?.text = "本版無法使用大破警告功能"//"類型\(Setting.getwarningAlert())"
-                cell.accessoryType = .none//.disclosureIndicator
-                cell.isUserInteractionEnabled = false
-                cell.textLabel?.isEnabled = false
+                cell.detailTextLabel?.text = "類型\(Setting.getwarningAlert())"
+                cell.accessoryType = .disclosureIndicator
                 return cell
             } else if (indexPath.row == 2) {
                 let cell = UITableViewCell(style: .value1, reuseIdentifier: cellIdentifier)

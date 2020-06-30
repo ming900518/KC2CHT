@@ -196,11 +196,8 @@ extension AppearanceVC: UITableViewDataSource {
             if (indexPath.row == 0) {
                 let cell = UITableViewCell(style: .value1, reuseIdentifier: cellIdentifier)
                 cell.textLabel?.text = "輔助程式彈出速度（數值越小越快）"
-//                cell.detailTextLabel?.text = "\(Setting.getDrawerDuration())"
-                cell.detailTextLabel?.text = "本版無法使用輔助程式"
-                cell.accessoryType = .none//.disclosureIndicator
-                cell.isUserInteractionEnabled = false
-                cell.textLabel?.isEnabled = false
+                cell.detailTextLabel?.text = "\(Setting.getDrawerDuration())"
+                cell.accessoryType = .disclosureIndicator
                 return cell
             }
         } else if (indexPath.section == 2) {
