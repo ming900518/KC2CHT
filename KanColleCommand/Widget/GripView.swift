@@ -31,24 +31,26 @@ class GripView: UIView {
         let count = titles.count
         var last: UIButton? = nil
         for (i, title) in titles.enumerated() {
-            let button = UIButton(type: .custom)
-            button.tag = i
-            button.setTitle(title, for: .normal)
-            button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
-            button.titleLabel?.lineBreakMode = .byWordWrapping
-            button.titleLabel?.numberOfLines = 0
-            button.addTarget(self, action: #selector(onClick), for: .touchUpInside)
-            addSubview(button)
-            var top: ConstraintItem = view.snp.top
-            if let last = last {
-                top = last.snp.bottom
+            if Setting.getOyodo() == 0 {
+                let button = UIButton(type: .custom)
+                button.tag = i
+                button.setTitle(title, for: .normal)
+                button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+                button.titleLabel?.lineBreakMode = .byWordWrapping
+                button.titleLabel?.numberOfLines = 0
+                button.addTarget(self, action: #selector(onClick), for: .touchUpInside)
+                addSubview(button)
+                var top: ConstraintItem = view.snp.top
+                if let last = last {
+                    top = last.snp.bottom
+                }
+                button.snp.makeConstraints { maker in
+                    maker.width.equalTo(self.snp.width)
+                    maker.height.equalTo(view.snp.height).dividedBy(count)
+                    maker.top.equalTo(top)
+                }
+                last = button
             }
-            button.snp.makeConstraints { maker in
-                maker.width.equalTo(self.snp.width)
-                maker.height.equalTo(view.snp.height).dividedBy(count)
-                maker.top.equalTo(top)
-            }
-            last = button
         }
     }
 

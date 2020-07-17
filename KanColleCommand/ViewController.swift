@@ -70,40 +70,42 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         badlyDamageWarning.snp.makeConstraints { maker in
             maker.edges.equalTo(webView)
         }
-        Oyodo.attention().watch(data: Fleet.instance.shipWatcher) { (event: Event<Transform>) in
-            var show = false
-                if (Battle.instance.friendCombined) {
-                    var phase = Phase.Idle
-                        do {
-                            phase = try Battle.instance.phase.value()
-                        } catch {
-                            print("Error when call phase.value()")
-                        }
-                    show = (Fleet.instance.isBadlyDamage(index: 0) || Fleet.instance.isBadlyDamage(index: 1))
-                        && (phase != Phase.Idle)
-                } else {
-                    let battleFleet = Battle.instance.friendIndex
-                    show = battleFleet >= 0 && Fleet.instance.isBadlyDamage(index: battleFleet)
-                }
-                badlyDamageWarning.isHidden = !show
-            if Setting.getwarningAlert() == 1 {
-                let warningAlert = UIAlertController(title: "⚠️ 大破 ⚠️", message: "あうぅっ！ 痛いってばぁっ！\n(つД`)", preferredStyle: .alert)
-                warningAlert.addAction(UIAlertAction(title: "はい、はい、知っています", style: .destructive, handler: nil))
-                if show == true {
-                    self.present(warningAlert, animated: true)
-                }
-            } else if Setting.getwarningAlert() == 2 {
-                let notificationCenter = UNUserNotificationCenter.current()
-                let warningAlert = UNMutableNotificationContent()
-                warningAlert.title = "⚠️ 大破 ⚠️"
-                warningAlert.body = "あうぅっ！ 痛いってばぁっ！(つД`)"
-                warningAlert.sound = UNNotificationSound.default
-                let identifier = "EHDA Notification"
-                let request = UNNotificationRequest(identifier: identifier, content: warningAlert, trigger: nil)
-                if show == true {
-                    notificationCenter.add(request) { (error) in
-                        if let error = error {
-                            print("Error \(error.localizedDescription)")
+        if Setting.getOyodo() == 1 {
+            Oyodo.attention().watch(data: Fleet.instance.shipWatcher) { (event: Event<Transform>) in
+                var show = false
+                    if (Battle.instance.friendCombined) {
+                        var phase = Phase.Idle
+                            do {
+                                phase = try Battle.instance.phase.value()
+                            } catch {
+                                print("Error when call phase.value()")
+                            }
+                        show = (Fleet.instance.isBadlyDamage(index: 0) || Fleet.instance.isBadlyDamage(index: 1))
+                            && (phase != Phase.Idle)
+                    } else {
+                        let battleFleet = Battle.instance.friendIndex
+                        show = battleFleet >= 0 && Fleet.instance.isBadlyDamage(index: battleFleet)
+                    }
+                    badlyDamageWarning.isHidden = !show
+                if Setting.getwarningAlert() == 1 {
+                    let warningAlert = UIAlertController(title: "⚠️ 大破 ⚠️", message: "あうぅっ！ 痛いってばぁっ！\n(つД`)", preferredStyle: .alert)
+                    warningAlert.addAction(UIAlertAction(title: "はい、はい、知っています", style: .destructive, handler: nil))
+                    if show == true {
+                        self.present(warningAlert, animated: true)
+                    }
+                } else if Setting.getwarningAlert() == 2 {
+                    let notificationCenter = UNUserNotificationCenter.current()
+                    let warningAlert = UNMutableNotificationContent()
+                    warningAlert.title = "⚠️ 大破 ⚠️"
+                    warningAlert.body = "あうぅっ！ 痛いってばぁっ！(つД`)"
+                    warningAlert.sound = UNNotificationSound.default
+                    let identifier = "EHDA Notification"
+                    let request = UNNotificationRequest(identifier: identifier, content: warningAlert, trigger: nil)
+                    if show == true {
+                        notificationCenter.add(request) { (error) in
+                            if let error = error {
+                                print("Error \(error.localizedDescription)")
+                            }
                         }
                     }
                 }

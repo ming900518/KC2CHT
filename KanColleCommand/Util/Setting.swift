@@ -86,4 +86,14 @@ class Setting {
     static func saveDrawerDuration(value: Int) {
         UserDefaults.standard.set(value, forKey: kDrawerDuration)
     }
+    
+    private static let kOyodo = "UseOyodo"
+    
+    static func getOyodo() -> Int {
+        return UserDefaults.standard.integer(forKey: kOyodo)
+    }
+
+    static func saveOyodo(value: Int) {
+        UserDefaults.standard.set(value, forKey: kOyodo)
+    }
 }
