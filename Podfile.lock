@@ -1,31 +1,24 @@
 PODS:
-  - HandyJSON (5.0.1)
+  - HandyJSON (5.0.2)
   - ReachabilitySwift (5.0.0)
-  - RxCocoa (5.0.1):
+  - RxCocoa (5.1.1):
     - RxRelay (~> 5)
     - RxSwift (~> 5)
-  - RxRelay (5.0.1):
+  - RxRelay (5.1.1):
     - RxSwift (~> 5)
-  - RxSwift (5.0.1)
+  - RxSwift (5.1.1)
   - ScreenType (1.1.0)
   - SnapKit (5.0.1)
   - Toaster (2.2.0)
-  - UMCAnalytics (6.0.5):
-    - UMCCommon
-  - UMCCommon (2.1.1)
-  - UMCSecurityPlugins (1.0.6)
 
 DEPENDENCIES:
-  - HandyJSON (~> 5.0.0-beta.1)
+  - HandyJSON
   - ReachabilitySwift
   - RxCocoa
   - RxSwift
   - ScreenType
   - SnapKit
   - Toaster
-  - UMCAnalytics
-  - UMCCommon
-  - UMCSecurityPlugins
 
 SPEC REPOS:
   trunk:
@@ -37,23 +30,17 @@ SPEC REPOS:
     - ScreenType
     - SnapKit
     - Toaster
-    - UMCAnalytics
-    - UMCCommon
-    - UMCSecurityPlugins
 
 SPEC CHECKSUMS:
-  HandyJSON: d45b8415c501e3affc59ca9762c1197ff0feb646
+  HandyJSON: 9e4e236f5d2dbefad5155a77417bbea438201c03
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
-  RxCocoa: e741b9749968e8a143e2b787f1dfbff2b63d0a5c
-  RxRelay: 89d54507f4fd4d969e6ec1d4bd7f3673640b4640
-  RxSwift: e2dc62b366a3adf6a0be44ba9f405efd4c94e0c4
+  RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
+  RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
+  RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
   ScreenType: aa607eaa564b5e533876a4df92a5b9de1a8dc579
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   Toaster: c1a81b376edcc2470157b4d1ee1e9341d3b96455
-  UMCAnalytics: 045be2cd1ec05aa95ad62405a850757f932e2d59
-  UMCCommon: 971f324a5a99c9d662ae040a815e7e3d7ef8b2a8
-  UMCSecurityPlugins: 0831a08f3988f3cea9f1d3a7626cd9bee4fef150
 
-PODFILE CHECKSUM: 2264e62d1bc2382ccef9788e996a142139a36b25
+PODFILE CHECKSUM: 822a6d2011c97a57ac2f7581e464ebe1c764de4f
 
-COCOAPODS: 1.9.0.beta.3
+COCOAPODS: 1.9.3

@@ -9,7 +9,6 @@
 #ifndef Bridge_Header_h
 #define Bridge_Header_h
 
-#import <UMCommon/UMCommon.h>
 
 
 #endif /* Bridge_Header_h */

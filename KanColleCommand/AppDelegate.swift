@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {optionallyStoreTheFirstLaunchFlag = UserDefaults.isFirstLaunch()
         URLProtocol.registerClass(WebHandler.self)
-        UMConfigure.initWithAppkey("5cdc24183fc1955cd000113f", channel: "Main")
+        //UMConfigure.initWithAppkey("5cdc24183fc1955cd000113f", channel: "Main")
         do {
             let audioSession: AVAudioSession = AVAudioSession.sharedInstance()
             try audioSession.setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.playback)), options:AVAudioSession.CategoryOptions(rawValue: AVAudioSession.CategoryOptions.mixWithOthers.rawValue))//AVAudioSessionCategoryPlayback
@@ -44,7 +44,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         }
-        UNUserNotificationCenter.current().delegate = self
         return true
     }
 
@@ -131,19 +130,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return .landscape
         }
     }
-
 }
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
 	return input.rawValue
-}
-
-extension AppDelegate: UNUserNotificationCenterDelegate {
- 
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.badge, .sound, .alert])
-    }
 }
 
 extension UserDefaults {
