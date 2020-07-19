@@ -53,6 +53,8 @@ class KCWebView: UIWebView {
             connection = Constants.OOI
         } else if Setting.getconnection() == 3 {
             connection = Constants.kcsu
+        } else if Setting.getconnection() == 4 {
+            connection = Constants.HOME_PAGE
         }
         let url = URL(string: connection)
         loadRequest(URLRequest(url: url!))
