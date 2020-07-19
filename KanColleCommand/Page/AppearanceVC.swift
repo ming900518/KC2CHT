@@ -68,6 +68,16 @@ class AppearanceVC: UIViewController, UIImagePickerControllerDelegate , UIPicker
             maker.height.equalTo(1)
             maker.bottom.equalTo(toolbar.snp.bottom)
         }
+        
+        let closeBtn = UIButton(type: .system)
+        closeBtn.setTitle("關閉", for: .normal)
+        closeBtn.addTarget(self, action: #selector(close), for: .touchUpInside)
+        
+        titleBar.addSubview(closeBtn)
+        closeBtn.snp.makeConstraints { maker in
+            maker.centerY.equalTo(titleBar.snp.centerY)
+            maker.right.equalTo(titleBar.snp.right).offset(-16)
+        }
 
         if #available(iOS 13.0, *) {
             appearanceTable = UITableView(frame: CGRect.zero, style: .insetGrouped)
@@ -81,6 +91,9 @@ class AppearanceVC: UIViewController, UIImagePickerControllerDelegate , UIPicker
         } else {
             appearanceTable.backgroundColor = UIColor.clear
         }
+        if #available(iOS 13.0, *) {
+            self.isModalInPresentation = true
+        }
         self.view.addSubview(appearanceTable)
         appearanceTable.snp.makeConstraints { maker in
             maker.width.equalTo(self.view.snp.width)
@@ -89,9 +102,17 @@ class AppearanceVC: UIViewController, UIImagePickerControllerDelegate , UIPicker
         }
     }
     @objc func close() {
-        dismiss(animated: true)
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.landscape = true
+        let exit = UIAlertController(title: "如有變更設定，請重新開啟本App以確保功能正常", message: nil, preferredStyle: .alert)
+        exit.addAction(UIAlertAction(title: "離開本App", style: .destructive) { action in
+            self.exitApp()
+        })
+        exit.addAction(UIAlertAction(title: "關閉設定", style: .default) { action in
+            self.dismiss(animated: true)
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.landscape = true
+        })
+        exit.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+        self.present(exit, animated: true)
     }
     
     func exitApp() {
@@ -114,12 +135,13 @@ extension AppearanceVC: UITableViewDelegate {
                 dialog.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
                 dialog.addAction(UIAlertAction(title: "預設", style: .default) { action in
                     Setting.saveUseTheme(value: 0)
+                    self.appearanceTable.reloadData()
                 })
                 dialog.addAction(UIAlertAction(title: "黑玻璃透明", style: .default) { action in
                     Setting.saveUseTheme(value: 1)
+                    self.appearanceTable.reloadData()
                 })
                 self.present(dialog, animated: true)
-                self.appearanceTable.reloadData()
             }
         } else if (indexPath.section == 2) {
             if (indexPath.row == 0) {
@@ -149,18 +171,6 @@ extension AppearanceVC: UITableViewDelegate {
                 selector.addAction(UIAlertAction(title: "取消", style: .cancel))
                 self.present(selector, animated: true)
             }
-        } else if (indexPath.section == 3) {
-            if (indexPath.row == 0) {
-                let exit = UIAlertController(title: "如有變更設定，請重新開啟本App", message: nil, preferredStyle: .alert)
-                exit.addAction(UIAlertAction(title: "離開本App", style: .destructive) { action in
-                    self.exitApp()
-                })
-                exit.addAction(UIAlertAction(title: "關閉設定", style: .default) { action in
-                    self.close()
-                })
-                exit.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
-                self.present(exit, animated: true)
-            }
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -172,7 +182,7 @@ extension AppearanceVC: UITableViewDelegate {
 
 extension AppearanceVC: UITableViewDataSource {
     public func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 3
     }
 
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -216,14 +226,7 @@ extension AppearanceVC: UITableViewDataSource {
                 cell.accessoryType = .disclosureIndicator
                 return cell
             }
-        } else if (indexPath.section == 3) {
-                   if (indexPath.row == 0) {
-                    let cell = UITableViewCell(style: .value1, reuseIdentifier: cellIdentifier)
-                    cell.textLabel?.text = "完成設定"
-                    cell.textLabel?.textColor = UIColor.systemBlue
-                    return cell
-                   }
-               }
+        }
         tableView.deselectRow(at: indexPath, animated: true)
         return UITableViewCell(style: .default, reuseIdentifier: cellIdentifier)
     }
