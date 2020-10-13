@@ -15,12 +15,12 @@
 
 ## 如何安裝
 
-#### [點此查看最新正式版](https://github.com/ming900518/KC2CHT/releases/tag/Release2.5.1)
+#### [點此查看最新正式版](https://github.com/ming900518/KC2CHT/releases/tag/Release2.5.2)
 #### [點此加入Cydia軟體源](https://kc2tweaked.github.io/repo/)
 #### Beta版已完全改用Cydia安裝，之後將不再提供ipa
 
 
-#### 目前最新正式版本為1.0(TW.CHT-Release2.5.1)，我強烈建議使用最新正式版本進行遊玩。(更新日期:2020/7/19)
+#### 目前最新正式版本為1.0(TW.CHT-Release2.5.2)，我強烈建議使用最新正式版本進行遊玩。(更新日期:2020/10/13)
 #### 上次不關機維護後，造成輔助程式崩潰的問題已經被C2修復，請安心使用。未來如有類似情況可使用新功能關閉輔助程式，詳情請見Changelog。
 
 理論上支援所有iOS 11.4以上的所有iDevice（iPhone 5及更舊的32位元設備不支援，非iOS 13用戶請使用帶有bigger字樣的版本）
