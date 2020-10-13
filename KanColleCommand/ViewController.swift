@@ -56,7 +56,11 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         }
         webView.scrollView.isScrollEnabled = true;
         self.webView.isOpaque = false;
-        self.webView.backgroundColor = UIColor.black
+        if (UIScreen.current > .iPhone6_5) {
+            webView.backgroundColor = UIColor.white;
+        } else {
+            webView.backgroundColor = UIColor.black;
+        }
         if #available(iOS 11.0, *) {
             webView.scrollView.contentInsetAdjustmentBehavior = .always;
             webView.scalesPageToFit = true;
@@ -368,6 +372,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         }
         return false
     }
+    
     override func viewWillDisappear(_ animated: Bool) {
         webView.removeFromSuperview()
     }
