@@ -285,7 +285,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             let url = URL(string: Constants.HOME_PAGE)
             self.webView.loadRequest(URLRequest(url: url!))
         })
-        dialog.addAction(UIAlertAction(title: "緩存系統ooi（全球用戶可用）", style: .default) { action in
+        dialog.addAction(UIAlertAction(title: "緩存系統ooi（大陸地區）", style: .default) { action in
             Setting.saveconnection(value: 2)
             let url = URL(string: Constants.OOI)
             self.webView.loadRequest(URLRequest(url: url!))
@@ -305,7 +305,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
                 }
             }
         })
-        dialog.addAction(UIAlertAction(title: "緩存系統kancolle.su（大陸地區以外）", style: .default) { action in
+        dialog.addAction(UIAlertAction(title: "緩存系統kancolle.su", style: .default) { action in
             Setting.saveconnection(value: 3)
             let url = URL(string: Constants.kcsu)
             self.webView.loadRequest(URLRequest(url: url!))

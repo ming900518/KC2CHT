@@ -135,11 +135,11 @@ extension SettingVC: UITableViewDelegate {
                     Setting.saveconnection(value: 4)
                     self.close()
                 })
-                info.addAction(UIAlertAction(title: "緩存系統ooi（全球用戶可用）", style: .default) { action in
+                info.addAction(UIAlertAction(title: "緩存系統ooi（大陸地區）", style: .default) { action in
                     Setting.saveconnection(value: 2)
                     self.close()
                 })
-                info.addAction(UIAlertAction(title: "緩存系統kancolle.su（大陸地區以外）", style: .default) { action in
+                info.addAction(UIAlertAction(title: "緩存系統kancolle.su", style: .default) { action in
                     Setting.saveconnection(value: 3)
                     self.close()
                 })
