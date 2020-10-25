@@ -53,9 +53,7 @@ class KCWebView: UIWebView {
         } else if Setting.getconnection() == 2 {
             connection = Constants.OOI
         } else if Setting.getconnection() == 3 {
-            connection = Constants.kcsu
-        } else if Setting.getconnection() == 4 {
-            connection = Constants.HOME_PAGE
+            connection = Constants.OOI
         }
         let url = URL(string: connection)
         loadRequest(URLRequest(url: url!))
@@ -95,9 +93,9 @@ class KCWebView: UIWebView {
     @objc private func gameStart(n: Notification) {
         OperationQueue.main.addOperation {
             self.stringByEvaluatingJavaScript(from: Constants.FULL_SCREEN_SCRIPT)
-            if (UIScreen.current <= .iPhone6_5) {
+//            if (UIScreen.current <= .iPhone6_5) {
             self.stringByEvaluatingJavaScript(from: Constants.darkBG)
-            }
+//            }
         }
     }
     
@@ -200,15 +198,18 @@ extension KCWebView: UIWebViewDelegate {
     }
     
     public func webViewDidFinishLoad(_ webView: UIWebView) {
-        if Setting.getconnection() == 4 {
-            OperationQueue.main.addOperation {
-                self.stringByEvaluatingJavaScript(from: Constants.DMM_COOKIES)
-            }
-        }
+//        if Setting.getconnection() == 4 {
+//            OperationQueue.main.addOperation {
+//                self.stringByEvaluatingJavaScript(from: Constants.DMM_COOKIES)
+//            }
+//        }
         let url1 = URL(string: "http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/")
         let url2 = URL(string: "http://ooi.moe/poi")
         let url3 = URL(string: "http://kancolle.su/poi")
+        let url4 = URL(string: "http://ooi.moe/")
+        let url5 = URL(string: "http://kancolle.su/")
         if webView.request?.url == url1 {
+            print("URL: " + (webView.request?.url!.absoluteString)!)
             if(UIScreen.current < .iPad9_7){
                 self.scrollView.minimumZoomScale = 1.0
                 self.scrollView.maximumZoomScale = 1.0
@@ -216,7 +217,8 @@ extension KCWebView: UIWebViewDelegate {
             } else {
                 print("Using iPad, nothing needs to be modified.")
             }
-        } else if webView.request?.url == url2 {
+        } else if webView.request?.url == url2 || webView.request?.url == url3 {
+            print("URL: " + (webView.request?.url!.absoluteString)!)
             let screenSize = UIDevice.screenSize
             print("OOI poi mode detected, resize.")
             print("Screen size should be " + screenSize + " inch.")
@@ -288,79 +290,18 @@ extension KCWebView: UIWebViewDelegate {
             } else {
                 print("Unknown Device.")
             }
-        } else if webView.request?.url == url3 {
-            let screenSize = UIDevice.screenSize
-            print("kancolle.su poi mode detected, resize.")
-            print("Screen size should be " + screenSize + " inch.")
-            if (screenSize == "4.0") {
-                self.scrollView.minimumZoomScale = 0.41
-                self.scrollView.maximumZoomScale = 0.41
-                self.scrollView.setZoomScale(0.41, animated: false)
-                self.scrollView.isScrollEnabled = false
-            } else if (screenSize == "4.7") {
-                self.scrollView.minimumZoomScale = 0.49
-                self.scrollView.maximumZoomScale = 0.49
-                self.scrollView.setZoomScale(0.49, animated: false)
-                self.scrollView.isScrollEnabled = false
-            } else if (screenSize == "5.5") {
-                self.scrollView.minimumZoomScale = 0.546
-                self.scrollView.maximumZoomScale = 0.546
-                self.scrollView.setZoomScale(0.546, animated: false)
-                self.scrollView.isScrollEnabled = false
-            } else if (screenSize == "5.8") {
-                self.scrollView.minimumZoomScale = 0.495
-                self.scrollView.maximumZoomScale = 0.495
-                self.scrollView.setZoomScale(0.495, animated: false)
-                self.scrollView.isScrollEnabled = false
-            } else if (screenSize == "6.1") {
-                self.scrollView.minimumZoomScale = 0.55
-                self.scrollView.maximumZoomScale = 0.55
-                self.scrollView.setZoomScale(0.55, animated: false)
-                self.scrollView.isScrollEnabled = false
-            } else if (screenSize == "6.5") {
-                self.scrollView.minimumZoomScale = 0.545
-                self.scrollView.maximumZoomScale = 0.545
-                self.scrollView.setZoomScale(0.545, animated: false)
-                self.scrollView.isScrollEnabled = false
-            } else if (screenSize == "7.9") {
-                self.scrollView.minimumZoomScale = 0.79
-                self.scrollView.maximumZoomScale = 0.79
-                self.scrollView.setZoomScale(0.79, animated: false)
-                self.scrollView.isScrollEnabled = false
-            } else if (screenSize == "9.7") {
-                self.scrollView.minimumZoomScale = 0.79
-                self.scrollView.maximumZoomScale = 0.79
-                self.scrollView.setZoomScale(0.79, animated: false)
-                self.scrollView.isScrollEnabled = false
-            } else if (screenSize == "10.2") {
-                self.scrollView.minimumZoomScale = 0.833
-                self.scrollView.maximumZoomScale = 0.833
-                self.scrollView.setZoomScale(0.833, animated: false)
-                self.scrollView.isScrollEnabled = false
-            } else if (screenSize == "10.5") {
-                self.scrollView.minimumZoomScale = 0.86
-                self.scrollView.maximumZoomScale = 0.86
-                self.scrollView.setZoomScale(0.86, animated: false)
-                self.scrollView.isScrollEnabled = false
-            } else if (screenSize == "10.9") {
-                self.scrollView.minimumZoomScale = 0.918
-                self.scrollView.maximumZoomScale = 0.918
-                self.scrollView.setZoomScale(0.918, animated: false)
-                self.scrollView.isScrollEnabled = false
-            } else if (screenSize == "11.0") {
-                self.scrollView.minimumZoomScale = 0.92
-                self.scrollView.maximumZoomScale = 0.92
-                self.scrollView.setZoomScale(0.92, animated: false)
-                self.scrollView.isScrollEnabled = false
-            } else if (screenSize == "12.9") {
-                self.scrollView.minimumZoomScale = 1
-                self.scrollView.maximumZoomScale = 1
-                self.scrollView.setZoomScale(1, animated: false)
-                self.scrollView.isScrollEnabled = false
-            } else {
-                print("Unknown Device.")
+        } else if webView.request?.url == url4 || webView.request?.url == url5 {
+            print("URL: " + (webView.request?.url!.absoluteString)!)
+            print("OOI Auto Login Started.")
+            let loginAccount = Setting.getLoginAccount()
+            let loginPasswd = Setting.getLoginPasswd()
+            if Setting.getAttemptTime() == 0 {
+                Setting.saveAttemptTime(value: 1)
+                let loginJS = "javascript:document.getElementById('login_id').value = '" + loginAccount + "'; document.getElementById('password').value = '" + loginPasswd + "'; document.getElementById('mode3').checked = 'true'; document.forms[0].submit();"
+                self.stringByEvaluatingJavaScript(from: loginJS)
             }
         } else {
+            print("URL: " + (webView.request?.url!.absoluteString)!)
             self.scrollView.contentOffset = CGPoint(x: 0, y: 0)
             self.scrollView.setZoomScale(1, animated: false)
             //self.scrollView.zoomScale = 1

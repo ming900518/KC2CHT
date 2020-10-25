@@ -35,6 +35,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         webView = KCWebView()
         webView.setup(parent: self.view)
         webView.load()
+        Setting.saveAttemptTime(value: 0)
         if Setting.getconnection() == 1 {
             if self.isConnectedToVpn == true {
                 if Setting.getfirstStartup() != 0 {
@@ -56,11 +57,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         }
         webView.scrollView.isScrollEnabled = true;
         self.webView.isOpaque = false;
-        if (UIScreen.current > .iPhone6_5) {
-            webView.backgroundColor = UIColor.white;
-        } else {
-            webView.backgroundColor = UIColor.black;
-        }
+        self.webView.backgroundColor = UIColor.black;
         if #available(iOS 11.0, *) {
             webView.scrollView.contentInsetAdjustmentBehavior = .always;
             webView.scalesPageToFit = true;
@@ -229,6 +226,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         let dialog = UIAlertController(title: nil, message: "重新整理頁面", preferredStyle: .alert)
         dialog.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
         dialog.addAction(UIAlertAction(title: "確定", style: .default) { action in
+            Setting.saveAttemptTime(value: 0)
             self.reloadGame()
         })
         present(dialog, animated: true)
@@ -280,50 +278,32 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             let url = URL(string: Constants.HOME_PAGE)
             self.webView.loadRequest(URLRequest(url: url!))
         })
-        dialog.addAction(UIAlertAction(title: "官方DMM網站（烤餅乾，海外）", style: .default) { action in
-            Setting.saveconnection(value: 4)
-            let url = URL(string: Constants.HOME_PAGE)
-            self.webView.loadRequest(URLRequest(url: url!))
-        })
-        dialog.addAction(UIAlertAction(title: "緩存系統ooi（大陸地區）", style: .default) { action in
+        dialog.addAction(UIAlertAction(title: "ooi緩存系統（手動登入）", style: .default) { action in
             Setting.saveconnection(value: 2)
             let url = URL(string: Constants.OOI)
             self.webView.loadRequest(URLRequest(url: url!))
-            if UIScreen.current <= .iPhone6_5 {
-                UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-                UNUserNotificationCenter.current().removeAllDeliveredNotifications()
-                let notificationCenter = UNUserNotificationCenter.current()
-                let content = UNMutableNotificationContent()
-                content.title = "首次使用ooi登入方式提示"
-                content.body = "請選擇以「在POI中运行」方式登入以獲得最佳遊戲體驗"
-                let identifier = "ooi Notification"
-                let request = UNNotificationRequest(identifier: identifier, content: content, trigger: nil)
-                notificationCenter.add(request) { (error) in
-                    if let error = error {
-                        print("Error \(error.localizedDescription)")
-                    }
-                }
-            }
         })
-        dialog.addAction(UIAlertAction(title: "緩存系統kancolle.su", style: .default) { action in
-            Setting.saveconnection(value: 3)
-            let url = URL(string: Constants.kcsu)
-            self.webView.loadRequest(URLRequest(url: url!))
-            if UIScreen.current <= .iPhone6_5 {
-                UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-                UNUserNotificationCenter.current().removeAllDeliveredNotifications()
-                let notificationCenter = UNUserNotificationCenter.current()
-                let content = UNMutableNotificationContent()
-                content.title = "首次使用kancolle.su登入方式提示"
-                content.body = "請選擇以「Fullscreen - Optimised for poi and smartphones」方式登入以獲得最佳遊戲體驗"
-                let identifier = "kcsu Notification"
-                let request = UNNotificationRequest(identifier: identifier, content: content, trigger: nil)
-                notificationCenter.add(request) { (error) in
-                    if let error = error {
-                        print("Error \(error.localizedDescription)")
-                    }
-                }
+        dialog.addAction(UIAlertAction(title: "ooi緩存系統（自動登入）", style: .default) { action in
+            let loginInfo = UIAlertController(title: "輸入登入資訊", message: "請輸入DMM帳密", preferredStyle: .alert)
+            loginInfo.addTextField { (textField) in
+                textField.placeholder = "輸入帳號"
+                textField.keyboardType = UIKeyboardType.emailAddress
             }
+            loginInfo.addTextField { (textField) in
+                textField.placeholder = "輸入密碼"
+                textField.isSecureTextEntry = true
+            }
+            loginInfo.addAction(UIAlertAction(title: "取消", style: .cancel) { action in
+                Setting.saveconnection(value: 2)
+            })
+            loginInfo.addAction(UIAlertAction(title: "完成", style: .default) { action in
+                Setting.saveLoginAccount(value: loginInfo.textFields?[0].text ?? "")
+                Setting.saveLoginPasswd(value: loginInfo.textFields?[1].text ?? "")
+                Setting.saveconnection(value: 3)
+            })
+            self.present(loginInfo, animated: true)
+            let url = URL(string: Constants.OOI)
+            self.webView.loadRequest(URLRequest(url: url!))
         })
         dialog.addAction(UIAlertAction(title: "取消", style: .destructive) { action in
             self.blankPage()

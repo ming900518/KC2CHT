@@ -96,4 +96,34 @@ class Setting {
     static func saveOyodo(value: Int) {
         UserDefaults.standard.set(value, forKey: kOyodo)
     }
+    
+    private static let kLoginAccount = "LoginAccount"
+    
+    static func getLoginAccount() -> String {
+        return UserDefaults.standard.string(forKey: kLoginAccount) ?? ""
+    }
+
+    static func saveLoginAccount(value: String) {
+        UserDefaults.standard.set(value, forKey: kLoginAccount)
+    }
+    
+    private static let kLoginPasswd = "LoginPassword"
+    
+    static func getLoginPasswd() -> String {
+        return UserDefaults.standard.string(forKey: kLoginPasswd) ?? ""
+    }
+
+    static func saveLoginPasswd(value: String) {
+        UserDefaults.standard.set(value, forKey: kLoginPasswd)
+    }
+    
+    private static let kAttemptTime = "AutoLoginAttemptTime"
+    
+    static func getAttemptTime() -> Int {
+        return UserDefaults.standard.integer(forKey: kAttemptTime)
+    }
+
+    static func saveAttemptTime(value: Int) {
+        UserDefaults.standard.set(value, forKey: kAttemptTime)
+    }
 }

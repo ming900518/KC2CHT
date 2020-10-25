@@ -112,11 +112,9 @@ extension SettingVC: UITableViewDelegate {
                 if Setting.getconnection() == 1{
                     connection = "官方DMM網站（VPN/日本）"
                 } else if Setting.getconnection() == 2 {
-                    connection = "緩存系統ooi"
+                    connection = "ooi緩存系統（手動登入）"
                 } else if Setting.getconnection() == 3 {
-                    connection = "緩存系統kancolle.su"
-                } else if Setting.getconnection() == 4 {
-                    connection = "官方DMM網站（烤餅乾，海外）"
+                    connection = "ooi緩存系統（自動登入）"
                 } else {
                     connection = "未知"
                 }
@@ -131,17 +129,34 @@ extension SettingVC: UITableViewDelegate {
                     Setting.saveconnection(value: 1)
                     self.close()
                 })
-                info.addAction(UIAlertAction(title: "官方DMM網站（烤餅乾，海外）", style: .default) { action in
-                    Setting.saveconnection(value: 4)
-                    self.close()
-                })
-                info.addAction(UIAlertAction(title: "緩存系統ooi（大陸地區）", style: .default) { action in
-                    Setting.saveconnection(value: 2)
-                    self.close()
-                })
-                info.addAction(UIAlertAction(title: "緩存系統kancolle.su", style: .default) { action in
-                    Setting.saveconnection(value: 3)
-                    self.close()
+                info.addAction(UIAlertAction(title: "ooi緩存系統", style: .default) { action in
+                    let autoLogin = UIAlertController(title: "自動登入", message: "是否使用自動登入功能？", preferredStyle: .alert)
+                    autoLogin.addAction(UIAlertAction(title: "否", style: .cancel) { action in
+                        Setting.saveconnection(value: 2)
+                    })
+                    autoLogin.addAction(UIAlertAction(title: "是", style: .default) { action in
+                        let loginInfo = UIAlertController(title: "輸入登入資訊", message: "請輸入DMM帳密", preferredStyle: .alert)
+                        loginInfo.addTextField { (textField) in
+                            textField.placeholder = "輸入帳號"
+                            textField.keyboardType = UIKeyboardType.emailAddress
+                        }
+                        loginInfo.addTextField { (textField) in
+                            textField.placeholder = "輸入密碼"
+                            textField.isSecureTextEntry = true
+                        }
+                        loginInfo.addAction(UIAlertAction(title: "取消", style: .cancel) { action in
+                            Setting.saveconnection(value: 2)
+                        })
+                        loginInfo.addAction(UIAlertAction(title: "完成", style: .default) { action in
+                            Setting.saveLoginAccount(value: loginInfo.textFields?[0].text ?? "")
+                            Setting.saveLoginPasswd(value: loginInfo.textFields?[1].text ?? "")
+                            Setting.saveconnection(value: 3)
+                        })
+                        self.present(loginInfo, animated: true)
+                        self.settingTable.reloadData()
+                    })
+                    self.present(autoLogin, animated: true)
+                    self.settingTable.reloadData()
                 })
                 self.present(info, animated: true)
                 print("Selected: ", Setting.getconnection())
@@ -350,11 +365,9 @@ extension SettingVC: UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDa
                 if Setting.getconnection() == 1{
                     connection = "官方DMM網站（VPN/日本）"
                 } else if Setting.getconnection() == 2 {
-                    connection = "緩存系統ooi"
+                    connection = "ooi緩存系統（手動登入）"
                 } else if Setting.getconnection() == 3 {
-                    connection = "緩存系統kancolle.su"
-                } else if Setting.getconnection() == 4 {
-                    connection = "官方DMM網站（烤餅乾，海外）"
+                    connection = "ooi緩存系統（自動登入）"
                 } else {
                     connection = "未知"
                 }
