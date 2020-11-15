@@ -4,7 +4,7 @@ class CacheManager {
 
     class func shouldCache(url: URL?) -> Bool {
         if let path = url?.path {
-            if (path.starts(with: "/kcs/") || path.starts(with: "/kcs2/") || path.starts(with: "/page/")) {
+            if (path.starts(with: "/kcs/") || path.starts(with: "/kcs2/")) {
                 return path.hasSuffix("js") ||
                         path.hasSuffix("json") ||
                         path.hasSuffix("mp3") ||
@@ -77,6 +77,7 @@ class CacheManager {
     }
     class func isFileCached(url: URL?) -> Bool {
         if let url = url {
+            print("[INFO] File cached.")
             let path = url.path
             let params = Utils.getQueryDictionary(url: url)
             let remoteVersion = params["version"] ?? ""

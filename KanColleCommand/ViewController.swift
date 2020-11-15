@@ -31,14 +31,6 @@ class ViewController: UIViewController, UIScrollViewDelegate {
                 self.loginChanger()
             }
         }
-        
-        if Setting.getconnection() == 2 {
-            let host = "a0794cdafd77e1727.awsglobalaccelerator.com"
-            let port = 8989
-            HttpProxyProtocol.host = host
-            HttpProxyProtocol.port = port
-            HttpProxyProtocol.start()
-        }
 
         webView = KCWebView()
         webView.setup(parent: self.view)
@@ -81,7 +73,6 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         }
         if Setting.getOyodo() == 1 {
             Oyodo.attention().watch(data: Fleet.instance.shipWatcher) { (event: Event<Transform>) in
-                print("Oyodo should load now.")
                 var show = false
                     if (Battle.instance.friendCombined) {
                         var phase = Phase.Idle
@@ -288,16 +279,11 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             self.webView.loadRequest(URLRequest(url: url!))
         })
         dialog.addAction(UIAlertAction(title: "官方DMM網站（Proxy）", style: .default) { action in
-            let beta = UIAlertController(title: "Beta測試功能", message: "目前尚未解決：\n\n1. 輔助工具無法使用\n2. 大破警告無法使用\n\n如有發現其他Bug請聯繫修改者。", preferredStyle: .alert)
+            let beta = UIAlertController(title: "Beta測試功能", message: "發現任何Bug請聯繫修改者", preferredStyle: .alert)
             beta.addAction(UIAlertAction(title: "我瞭解了", style: .default, handler: nil))
             self.present(beta, animated: true)
             Setting.saveconnection(value: 2)
             let url = URL(string: Constants.HOME_PAGE)
-            let host = "a0794cdafd77e1727.awsglobalaccelerator.com"
-            let port = 8989
-            HttpProxyProtocol.host = host
-            HttpProxyProtocol.port = port
-            HttpProxyProtocol.start()
             self.webView.loadRequest(URLRequest(url: url!))
         })
 

@@ -91,7 +91,7 @@ class KCWebView: UIWebView {
     @objc private func gameStart(n: Notification) {
         OperationQueue.main.addOperation {
             self.stringByEvaluatingJavaScript(from: Constants.FULL_SCREEN_SCRIPT)
-            self.stringByEvaluatingJavaScript(from: Constants.darkBG)
+//            self.stringByEvaluatingJavaScript(from: Constants.darkBG)
         }
     }
     
@@ -199,11 +199,6 @@ extension KCWebView: UIWebViewDelegate {
     }
     
     public func webViewDidFinishLoad(_ webView: UIWebView) {
-//        if Setting.getconnection() == 4 {
-//            OperationQueue.main.addOperation {
-//                self.stringByEvaluatingJavaScript(from: Constants.DMM_COOKIES)
-//            }
-//        }
 
         let url1 = URL(string: "http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/")
         let url2 = URL(string: "http://ooi.moe/poi")

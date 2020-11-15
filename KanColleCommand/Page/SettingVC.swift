@@ -132,7 +132,7 @@ extension SettingVC: UITableViewDelegate {
                     self.close()
                 })
                 info.addAction(UIAlertAction(title: "官方DMM網站（Proxy）", style: .default) { action in
-                    let beta = UIAlertController(title: "Beta測試功能", message: "目前尚未解決：\n\n1. 輔助工具無法使用\n2. 大破警告無法使用\n\n如有發現其他Bug請聯繫修改者。", preferredStyle: .alert)
+                    let beta = UIAlertController(title: "Beta測試功能", message: "發現任何Bug請聯繫修改者", preferredStyle: .alert)
                     beta.addAction(UIAlertAction(title: "我瞭解了", style: .default) { action in
                         Setting.saveconnection(value: 2)
                         self.close()

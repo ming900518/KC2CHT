@@ -7,6 +7,7 @@ class WebHandler: URLProtocol, URLSessionDelegate, URLSessionDataDelegate, URLSe
 
     private var dataTask: URLSessionDataTask?
     private var receivedData: Data?
+    static let customkey = Constants.TAG
 
     override open class func canInit(with request: URLRequest) -> Bool {
         if let path = request.url?.path {
@@ -14,7 +15,7 @@ class WebHandler: URLProtocol, URLSessionDelegate, URLSessionDataDelegate, URLSe
                 NotificationCenter.default.post(Notification.init(name: Constants.START_EVENT))
             }
         }
-        let key = URLProtocol.property(forKey: Constants.TAG, in: request)
+        let key = URLProtocol.property(forKey: customkey, in: request)
         var intercept = false
         if let url: URL = request.url {
 //            let method = request.httpMethod ?? ""
@@ -34,6 +35,12 @@ class WebHandler: URLProtocol, URLSessionDelegate, URLSessionDataDelegate, URLSe
     }
 
     override open func startLoading() {
+
+        if Setting.getconnection() == 2 {
+            let newRequest = request as! NSMutableURLRequest
+            URLProtocol.setProperty(true, forKey: type(of: self).customkey, in: newRequest)
+        }
+        
         let url = self.request.url
         if (CacheManager.shouldCache(url: url) && CacheManager.isFileCached(url: url)) {
             loadResponseFromCache()
@@ -85,7 +92,7 @@ class WebHandler: URLProtocol, URLSessionDelegate, URLSessionDataDelegate, URLSe
                         self.client?.urlProtocol(self, didLoad: content)
                     }
                 } catch {
-                    print("Error append js file")
+                    print("[WARN] Error append js file")
                 }
             }
             self.client?.urlProtocolDidFinishLoading(self)
@@ -102,14 +109,19 @@ class WebHandler: URLProtocol, URLSessionDelegate, URLSessionDataDelegate, URLSe
     }
 
     private class func shouldIntercept(url: URL) -> Bool {
-        let path = url.path
-        return (path.starts(with: "/kcs/")
-                || path.starts(with: "/kcs2/")
-                || path.starts(with: "/kcsapi/"))
+        if Setting.getconnection() == 2 {
+            return true
+        } else {
+            let path = url.path
+            return (path.starts(with: "/kcs/")
+                    || path.starts(with: "/kcs2/")
+                    || path.starts(with: "/kcsapi/"))
+        }
     }
 
     private func loadResponseFromCache() {
         if var data = CacheManager.readFile(url: self.request.url) {
+            print("[INFO] Load response from cache.")
             if (self.request.url?.path.caseInsensitiveCompare("/kcs2/js/main.js") == ComparisonResult.orderedSame) {
                 do {
                     if let file = Bundle.main.path(forResource: "bridge", ofType: "js") {
@@ -117,7 +129,7 @@ class WebHandler: URLProtocol, URLSessionDelegate, URLSessionDataDelegate, URLSe
                         data.append(content)
                     }
                 } catch {
-                    print("Error append js file")
+                    print("[WARN] Error append js file")
                 }
             }
             let mimeType = Utils.getMimeType(url: self.request.url)
@@ -146,11 +158,28 @@ class WebHandler: URLProtocol, URLSessionDelegate, URLSessionDataDelegate, URLSe
         let tag = URLProtocol.property(forKey: Constants.TAG, in: request) as? Int ?? 0
         print("retry count \(tag) for \(String(describing: request.url))")
         URLProtocol.setProperty(tag + 1, forKey: Constants.TAG, in: newRequest)
-        let defaultConfigObj = URLSessionConfiguration.default
-        defaultConfigObj.urlCache = nil
-        let defaultSession = Foundation.URLSession(configuration: defaultConfigObj, delegate: self, delegateQueue: nil)
-        self.dataTask = defaultSession.dataTask(with: self.request)
-        self.dataTask!.resume()
+        
+        if Setting.getconnection() == 2 {
+            print("[INFO] Using proxy to load response.")
+            let proxy_server = "a0794cdafd77e1727.awsglobalaccelerator.com"
+            let proxy_port = 8989
+            let hostKey = kCFNetworkProxiesHTTPProxy as String
+            let portKey = kCFNetworkProxiesHTTPPort as String
+            let proxyDict:[String:Any] = [kCFNetworkProxiesHTTPEnable as String: true, hostKey:proxy_server, portKey: proxy_port]
+            let config = URLSessionConfiguration.default
+            config.connectionProxyDictionary = proxyDict
+            config.urlCache = nil
+            let defaultSession = Foundation.URLSession(configuration: config, delegate: self, delegateQueue: nil)
+            self.dataTask = defaultSession.dataTask(with: self.request as URLRequest)
+            self.dataTask!.resume()
+        } else {
+            print("[INFO] Not using proxy to load response.")
+            let config = URLSessionConfiguration.default
+            config.urlCache = nil
+            let defaultSession = Foundation.URLSession(configuration: config, delegate: self, delegateQueue: nil)
+            self.dataTask = defaultSession.dataTask(with: self.request as URLRequest)
+            self.dataTask!.resume()
+        }
     }
 
 }
