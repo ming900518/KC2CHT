@@ -26,6 +26,8 @@
 		7A35122B2499FAD000E7557E /* AlternateIcon40x40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A3512282499FAD000E7557E /* AlternateIcon40x40@3x.png */; };
 		7A35122D2499FAE000E7557E /* AlternateIcon40x40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A35122C2499FAE000E7557E /* AlternateIcon40x40@2x.png */; };
 		7AAE039023374CAB00FC27F8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AAE038F23374CAB00FC27F8 /* AudioToolbox.framework */; };
+		7ABB7815254BF06000C76525 /* HttpProxyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABB7812254BF06000C76525 /* HttpProxyProtocol.swift */; };
+		7ABB7816254BF06000C76525 /* HttpProxySessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABB7813254BF06000C76525 /* HttpProxySessionManager.swift */; };
 		7ACE2D5B247774FD007F4F57 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7ACE2D5A247774FD007F4F57 /* Settings.bundle */; };
 		7AFCA242248C987300A991F3 /* AppearanceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFCA241248C987300A991F3 /* AppearanceVC.swift */; };
 		C600267289FBB1B5CB83D4F7 /* BattleNightSp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C600E2F28E1FB2811C399D06 /* BattleNightSp.swift */; };
@@ -192,6 +194,8 @@
 		7A35122C2499FAE000E7557E /* AlternateIcon40x40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AlternateIcon40x40@2x.png"; sourceTree = "<group>"; };
 		7AAE038E23374CAB00FC27F8 /* KanColleCommand.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KanColleCommand.entitlements; sourceTree = "<group>"; };
 		7AAE038F23374CAB00FC27F8 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		7ABB7812254BF06000C76525 /* HttpProxyProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpProxyProtocol.swift; sourceTree = "<group>"; };
+		7ABB7813254BF06000C76525 /* HttpProxySessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpProxySessionManager.swift; sourceTree = "<group>"; };
 		7ACE2D5A247774FD007F4F57 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		7AFCA241248C987300A991F3 /* AppearanceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceVC.swift; sourceTree = "<group>"; };
 		7AFE95562339C57D006D8854 /* KanColleCommand.profdata */ = {isa = PBXFileReference; lastKnownFileType = file; path = KanColleCommand.profdata; sourceTree = "<group>"; };
@@ -409,6 +413,8 @@
 		C60034025BC06BEFD54E9581 /* WebView */ = {
 			isa = PBXGroup;
 			children = (
+				7ABB7812254BF06000C76525 /* HttpProxyProtocol.swift */,
+				7ABB7813254BF06000C76525 /* HttpProxySessionManager.swift */,
 				C60D8779E8B4743E6B63FC82 /* WebHandler.swift */,
 				C601FA6FBB2D83531E3BC871 /* CacheManager.swift */,
 				C6007ABAD2449D449093B066 /* Utils.swift */,
@@ -896,6 +902,7 @@
 				C602D0FBE12A6834657C1650 /* BattleAir.swift in Sources */,
 				C60D65AB0E243628FE26A911 /* Change.swift in Sources */,
 				C6022AD6F867F9C73C60A999 /* Charge.swift in Sources */,
+				7ABB7816254BF06000C76525 /* HttpProxySessionManager.swift in Sources */,
 				C60A098827F597E84FFBD667 /* CreateItem.swift in Sources */,
 				C60C11F75F4B8F7DCEDAAC1B /* CreateShip.swift in Sources */,
 				C601A8E93E48BECDF5E6D032 /* CreateShipSpeedChange.swift in Sources */,
@@ -920,6 +927,7 @@
 				C60D8A10F3F86FF6498612CB /* SlotExchangeIndex.swift in Sources */,
 				C605AB3DE024CDC5909FD9B9 /* SlotItem.swift in Sources */,
 				C60E93C9F13696427AA6CEBB /* SpeedChange.swift in Sources */,
+				7ABB7815254BF06000C76525 /* HttpProxyProtocol.swift in Sources */,
 				C601E78197344E912B5AE9D9 /* GripView.swift in Sources */,
 				C60D8461F5EFC509937A5A3C /* Drawer.swift in Sources */,
 				C60E4574905AC5C0AC66F693 /* MissionVC.swift in Sources */,
@@ -974,10 +982,11 @@
 				DEPLOYMENT_POSTPROCESSING = YES;
 				DEVELOPMENT_TEAM = RYS7R26Y6Y;
 				ENABLE_BITCODE = NO;
+				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = KanColleCommand/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = "1.0 (TW.CHT-R2.6Beta2)";
+				MARKETING_VERSION = "1.0 (TW.CHT-R2.6Beta3)";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = tw.mingchang.ikancollecmd;
 				PRODUCT_NAME = iKanColleCmd;
@@ -1007,10 +1016,11 @@
 				DEPLOYMENT_POSTPROCESSING = YES;
 				DEVELOPMENT_TEAM = RYS7R26Y6Y;
 				ENABLE_BITCODE = NO;
+				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = KanColleCommand/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = "1.0 (TW.CHT-R2.6Beta2)";
+				MARKETING_VERSION = "1.0 (TW.CHT-R2.6Beta3)";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = tw.mingchang.ikancollecmd;
 				PRODUCT_NAME = iKanColleCmd;

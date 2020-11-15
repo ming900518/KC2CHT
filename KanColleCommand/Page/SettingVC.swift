@@ -112,9 +112,11 @@ extension SettingVC: UITableViewDelegate {
                 if Setting.getconnection() == 1{
                     connection = "官方DMM網站（VPN/日本）"
                 } else if Setting.getconnection() == 2 {
-                    connection = "ooi緩存系統（手動登入）"
-                } else if Setting.getconnection() == 3 {
-                    connection = "ooi緩存系統（自動登入）"
+                    connection = "官方DMM網站（Proxy）"
+//                } else if Setting.getconnection() == 3 {
+//                    connection = "ooi緩存系統（手動登入）"
+//                } else if Setting.getconnection() == 4 {
+//                    connection = "ooi緩存系統（自動登入）"
                 } else {
                     connection = "未知"
                 }
@@ -129,35 +131,43 @@ extension SettingVC: UITableViewDelegate {
                     Setting.saveconnection(value: 1)
                     self.close()
                 })
-                info.addAction(UIAlertAction(title: "ooi緩存系統", style: .default) { action in
-                    let autoLogin = UIAlertController(title: "自動登入", message: "是否使用自動登入功能？", preferredStyle: .alert)
-                    autoLogin.addAction(UIAlertAction(title: "否", style: .cancel) { action in
+                info.addAction(UIAlertAction(title: "官方DMM網站（Proxy）", style: .default) { action in
+                    let beta = UIAlertController(title: "Beta測試功能", message: "目前尚未解決：\n\n1. 輔助工具無法使用\n2. 大破警告無法使用\n\n如有發現其他Bug請聯繫修改者。", preferredStyle: .alert)
+                    beta.addAction(UIAlertAction(title: "我瞭解了", style: .default) { action in
                         Setting.saveconnection(value: 2)
+                        self.close()
                     })
-                    autoLogin.addAction(UIAlertAction(title: "是", style: .default) { action in
-                        let loginInfo = UIAlertController(title: "輸入登入資訊", message: "請輸入DMM帳密", preferredStyle: .alert)
-                        loginInfo.addTextField { (textField) in
-                            textField.placeholder = "輸入帳號"
-                            textField.keyboardType = UIKeyboardType.emailAddress
-                        }
-                        loginInfo.addTextField { (textField) in
-                            textField.placeholder = "輸入密碼"
-                            textField.isSecureTextEntry = true
-                        }
-                        loginInfo.addAction(UIAlertAction(title: "取消", style: .cancel) { action in
-                            Setting.saveconnection(value: 2)
-                        })
-                        loginInfo.addAction(UIAlertAction(title: "完成", style: .default) { action in
-                            Setting.saveLoginAccount(value: loginInfo.textFields?[0].text ?? "")
-                            Setting.saveLoginPasswd(value: loginInfo.textFields?[1].text ?? "")
-                            Setting.saveconnection(value: 3)
-                        })
-                        self.present(loginInfo, animated: true)
-                        self.settingTable.reloadData()
-                    })
-                    self.present(autoLogin, animated: true)
-                    self.settingTable.reloadData()
+                    self.present(beta, animated: true)
                 })
+//                info.addAction(UIAlertAction(title: "ooi緩存系統", style: .default) { action in
+//                    let autoLogin = UIAlertController(title: "自動登入", message: "是否使用自動登入功能？", preferredStyle: .alert)
+//                    autoLogin.addAction(UIAlertAction(title: "否", style: .cancel) { action in
+//                        Setting.saveconnection(value: 3)
+//                    })
+//                    autoLogin.addAction(UIAlertAction(title: "是", style: .default) { action in
+//                        let loginInfo = UIAlertController(title: "輸入登入資訊", message: "請輸入DMM帳密", preferredStyle: .alert)
+//                        loginInfo.addTextField { (textField) in
+//                            textField.placeholder = "輸入帳號"
+//                            textField.keyboardType = UIKeyboardType.emailAddress
+//                        }
+//                        loginInfo.addTextField { (textField) in
+//                            textField.placeholder = "輸入密碼"
+//                            textField.isSecureTextEntry = true
+//                        }
+//                        loginInfo.addAction(UIAlertAction(title: "取消", style: .cancel) { action in
+//                            Setting.saveconnection(value: 3)
+//                        })
+//                        loginInfo.addAction(UIAlertAction(title: "完成", style: .default) { action in
+//                            Setting.saveLoginAccount(value: loginInfo.textFields?[0].text ?? "")
+//                            Setting.saveLoginPasswd(value: loginInfo.textFields?[1].text ?? "")
+//                            Setting.saveconnection(value: 4)
+//                        })
+//                        self.present(loginInfo, animated: true)
+//                        self.settingTable.reloadData()
+//                    })
+//                    self.present(autoLogin, animated: true)
+//                    self.settingTable.reloadData()
+//                })
                 self.present(info, animated: true)
                 print("Selected: ", Setting.getconnection())
                 self.settingTable.reloadData()
@@ -294,7 +304,7 @@ extension SettingVC: UITableViewDelegate {
             }
         } else if (indexPath.section == 2) {
             if (indexPath.row == 1) {
-                let info = UIAlertController(title: "關於本App", message: "本App修改自NGA用戶亖葉(UID42542015)於2019年7月4號發佈的iKanColleCommand專案，提供iOS用戶穩定的艦隊收藏遊戲環境和基本的輔助程式功能。\n\n修改者：Ming Chang\n\n特別感謝\nDavid Huang（圖形技術支援、巴哈文維護）\n@Senka_Viewer（OOI相關技術支援）",preferredStyle: .actionSheet)
+                let info = UIAlertController(title: "關於本App", message: "本App修改自NGA用戶亖葉(UID42542015)於2019年7月4號發佈的iKanColleCommand專案，提供iOS用戶穩定的艦隊收藏遊戲環境和基本的輔助程式功能。\n\n修改者：Ming Chang\n\n特別感謝\nDavid Huang（圖形技術支援、巴哈文維護）\n@Senka_Viewer（連線技術支援）",preferredStyle: .actionSheet)
                 if let popoverController = info.popoverPresentationController {
                     popoverController.sourceView = self.view
                     popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
@@ -365,9 +375,11 @@ extension SettingVC: UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDa
                 if Setting.getconnection() == 1{
                     connection = "官方DMM網站（VPN/日本）"
                 } else if Setting.getconnection() == 2 {
-                    connection = "ooi緩存系統（手動登入）"
-                } else if Setting.getconnection() == 3 {
-                    connection = "ooi緩存系統（自動登入）"
+                    connection = "官方DMM網站（Proxy）"
+//                } else if Setting.getconnection() == 3 {
+//                    connection = "ooi緩存系統（手動登入）"
+//                } else if Setting.getconnection() == 4 {
+//                    connection = "ooi緩存系統（自動登入）"
                 } else {
                     connection = "未知"
                 }

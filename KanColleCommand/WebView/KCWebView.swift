@@ -48,11 +48,9 @@ class KCWebView: UIWebView {
         var connection = String()
         if Setting.getconnection() == 0 {
             connection = "about:blank"
-        } else if Setting.getconnection() == 1 {
+        } else if Setting.getconnection() == 1 || Setting.getconnection() == 2 {
             connection = Constants.HOME_PAGE
-        } else if Setting.getconnection() == 2 {
-            connection = Constants.OOI
-        } else if Setting.getconnection() == 3 {
+        } else if Setting.getconnection() == 3 || Setting.getconnection() == 4 {
             connection = Constants.OOI
         }
         let url = URL(string: connection)
@@ -93,9 +91,7 @@ class KCWebView: UIWebView {
     @objc private func gameStart(n: Notification) {
         OperationQueue.main.addOperation {
             self.stringByEvaluatingJavaScript(from: Constants.FULL_SCREEN_SCRIPT)
-//            if (UIScreen.current <= .iPhone6_5) {
             self.stringByEvaluatingJavaScript(from: Constants.darkBG)
-//            }
         }
     }
     
@@ -128,15 +124,20 @@ public extension UIDevice {
             switch identifier {
             case "iPod7,1", "iPod9,1", "iPhone6,1", "iPhone6,2","iPhone8,4":
                 return "4.0"
-            case "iPhone7,2", "iPhone8,1", "iPhone9,1", "iPhone9,3", "iPhone10,1", "iPhone10,4", "iPhone12,8":               return "4.7"
+            case "iPhone7,2", "iPhone8,1", "iPhone9,1", "iPhone9,3", "iPhone10,1", "iPhone10,4", "iPhone12,8":
+                return "4.7"
+            case "iPhone13,1":
+                return "5.4"
             case "iPhone7,1", "iPhone8,2", "iPhone9,2", "iPhone9,4", "iPhone10,2", "iPhone10,5":
                 return "5.5"
             case "iPhone10,3", "iPhone10,6", "iPhone11,2", "iPhone12,3":
                 return "5.8"
             case "iPhone11,8", "iPhone12,1":
                 return "6.1"
-            case "iPhone11,4", "iPhone11,6", "iPhone12,5":
+            case "iPhone11,4", "iPhone11,6", "iPhone12,5", "iPhone13,2", "iPhone13,3":
                 return "6.5"
+            case "iPhone13,4":
+                return "6.7"
             case "iPad4,4", "iPad4,5", "iPad4,6", "iPad4,7", "iPad4,8", "iPad4,9", "iPad5,1", "iPad5,2", "iPad11,1", "iPad11,2":
                 return "7.9"
             case "iPad4,1", "iPad4,2", "iPad4,3", "iPad5,3", "iPad5,4", "iPad6,3", "iPad6,4", "iPad6,11", "iPad6,12", "iPad7,5", "iPad7,6":
@@ -203,6 +204,7 @@ extension KCWebView: UIWebViewDelegate {
 //                self.stringByEvaluatingJavaScript(from: Constants.DMM_COOKIES)
 //            }
 //        }
+
         let url1 = URL(string: "http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/")
         let url2 = URL(string: "http://ooi.moe/poi")
         let url3 = URL(string: "http://kancolle.su/poi")
@@ -210,6 +212,10 @@ extension KCWebView: UIWebViewDelegate {
         let url5 = URL(string: "http://kancolle.su/")
         if webView.request?.url == url1 {
             print("URL: " + (webView.request?.url!.absoluteString)!)
+            if Setting.getconnection() == 2 {
+                self.stringByEvaluatingJavaScript(from: Constants.darkBG)
+                self.stringByEvaluatingJavaScript(from: Constants.FULL_SCREEN_SCRIPT)
+            }
             if(UIScreen.current < .iPad9_7){
                 self.scrollView.minimumZoomScale = 1.0
                 self.scrollView.maximumZoomScale = 1.0
@@ -232,6 +238,11 @@ extension KCWebView: UIWebViewDelegate {
                 self.scrollView.maximumZoomScale = 0.49
                 self.scrollView.setZoomScale(0.49, animated: false)
                 self.scrollView.isScrollEnabled = false
+            } else if (screenSize == "5.4") {
+                self.scrollView.minimumZoomScale = 0.546
+                self.scrollView.maximumZoomScale = 0.546
+                self.scrollView.setZoomScale(0.546, animated: false)
+                self.scrollView.isScrollEnabled = false
             } else if (screenSize == "5.5") {
                 self.scrollView.minimumZoomScale = 0.546
                 self.scrollView.maximumZoomScale = 0.546
@@ -248,6 +259,11 @@ extension KCWebView: UIWebViewDelegate {
                 self.scrollView.setZoomScale(0.55, animated: false)
                 self.scrollView.isScrollEnabled = false
             } else if (screenSize == "6.5") {
+                self.scrollView.minimumZoomScale = 0.545
+                self.scrollView.maximumZoomScale = 0.545
+                self.scrollView.setZoomScale(0.545, animated: false)
+                self.scrollView.isScrollEnabled = false
+            } else if (screenSize == "6.7") {
                 self.scrollView.minimumZoomScale = 0.545
                 self.scrollView.maximumZoomScale = 0.545
                 self.scrollView.setZoomScale(0.545, animated: false)

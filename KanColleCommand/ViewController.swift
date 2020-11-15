@@ -31,6 +31,14 @@ class ViewController: UIViewController, UIScrollViewDelegate {
                 self.loginChanger()
             }
         }
+        
+        if Setting.getconnection() == 2 {
+            let host = "a0794cdafd77e1727.awsglobalaccelerator.com"
+            let port = 8989
+            HttpProxyProtocol.host = host
+            HttpProxyProtocol.port = port
+            HttpProxyProtocol.start()
+        }
 
         webView = KCWebView()
         webView.setup(parent: self.view)
@@ -73,6 +81,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         }
         if Setting.getOyodo() == 1 {
             Oyodo.attention().watch(data: Fleet.instance.shipWatcher) { (event: Event<Transform>) in
+                print("Oyodo should load now.")
                 var show = false
                     if (Battle.instance.friendCombined) {
                         var phase = Phase.Idle
@@ -278,33 +287,49 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             let url = URL(string: Constants.HOME_PAGE)
             self.webView.loadRequest(URLRequest(url: url!))
         })
-        dialog.addAction(UIAlertAction(title: "ooi緩存系統（手動登入）", style: .default) { action in
+        dialog.addAction(UIAlertAction(title: "官方DMM網站（Proxy）", style: .default) { action in
+            let beta = UIAlertController(title: "Beta測試功能", message: "目前尚未解決：\n\n1. 輔助工具無法使用\n2. 大破警告無法使用\n\n如有發現其他Bug請聯繫修改者。", preferredStyle: .alert)
+            beta.addAction(UIAlertAction(title: "我瞭解了", style: .default, handler: nil))
+            self.present(beta, animated: true)
             Setting.saveconnection(value: 2)
-            let url = URL(string: Constants.OOI)
+            let url = URL(string: Constants.HOME_PAGE)
+            let host = "a0794cdafd77e1727.awsglobalaccelerator.com"
+            let port = 8989
+            HttpProxyProtocol.host = host
+            HttpProxyProtocol.port = port
+            HttpProxyProtocol.start()
             self.webView.loadRequest(URLRequest(url: url!))
         })
-        dialog.addAction(UIAlertAction(title: "ooi緩存系統（自動登入）", style: .default) { action in
-            let loginInfo = UIAlertController(title: "輸入登入資訊", message: "請輸入DMM帳密", preferredStyle: .alert)
-            loginInfo.addTextField { (textField) in
-                textField.placeholder = "輸入帳號"
-                textField.keyboardType = UIKeyboardType.emailAddress
-            }
-            loginInfo.addTextField { (textField) in
-                textField.placeholder = "輸入密碼"
-                textField.isSecureTextEntry = true
-            }
-            loginInfo.addAction(UIAlertAction(title: "取消", style: .cancel) { action in
-                Setting.saveconnection(value: 2)
-            })
-            loginInfo.addAction(UIAlertAction(title: "完成", style: .default) { action in
-                Setting.saveLoginAccount(value: loginInfo.textFields?[0].text ?? "")
-                Setting.saveLoginPasswd(value: loginInfo.textFields?[1].text ?? "")
-                Setting.saveconnection(value: 3)
-            })
-            self.present(loginInfo, animated: true)
-            let url = URL(string: Constants.OOI)
-            self.webView.loadRequest(URLRequest(url: url!))
-        })
+
+//        dialog.addAction(UIAlertAction(title: "ooi緩存系統（手動登入）", style: .default) { action in
+//            Setting.saveconnection(value: 3)
+//            let url = URL(string: Constants.OOI)
+//            self.webView.loadRequest(URLRequest(url: url!))
+//        })
+//        dialog.addAction(UIAlertAction(title: "ooi緩存系統（自動登入）", style: .default) { action in
+//            let loginInfo = UIAlertController(title: "輸入登入資訊", message: "請輸入DMM帳密", preferredStyle: .alert)
+//            loginInfo.addTextField { (textField) in
+//                textField.placeholder = "輸入帳號"
+//                textField.keyboardType = UIKeyboardType.emailAddress
+//            }
+//            loginInfo.addTextField { (textField) in
+//                textField.placeholder = "輸入密碼"
+//                textField.isSecureTextEntry = true
+//            }
+//            loginInfo.addAction(UIAlertAction(title: "取消", style: .cancel) { action in
+//                Setting.saveconnection(value: 3)
+//                let url = URL(string: Constants.OOI)
+//                self.webView.loadRequest(URLRequest(url: url!))
+//            })
+//            loginInfo.addAction(UIAlertAction(title: "完成", style: .default) { action in
+//                Setting.saveLoginAccount(value: loginInfo.textFields?[0].text ?? "")
+//                Setting.saveLoginPasswd(value: loginInfo.textFields?[1].text ?? "")
+//                Setting.saveconnection(value: 4)
+//                let url = URL(string: Constants.OOI)
+//                self.webView.loadRequest(URLRequest(url: url!))
+//            })
+//            self.present(loginInfo, animated: true)
+//        })
         dialog.addAction(UIAlertAction(title: "取消", style: .destructive) { action in
             self.blankPage()
         })
