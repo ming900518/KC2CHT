@@ -126,4 +126,24 @@ class Setting {
     static func saveAttemptTime(value: Int) {
         UserDefaults.standard.set(value, forKey: kAttemptTime)
     }
+    
+    private static let kCustomProxyIP = "CustomProxyIP"
+    
+    static func getCustomProxyIP() -> String {
+        return UserDefaults.standard.string(forKey: kCustomProxyIP) ?? ""
+    }
+
+    static func saveCustomProxyIP(value: String) {
+        UserDefaults.standard.set(value, forKey: kCustomProxyIP)
+    }
+    
+    private static let kCustomProxyPort = "CustomProxyPort"
+    
+    static func getCustomProxyPort() -> String {
+        return UserDefaults.standard.string(forKey: kCustomProxyPort) ?? ""
+    }
+
+    static func saveCustomProxyPort(value: String) {
+        UserDefaults.standard.set(value, forKey: kCustomProxyPort)
+    }
 }

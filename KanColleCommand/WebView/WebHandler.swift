@@ -172,6 +172,19 @@ class WebHandler: URLProtocol, URLSessionDelegate, URLSessionDataDelegate, URLSe
             let defaultSession = Foundation.URLSession(configuration: config, delegate: self, delegateQueue: nil)
             self.dataTask = defaultSession.dataTask(with: self.request as URLRequest)
             self.dataTask!.resume()
+        } else if Setting.getconnection() == 3 || Setting.getconnection() == 6 {
+            print("[INFO] Using custom proxy to load response.")
+            let proxy_server = Setting.getCustomProxyIP()
+            let proxy_port = Setting.getCustomProxyPort()
+            let hostKey = kCFNetworkProxiesHTTPProxy as String
+            let portKey = kCFNetworkProxiesHTTPPort as String
+            let proxyDict:[String:Any] = [kCFNetworkProxiesHTTPEnable as String: true, hostKey:proxy_server, portKey: proxy_port]
+            let config = URLSessionConfiguration.default
+            config.connectionProxyDictionary = proxyDict
+            config.urlCache = nil
+            let defaultSession = Foundation.URLSession(configuration: config, delegate: self, delegateQueue: nil)
+            self.dataTask = defaultSession.dataTask(with: self.request as URLRequest)
+            self.dataTask!.resume()
         } else {
             print("[INFO] Not using proxy to load response.")
             let config = URLSessionConfiguration.default

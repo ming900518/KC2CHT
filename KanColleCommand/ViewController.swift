@@ -273,49 +273,83 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     
     @objc func loginChanger(){
         let dialog = UIAlertController(title: "歡迎使用iKanColleCommand", message: "請選擇預設登入遊戲方式\n需要變更可至設定中進行變更", preferredStyle: .alert)
-        dialog.addAction(UIAlertAction(title: "官方DMM網站（VPN/日本）", style: .default) { action in
+        dialog.addAction(UIAlertAction(title: "日本地區直連/使用VPN", style: .default) { action in
             Setting.saveconnection(value: 1)
             let url = URL(string: Constants.HOME_PAGE)
             self.webView.loadRequest(URLRequest(url: url!))
         })
-        dialog.addAction(UIAlertAction(title: "官方DMM網站（Proxy）", style: .default) { action in
-            let beta = UIAlertController(title: "Beta測試功能", message: "發現任何Bug請聯繫修改者", preferredStyle: .alert)
-            beta.addAction(UIAlertAction(title: "我瞭解了", style: .default, handler: nil))
-            self.present(beta, animated: true)
-            Setting.saveconnection(value: 2)
+        dialog.addAction(UIAlertAction(title: "大陸地區以外專用Proxy", style: .default) { action in
+            let thanksSV = UIAlertController(title: "使用條款說明及感謝", message: "1. 本服務由OOI開發者@SenkaViewer無償提供，在此感謝他的貢獻！\n2. 如在使用本服務上遇到任何問題，請加入Discord群@App相關服務開發者以獲得支援。\n3. iKanColleCommand Tweaked Version修改者不對使用這項服務所造成的任何問題負責。", preferredStyle: .alert)
+            thanksSV.addAction(UIAlertAction(title: "我已詳閱並同意以上內容", style: .default) { action in
+                let url = URL(string: Constants.HOME_PAGE)
+                self.webView.loadRequest(URLRequest(url: url!))
+            })
+            thanksSV.addAction(UIAlertAction(title: "不同意，退出", style: .destructive) { action in
+                self.blankPage()
+            })
+        })
+        dialog.addAction(UIAlertAction(title: "自定義Proxy", style: .default) { action in
+            let proxyInfo = UIAlertController(title: "輸入Proxy資訊", message: "請輸入Proxy IP及Port號\n（僅支持HTTP Proxy，HTTPS Proxy未測試）", preferredStyle: .alert)
+            proxyInfo.addTextField { (textField) in
+                textField.placeholder = "Proxy IP"
+                textField.keyboardType = UIKeyboardType.URL
+            }
+            proxyInfo.addTextField { (textField) in
+                textField.placeholder = "Port"
+                textField.keyboardType = UIKeyboardType.decimalPad
+            }
+            proxyInfo.addAction(UIAlertAction(title: "取消", style: .cancel) { action in
+                Setting.saveconnection(value: 2)
+            })
+            proxyInfo.addAction(UIAlertAction(title: "完成", style: .default) { action in
+                Setting.saveCustomProxyIP(value: proxyInfo.textFields?[0].text ?? "")
+                Setting.saveCustomProxyPort(value: proxyInfo.textFields?[1].text ?? "")
+            })
+            let cookieNeeded = UIAlertController(title: "烤餅乾？", message: "是否使用解除DMM地域限制Cookies？\n僅大陸地區以外用戶有效", preferredStyle: .alert)
+            cookieNeeded.addAction(UIAlertAction(title: "取消", style: .cancel) { action in
+                Setting.saveconnection(value: 2)
+            })
+            cookieNeeded.addAction(UIAlertAction(title: "是", style: .default) { action in
+                self.present(proxyInfo, animated: true)
+                Setting.saveconnection(value: 6)
+            })
+            cookieNeeded.addAction(UIAlertAction(title: "否", style: .default) { action in
+                self.present(proxyInfo, animated: true)
+                Setting.saveconnection(value: 3)
+            })
+            self.present(cookieNeeded, animated: true)
             let url = URL(string: Constants.HOME_PAGE)
             self.webView.loadRequest(URLRequest(url: url!))
         })
-
-//        dialog.addAction(UIAlertAction(title: "ooi緩存系統（手動登入）", style: .default) { action in
-//            Setting.saveconnection(value: 3)
-//            let url = URL(string: Constants.OOI)
-//            self.webView.loadRequest(URLRequest(url: url!))
-//        })
-//        dialog.addAction(UIAlertAction(title: "ooi緩存系統（自動登入）", style: .default) { action in
-//            let loginInfo = UIAlertController(title: "輸入登入資訊", message: "請輸入DMM帳密", preferredStyle: .alert)
-//            loginInfo.addTextField { (textField) in
-//                textField.placeholder = "輸入帳號"
-//                textField.keyboardType = UIKeyboardType.emailAddress
-//            }
-//            loginInfo.addTextField { (textField) in
-//                textField.placeholder = "輸入密碼"
-//                textField.isSecureTextEntry = true
-//            }
-//            loginInfo.addAction(UIAlertAction(title: "取消", style: .cancel) { action in
-//                Setting.saveconnection(value: 3)
-//                let url = URL(string: Constants.OOI)
-//                self.webView.loadRequest(URLRequest(url: url!))
-//            })
-//            loginInfo.addAction(UIAlertAction(title: "完成", style: .default) { action in
-//                Setting.saveLoginAccount(value: loginInfo.textFields?[0].text ?? "")
-//                Setting.saveLoginPasswd(value: loginInfo.textFields?[1].text ?? "")
-//                Setting.saveconnection(value: 4)
-//                let url = URL(string: Constants.OOI)
-//                self.webView.loadRequest(URLRequest(url: url!))
-//            })
-//            self.present(loginInfo, animated: true)
-//        })
+        dialog.addAction(UIAlertAction(title: "ooi緩存系統（手動登入）", style: .default) { action in
+            Setting.saveconnection(value: 4)
+            let url = URL(string: Constants.OOI)
+            self.webView.loadRequest(URLRequest(url: url!))
+        })
+        dialog.addAction(UIAlertAction(title: "ooi緩存系統（自動登入）", style: .default) { action in
+            let loginInfo = UIAlertController(title: "輸入登入資訊", message: "請輸入DMM帳號及密碼\n（不支援Google、Twitter及Facebook登入）", preferredStyle: .alert)
+            loginInfo.addTextField { (textField) in
+                textField.placeholder = "輸入帳號"
+                textField.keyboardType = UIKeyboardType.emailAddress
+            }
+            loginInfo.addTextField { (textField) in
+                textField.placeholder = "輸入密碼"
+                textField.isSecureTextEntry = true
+            }
+            loginInfo.addAction(UIAlertAction(title: "取消", style: .cancel) { action in
+                Setting.saveconnection(value: 4)
+                let url = URL(string: Constants.OOI)
+                self.webView.loadRequest(URLRequest(url: url!))
+            })
+            loginInfo.addAction(UIAlertAction(title: "完成", style: .default) { action in
+                Setting.saveLoginAccount(value: loginInfo.textFields?[0].text ?? "")
+                Setting.saveLoginPasswd(value: loginInfo.textFields?[1].text ?? "")
+                Setting.saveconnection(value: 5)
+                let url = URL(string: Constants.OOI)
+                self.webView.loadRequest(URLRequest(url: url!))
+            })
+            self.present(loginInfo, animated: true)
+        })
         dialog.addAction(UIAlertAction(title: "取消", style: .destructive) { action in
             self.blankPage()
         })

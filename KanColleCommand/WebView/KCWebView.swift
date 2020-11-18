@@ -48,9 +48,9 @@ class KCWebView: UIWebView {
         var connection = String()
         if Setting.getconnection() == 0 {
             connection = "about:blank"
-        } else if Setting.getconnection() == 1 || Setting.getconnection() == 2 {
+        } else if Setting.getconnection() == 1 || Setting.getconnection() == 2 || Setting.getconnection() == 3 || Setting.getconnection() == 6 {
             connection = Constants.HOME_PAGE
-        } else if Setting.getconnection() == 3 || Setting.getconnection() == 4 {
+        } else if Setting.getconnection() == 4 || Setting.getconnection() == 5 {
             connection = Constants.OOI
         }
         let url = URL(string: connection)
@@ -199,16 +199,20 @@ extension KCWebView: UIWebViewDelegate {
     }
     
     public func webViewDidFinishLoad(_ webView: UIWebView) {
-
+        
+        if Setting.getconnection() == 6 {
+            OperationQueue.main.addOperation {
+                self.stringByEvaluatingJavaScript(from: Constants.DMM_COOKIES)
+            }
+        }
+        
         let url1 = URL(string: "http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/")
         let url2 = URL(string: "http://ooi.moe/poi")
         let url3 = URL(string: "http://kancolle.su/poi")
         let url4 = URL(string: "http://ooi.moe/")
         let url5 = URL(string: "http://kancolle.su/")
         if webView.request?.url == url1 {
-            print("URL: " + (webView.request?.url!.absoluteString)!)
             if Setting.getconnection() == 2 {
-                self.stringByEvaluatingJavaScript(from: Constants.darkBG)
                 self.stringByEvaluatingJavaScript(from: Constants.FULL_SCREEN_SCRIPT)
             }
             if(UIScreen.current < .iPad9_7){
