@@ -71,7 +71,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         badlyDamageWarning.snp.makeConstraints { maker in
             maker.edges.equalTo(webView)
         }
-        if Setting.getOyodo() == 1 {
+        if Setting.getOyodo() == 0 {
             Oyodo.attention().watch(data: Fleet.instance.shipWatcher) { (event: Event<Transform>) in
                 var show = false
                     if (Battle.instance.friendCombined) {

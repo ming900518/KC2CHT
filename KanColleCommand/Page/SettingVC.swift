@@ -479,7 +479,7 @@ extension SettingVC: UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDa
         print("The switch is \(sender.isOn ? "ON" : "OFF")")
         if sender.isOn == true {
             if UIApplication.shared.supportsAlternateIcons {
-                print("current icon is primary icon, change to alternative icon")
+                print("[INFO] current icon is primary icon, change to alternative icon")
                 UIApplication.shared.setAlternateIconName("AlternateIcon"){ error in
                     if let error = error {
                         print(error.localizedDescription)
@@ -490,7 +490,7 @@ extension SettingVC: UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDa
                 Setting.saveAppIconChange(value: 1)
             }
         } else {
-            print("change to primary icon")
+            print("[INFO] change to primary icon")
             UIApplication.shared.setAlternateIconName(nil)
             Setting.saveAppIconChange(value: 0)
         }

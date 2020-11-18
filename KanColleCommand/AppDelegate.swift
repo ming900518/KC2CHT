@@ -43,6 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         }
+        UNUserNotificationCenter.current().delegate = self
         return true
     }
 
@@ -136,9 +137,16 @@ fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Categ
 	return input.rawValue
 }
 
+extension AppDelegate: UNUserNotificationCenterDelegate {
+     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.badge, .sound, .alert])
+    }
+}
+
 extension UserDefaults {
     // check for is first launch - only true on first invocation after app install, false on all further invocations
     // Note: Store this value in AppDelegate if you have multiple places where you are checking for this flag
+    
     static func isFirstLaunch() -> Bool {
         let hasBeenLaunchedBeforeFlag = "hasBeenLaunchedBeforeFlag"
         let isFirstLaunch = !UserDefaults.standard.bool(forKey: hasBeenLaunchedBeforeFlag)

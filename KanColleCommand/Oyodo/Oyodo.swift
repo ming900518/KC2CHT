@@ -112,7 +112,6 @@ class Oyodo {
             bean = SpeedChange.deserialize(from: response)
         } else if (url.hasSuffix("api_start2/getData")) {
             bean = Start.deserialize(from: response)
-        } else {
         }
         if let bean = bean {
             bean.setParams(form: request)

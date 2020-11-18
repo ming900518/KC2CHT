@@ -163,7 +163,6 @@ extension AppearanceVC: UITableViewDelegate {
                 }
                 selector.addAction(UIAlertAction(title: "確定", style: .default) { action in
                     let selected = picker.selectedRow(inComponent: 0)
-                    print("Selected : \(selected)")
                     Setting.saveDrawerDuration(value: selected)
                     self.appearanceTable.reloadData()
                     print("[INFO] New duration setting has been set.")
@@ -248,8 +247,6 @@ extension AppearanceVC: UITableViewDataSource {
     }
     
     @objc public func switchChanged(_ sender : UISwitch!){
-        print("table row switch Changed \(sender.tag)")
-        print("The switch is \(sender.isOn ? "ON" : "OFF")")
         if sender.isOn == true {
             Setting.saveOyodo(value: 0)
         } else {
