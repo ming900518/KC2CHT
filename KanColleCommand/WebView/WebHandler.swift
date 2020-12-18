@@ -36,7 +36,7 @@ class WebHandler: URLProtocol, URLSessionDelegate, URLSessionDataDelegate, URLSe
 
     override open func startLoading() {
 
-        if Setting.getconnection() == 2 {
+        if Setting.getconnection() == 2 || Setting.getconnection() == 3 || Setting.getconnection() == 6 || Setting.getconnection() == 7 || Setting.getconnection() == 8 {
             let newRequest = request as! NSMutableURLRequest
             URLProtocol.setProperty(true, forKey: type(of: self).customkey, in: newRequest)
         }
@@ -109,7 +109,7 @@ class WebHandler: URLProtocol, URLSessionDelegate, URLSessionDataDelegate, URLSe
     }
 
     private class func shouldIntercept(url: URL) -> Bool {
-        if Setting.getconnection() == 2 {
+        if Setting.getconnection() == 2 || Setting.getconnection() == 3 || Setting.getconnection() == 6 || Setting.getconnection() == 7 || Setting.getconnection() == 8 {
             return true
         } else {
             let path = url.path
@@ -161,11 +161,13 @@ class WebHandler: URLProtocol, URLSessionDelegate, URLSessionDataDelegate, URLSe
         
         if Setting.getconnection() == 2 {
             print("[INFO] Using proxy to load response.")
-            let proxy_server = "a0794cdafd77e1727.awsglobalaccelerator.com"
+            let proxy_server = "non.http.monitor.moe"
             let proxy_port = 8989
+            let proxy_user = "ooi.moe"
+            let proxy_pass = "ooi.moe"
             let hostKey = kCFNetworkProxiesHTTPProxy as String
             let portKey = kCFNetworkProxiesHTTPPort as String
-            let proxyDict:[String:Any] = [kCFNetworkProxiesHTTPEnable as String: true, hostKey:proxy_server, portKey: proxy_port]
+            let proxyDict:[String:Any] = [kCFNetworkProxiesHTTPEnable as String: true, hostKey:proxy_server, portKey: proxy_port, kCFProxyUsernameKey as String: proxy_user, kCFProxyPasswordKey as String: proxy_pass]
             let config = URLSessionConfiguration.default
             config.connectionProxyDictionary = proxyDict
             config.urlCache = nil
@@ -173,12 +175,36 @@ class WebHandler: URLProtocol, URLSessionDelegate, URLSessionDataDelegate, URLSe
             self.dataTask = defaultSession.dataTask(with: self.request as URLRequest)
             self.dataTask!.resume()
         } else if Setting.getconnection() == 3 || Setting.getconnection() == 6 {
-            print("[INFO] Using custom proxy to load response.")
+            print("[INFO] Using custom http proxy to load response.")
             let proxy_server = Setting.getCustomProxyIP()
-            let proxy_port = Setting.getCustomProxyPort()
+            print(proxy_server)
+            let port:Int? = Int(Setting.getCustomProxyPort())
+            let proxy_port = port
+            print(proxy_port ?? "80")
+            let proxy_user = Setting.getCustomProxyUser()
+            print(proxy_user)
+            let proxy_pass = Setting.getCustomProxyPass()
+            print(proxy_pass)
             let hostKey = kCFNetworkProxiesHTTPProxy as String
             let portKey = kCFNetworkProxiesHTTPPort as String
-            let proxyDict:[String:Any] = [kCFNetworkProxiesHTTPEnable as String: true, hostKey:proxy_server, portKey: proxy_port]
+            let proxyDict:[String:Any] = [kCFNetworkProxiesHTTPEnable as String: true, hostKey:proxy_server, portKey: proxy_port ?? 80, kCFProxyUsernameKey as String: proxy_user, kCFProxyPasswordKey as String: proxy_pass]
+            let config = URLSessionConfiguration.default
+            config.connectionProxyDictionary = proxyDict
+            config.urlCache = nil
+            let defaultSession = Foundation.URLSession(configuration: config, delegate: self, delegateQueue: nil)
+            self.dataTask = defaultSession.dataTask(with: self.request as URLRequest)
+            self.dataTask!.resume()
+        } else if Setting.getconnection() == 7 || Setting.getconnection() == 8 {
+            print("[INFO] Using custom https proxy to load response.")
+            let proxy_server = Setting.getCustomProxyIP()
+            let port:Int? = Int(Setting.getCustomProxyPort())
+            let proxy_port = port
+            print(proxy_port ?? "443")
+            let proxy_user = Setting.getCustomProxyUser()
+            let proxy_pass = Setting.getCustomProxyPass()
+            let hostKey = kCFNetworkProxiesHTTPProxy as String
+            let portKey = kCFNetworkProxiesHTTPPort as String
+            let proxyDict:[String:Any] = [kCFNetworkProxiesHTTPEnable as String: true, hostKey:proxy_server, portKey: proxy_port ?? 443, kCFProxyUsernameKey as String: proxy_user, kCFProxyPasswordKey as String: proxy_pass, kCFProxyTypeKey as String: kCFProxyTypeHTTPS]
             let config = URLSessionConfiguration.default
             config.connectionProxyDictionary = proxyDict
             config.urlCache = nil

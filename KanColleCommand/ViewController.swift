@@ -5,7 +5,7 @@ import RxSwift
 import UserNotifications
 
 class ViewController: UIViewController, UIScrollViewDelegate {
-
+    
     static let DEFAULT_BACKGROUND = UIColor(white: 0.23, alpha: 1)
     private var webView: KCWebView!
     private var scrollView: UIScrollView!
@@ -27,11 +27,10 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         }
         
         if Setting.getfirstStartup() != 0 {
-            if Setting.getconnection() == 0 {
-                self.loginChanger()
+            if Setting.getconnection() != 1 && Setting.getconnection() != 2 && Setting.getconnection() != 3 && Setting.getconnection() != 4 && Setting.getconnection() != 5 && Setting.getconnection() != 6 && Setting.getconnection() != 7 && Setting.getconnection() != 8 {
+                openSetting()
             }
         }
-
         webView = KCWebView()
         webView.setup(parent: self.view)
         webView.load()
@@ -63,9 +62,9 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             webView.scalesPageToFit = true;
         }
         NotificationCenter.default.addObserver(self, selector: #selector(reloadGame), name: Constants.RELOAD_GAME, object: nil)
-
+        
         let badlyDamageWarning = UIImageView(image: UIImage(named: "badly_damage_warning.png")?.resizableImage(
-                withCapInsets: UIEdgeInsets.init(top: 63, left: 63, bottom: 63, right: 63), resizingMode: .stretch))
+                                                withCapInsets: UIEdgeInsets.init(top: 63, left: 63, bottom: 63, right: 63), resizingMode: .stretch))
         badlyDamageWarning.isHidden = true
         self.view.addSubview(badlyDamageWarning)
         badlyDamageWarning.snp.makeConstraints { maker in
@@ -74,20 +73,20 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         if Setting.getOyodo() != 1 {
             Oyodo.attention().watch(data: Fleet.instance.shipWatcher) { (event: Event<Transform>) in
                 var show = false
-                    if (Battle.instance.friendCombined) {
-                        var phase = Phase.Idle
-                            do {
-                                phase = try Battle.instance.phase.value()
-                            } catch {
-                                print("Error when call phase.value()")
-                            }
-                        show = (Fleet.instance.isBadlyDamage(index: 0) || Fleet.instance.isBadlyDamage(index: 1))
-                            && (phase != Phase.Idle)
-                    } else {
-                        let battleFleet = Battle.instance.friendIndex
-                        show = battleFleet >= 0 && Fleet.instance.isBadlyDamage(index: battleFleet)
+                if (Battle.instance.friendCombined) {
+                    var phase = Phase.Idle
+                    do {
+                        phase = try Battle.instance.phase.value()
+                    } catch {
+                        print("Error when call phase.value()")
                     }
-                    badlyDamageWarning.isHidden = !show
+                    show = (Fleet.instance.isBadlyDamage(index: 0) || Fleet.instance.isBadlyDamage(index: 1))
+                        && (phase != Phase.Idle)
+                } else {
+                    let battleFleet = Battle.instance.friendIndex
+                    show = battleFleet >= 0 && Fleet.instance.isBadlyDamage(index: battleFleet)
+                }
+                badlyDamageWarning.isHidden = !show
                 if Setting.getwarningAlert() == 1 {
                     let warningAlert = UIAlertController(title: "⚠️ 大破 ⚠️", message: "あうぅっ！ 痛いってばぁっ！\n(つД`)", preferredStyle: .alert)
                     warningAlert.addAction(UIAlertAction(title: "はい、はい、知っています", style: .destructive, handler: nil))
@@ -112,6 +111,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
                 }
             }
         }
+        let screenSize = UIDevice.screenSize
         let settingBtn = UIButton(type: .custom)
         settingBtn.setImage(UIImage(named: "setting.png"), for: .normal)
         settingBtn.imageEdgeInsets = UIEdgeInsets.init(top: 8, left: 8, bottom: 8, right: 8)
@@ -121,44 +121,32 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             settingBtn.backgroundColor = UIColor.init(white: 0.185, alpha: 1)
         }
         self.view.addSubview(settingBtn)
-        if (UIScreen.current == .iPhone5_8) { //iPhone X XS 11Pro
+        if (screenSize == "5.4"){ //iPhone mini
             settingBtn.snp.makeConstraints { maker in
-                maker.width.equalTo(40)
-                maker.height.equalTo(40)
-                maker.right.equalTo(webView.snp.left)
-                maker.top.equalTo(webView.snp.top).inset(11)
-            }
-        } else if (UIScreen.current == .iPhone6_1) { //iPhone XR 11
-            settingBtn.snp.makeConstraints { maker in
-                maker.width.equalTo(40)
-                maker.height.equalTo(40)
-                maker.right.equalTo(webView.snp.left)
-                maker.top.equalTo(webView.snp.top).inset(11)
-            }
-        } else if (UIScreen.current == .iPhone6_5) { //iPhone XS Max 11Pro Max
-            settingBtn.snp.makeConstraints { maker in
-                maker.width.equalTo(40)
-                maker.height.equalTo(40)
-                maker.right.equalTo(webView.snp.left)
-                maker.top.equalTo(webView.snp.top).inset(11)
-            }
-        } else if (UIScreen.current > .iPad10_5) { //iPad Pro
-            settingBtn.snp.makeConstraints { maker in
-                maker.width.equalTo(40)
-                maker.height.equalTo(40)
+                maker.width.equalTo(35)
+                maker.height.equalTo(35)
                 maker.right.equalTo(webView.snp.left)
                 maker.top.equalTo(webView.snp.top).inset(11)
             }
         } else {
             settingBtn.snp.makeConstraints { maker in
-                maker.width.equalTo(40)
-                maker.height.equalTo(40)
+                if (screenSize == "5.4") { //iPhone mini
+                    maker.width.equalTo(35)
+                    maker.height.equalTo(35)
+                } else {
+                    maker.width.equalTo(40)
+                    maker.height.equalTo(40)
+                }
                 maker.right.equalTo(webView.snp.left)
-                maker.top.equalTo(webView.snp.top)
+                if (screenSize == "5.4" || screenSize == "5.8" || screenSize == "6.1" || screenSize == "6.5" || screenSize == "10.9" || screenSize == "11.0" || screenSize == "12.9Round") { //iDevices with round bezel
+                    maker.top.equalTo(webView.snp.top).inset(11)
+                } else {
+                    maker.top.equalTo(webView.snp.top)
+                }
             }
         }
         settingBtn.addTarget(self, action: #selector(openSetting), for: .touchUpInside)
-
+        
         let refreshBtn = UIButton(type: .custom)
         refreshBtn.setImage(UIImage(named: "reload.png"), for: .normal)
         refreshBtn.imageEdgeInsets = UIEdgeInsets.init(top: 8, left: 8, bottom: 8, right: 8)
@@ -169,8 +157,13 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         }
         self.view.addSubview(refreshBtn)
         refreshBtn.snp.makeConstraints { maker in
-            maker.width.equalTo(40)
-            maker.height.equalTo(40)
+            if (screenSize == "5.4"){ //iPhone mini
+                maker.width.equalTo(35)
+                maker.height.equalTo(35)
+            } else {
+                maker.width.equalTo(40)
+                maker.height.equalTo(40)
+            }
             maker.right.equalTo(settingBtn.snp.right)
             maker.top.equalTo(settingBtn.snp.bottom)
         }
@@ -192,36 +185,31 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         }
         self.view.addSubview(appearanceBtn)
         appearanceBtn.snp.makeConstraints { maker in
-            maker.width.equalTo(40)
-            maker.height.equalTo(40)
+            if (screenSize == "5.4"){ //iPhone mini
+                maker.width.equalTo(35)
+                maker.height.equalTo(35)
+            } else {
+                maker.width.equalTo(40)
+                maker.height.equalTo(40)
+            }
             maker.centerX.equalTo(refreshBtn.snp.centerX)
             maker.bottom.equalTo(view.snp.bottom).inset(20)
         }
         appearanceBtn.addTarget(self, action: #selector(openAppearance), for: .touchUpInside)
-
+        
         Drawer().attachTo(controller: self)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         if Setting.getfirstStartup() == 0 {
-            self.loginChanger()
-        } else {
-            if Setting.getconnection() == 0{
-                let alert = UIAlertController(title: "未選擇預設登入方式", message: "請選擇以下其中一種操作", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "選擇預設登入方式", style: .default) { action in
-                    self.loginChanger()
-                })
-                alert.addAction(UIAlertAction(title: "清理Caches和Cookies", style: .default) { action in
-                    self.cleaner()
-                })
-                alert.addAction(UIAlertAction(title: "關閉本App", style: .destructive) { action in
-                    exit(0)
-                    })
-                self.present(alert, animated: true)
-            }
+            let firstStartup = UIAlertController(title: "歡迎使用iKanColleCommand！", message: "偵測到初次使用，將開啟設定畫面\n請設定連線方式", preferredStyle: .alert)
+            firstStartup.addAction(UIAlertAction(title: "了解", style: .default) { action in
+                self.openSetting()
+            })
+            self.present(firstStartup, animated: true)
         }
     }
-
+    
     @objc func confirmRefresh() {
         let dialog = UIAlertController(title: nil, message: "重新整理頁面", preferredStyle: .alert)
         dialog.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
@@ -231,7 +219,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         })
         present(dialog, animated: true)
     }
-
+    
     @objc func openSetting() {
         let settingVC = SettingVC()
         present(settingVC, animated: true)
@@ -241,7 +229,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         let appearanceVC = AppearanceVC()
         present(appearanceVC, animated: true)
     }
-
+    
     @objc func reloadGame() {
         self.webView.loadBlankPage()
         self.webView.load()
@@ -271,106 +259,16 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         self.present(dialog, animated: true)
     }
     
-    @objc func loginChanger(){
-        let dialog = UIAlertController(title: "歡迎使用iKanColleCommand", message: "請選擇預設登入遊戲方式\n需要變更可至設定中進行變更", preferredStyle: .alert)
-        dialog.addAction(UIAlertAction(title: "日本地區直連/使用VPN", style: .default) { action in
-            Setting.saveconnection(value: 1)
-            let url = URL(string: Constants.HOME_PAGE)
-            self.webView.loadRequest(URLRequest(url: url!))
-        })
-        dialog.addAction(UIAlertAction(title: "大陸地區以外專用Proxy", style: .default) { action in
-            let thanksSV = UIAlertController(title: "使用條款說明及感謝", message: "1. 本服務由OOI開發者@SenkaViewer無償提供，在此感謝他的貢獻！\n2. 如在使用本服務上遇到任何問題，請加入Discord群@App相關服務開發者以獲得支援。\n3. iKanColleCommand Tweaked Version修改者不對使用這項服務所造成的任何問題負責。", preferredStyle: .alert)
-            thanksSV.addAction(UIAlertAction(title: "我已詳閱並同意以上內容", style: .default) { action in
-                let url = URL(string: Constants.HOME_PAGE)
-                self.webView.loadRequest(URLRequest(url: url!))
-            })
-            thanksSV.addAction(UIAlertAction(title: "不同意，退出", style: .destructive) { action in
-                self.blankPage()
-            })
-        })
-        dialog.addAction(UIAlertAction(title: "自定義Proxy", style: .default) { action in
-            let proxyInfo = UIAlertController(title: "輸入Proxy資訊", message: "請輸入Proxy IP及Port號\n（僅支持HTTP Proxy，HTTPS Proxy未測試）", preferredStyle: .alert)
-            proxyInfo.addTextField { (textField) in
-                textField.placeholder = "Proxy IP"
-                textField.keyboardType = UIKeyboardType.URL
-            }
-            proxyInfo.addTextField { (textField) in
-                textField.placeholder = "Port"
-                textField.keyboardType = UIKeyboardType.decimalPad
-            }
-            proxyInfo.addAction(UIAlertAction(title: "取消", style: .cancel) { action in
-                Setting.saveconnection(value: 2)
-            })
-            proxyInfo.addAction(UIAlertAction(title: "完成", style: .default) { action in
-                Setting.saveCustomProxyIP(value: proxyInfo.textFields?[0].text ?? "")
-                Setting.saveCustomProxyPort(value: proxyInfo.textFields?[1].text ?? "")
-            })
-            let cookieNeeded = UIAlertController(title: "烤餅乾？", message: "是否使用解除DMM地域限制Cookies？\n僅大陸地區以外用戶有效", preferredStyle: .alert)
-            cookieNeeded.addAction(UIAlertAction(title: "取消", style: .cancel) { action in
-                Setting.saveconnection(value: 2)
-            })
-            cookieNeeded.addAction(UIAlertAction(title: "是", style: .default) { action in
-                self.present(proxyInfo, animated: true)
-                Setting.saveconnection(value: 6)
-            })
-            cookieNeeded.addAction(UIAlertAction(title: "否", style: .default) { action in
-                self.present(proxyInfo, animated: true)
-                Setting.saveconnection(value: 3)
-            })
-            self.present(cookieNeeded, animated: true)
-            let url = URL(string: Constants.HOME_PAGE)
-            self.webView.loadRequest(URLRequest(url: url!))
-        })
-        dialog.addAction(UIAlertAction(title: "ooi緩存系統（手動登入）", style: .default) { action in
-            Setting.saveconnection(value: 4)
-            let url = URL(string: Constants.OOI)
-            self.webView.loadRequest(URLRequest(url: url!))
-        })
-        dialog.addAction(UIAlertAction(title: "ooi緩存系統（自動登入）", style: .default) { action in
-            let loginInfo = UIAlertController(title: "輸入登入資訊", message: "請輸入DMM帳號及密碼\n（不支援Google、Twitter及Facebook登入）", preferredStyle: .alert)
-            loginInfo.addTextField { (textField) in
-                textField.placeholder = "輸入帳號"
-                textField.keyboardType = UIKeyboardType.emailAddress
-            }
-            loginInfo.addTextField { (textField) in
-                textField.placeholder = "輸入密碼"
-                textField.isSecureTextEntry = true
-            }
-            loginInfo.addAction(UIAlertAction(title: "取消", style: .cancel) { action in
-                Setting.saveconnection(value: 4)
-                let url = URL(string: Constants.OOI)
-                self.webView.loadRequest(URLRequest(url: url!))
-            })
-            loginInfo.addAction(UIAlertAction(title: "完成", style: .default) { action in
-                Setting.saveLoginAccount(value: loginInfo.textFields?[0].text ?? "")
-                Setting.saveLoginPasswd(value: loginInfo.textFields?[1].text ?? "")
-                Setting.saveconnection(value: 5)
-                let url = URL(string: Constants.OOI)
-                self.webView.loadRequest(URLRequest(url: url!))
-            })
-            self.present(loginInfo, animated: true)
-        })
-        dialog.addAction(UIAlertAction(title: "取消", style: .destructive) { action in
-            self.blankPage()
-        })
-        present(dialog, animated: true)
-        Setting.savefirstStartup(value: 1)
-    }
-    
     @objc func blankPage(){
         let blank = "about:blank"
         let currentPage = self.webView.request!.url!.absoluteString
         if currentPage == blank {
             var titleText: String?
-            if Setting.getconnection() == 0 {
-                titleText = "未選擇預設登入方式"
-            } else {
-                titleText = "遊戲尚未開啟"
-            }
+            titleText = "遊戲尚未開啟"
             let alert = UIAlertController(title: titleText, message: "請選擇以下其中一種操作", preferredStyle: .alert)
             if Setting.getconnection() == 0 {
-                alert.addAction(UIAlertAction(title: "選擇預設登入方式", style: .default) { action in
-                    self.loginChanger()
+                alert.addAction(UIAlertAction(title: "開啟設定", style: .default) { action in
+                    self.openSetting()
                 })
             } else {
                 
@@ -380,7 +278,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             })
             alert.addAction(UIAlertAction(title: "關閉本App", style: .destructive) { action in
                 exit(0)
-                })
+            })
             self.present(alert, animated: true)
         } else {
             return
@@ -388,9 +286,9 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     }
     private var isConnectedToVpn: Bool {
         if let settings = CFNetworkCopySystemProxySettings()?.takeRetainedValue() as? Dictionary<String, Any>,
-            let scopes = settings["__SCOPED__"] as? [String:Any] {
+           let scopes = settings["__SCOPED__"] as? [String:Any] {
             for (key, _) in scopes {
-             if key.contains("tap") || key.contains("tun") || key.contains("ppp") || key.contains("ipsec") {
+                if key.contains("tap") || key.contains("tun") || key.contains("ppp") || key.contains("ipsec") {
                     return true
                 }
             }
@@ -406,4 +304,62 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         webView.setup(parent: self.view)
         self.view.sendSubviewToBack(webView)
     }
+}
+
+extension UIDevice {
+    
+    static let screenSize: String = {
+        var systemInfo = utsname()
+        uname(&systemInfo)
+        let machineMirror = Mirror(reflecting: systemInfo.machine)
+        let identifier = machineMirror.children.reduce("") { identifier, element in
+            guard let value = element.value as? Int8, value != 0 else { return identifier }
+            return identifier + String(UnicodeScalar(UInt8(value)))
+        }
+        
+        func mapToDevice(identifier: String) -> String {
+            #if os(iOS)
+            switch identifier {
+            case "iPod7,1", "iPod9,1", "iPhone6,1", "iPhone6,2","iPhone8,4":
+                return "4.0"
+            case "iPhone7,2", "iPhone8,1", "iPhone9,1", "iPhone9,3", "iPhone10,1", "iPhone10,4", "iPhone12,8":
+                return "4.7"
+            case "iPhone13,1":
+                return "5.4"
+            case "iPhone7,1", "iPhone8,2", "iPhone9,2", "iPhone9,4", "iPhone10,2", "iPhone10,5":
+                return "5.5"
+            case "iPhone10,3", "iPhone10,6", "iPhone11,2", "iPhone12,3":
+                return "5.8"
+            case "iPhone11,8", "iPhone12,1":
+                return "6.1"
+            case "iPhone11,4", "iPhone11,6", "iPhone12,5", "iPhone13,2", "iPhone13,3":
+                return "6.5"
+            case "iPhone13,4":
+                return "6.7"
+            case "iPad4,4", "iPad4,5", "iPad4,6", "iPad4,7", "iPad4,8", "iPad4,9", "iPad5,1", "iPad5,2", "iPad11,1", "iPad11,2":
+                return "7.9"
+            case "iPad4,1", "iPad4,2", "iPad4,3", "iPad5,3", "iPad5,4", "iPad6,3", "iPad6,4", "iPad6,11", "iPad6,12", "iPad7,5", "iPad7,6":
+                return "9.7"
+            case "iPad7,11", "iPad7,12", "iPad11,6", "iPad11,7":
+                return "10.2"
+            case "iPad7,3", "iPad7,4", "iPad11,3", "iPad11,4", "iPad11,5":
+                return "10.5"
+            case "iPad13,1", "iPad13,2":
+                return "10.9"
+            case "iPad8,1", "iPad8,2", "iPad8,3", "iPad8,4", "iPad8,9", "iPad8,10":
+                return "11.0"
+            case "iPad6,7", "iPad6,8", "iPad7,1", "iPad7,2":
+                return "12.9"
+            case "iPad8,5", "iPad8,6", "iPad8,7", "iPad8,8", "iPad8,11", "iPad8,12":
+                return "12.9Round"
+            case "i386", "x86_64":
+                return "\(mapToDevice(identifier: ProcessInfo().environment["SIMULATOR_MODEL_IDENTIFIER"] ?? "iOS"))"
+            default:
+                return "Unknown Device" + identifier
+            }
+            #endif
+        }
+        return mapToDevice(identifier: identifier)
+    }()
+    
 }

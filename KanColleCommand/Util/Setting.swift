@@ -146,4 +146,24 @@ class Setting {
     static func saveCustomProxyPort(value: String) {
         UserDefaults.standard.set(value, forKey: kCustomProxyPort)
     }
+    
+    private static let kCustomProxyUser = "CustomProxyUser"
+    
+    static func getCustomProxyUser() -> String {
+        return UserDefaults.standard.string(forKey: kCustomProxyUser) ?? ""
+    }
+
+    static func saveCustomProxyUser(value: String) {
+        UserDefaults.standard.set(value, forKey: kCustomProxyUser)
+    }
+    
+    private static let kCustomProxyPass = "CustomProxyPass"
+    
+    static func getCustomProxyPass() -> String {
+        return UserDefaults.standard.string(forKey: kCustomProxyPass) ?? ""
+    }
+
+    static func saveCustomProxyPass(value: String) {
+        UserDefaults.standard.set(value, forKey: kCustomProxyPass)
+    }
 }

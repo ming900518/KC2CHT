@@ -5,50 +5,35 @@ import ScreenType
 import UIKit
 
 class KCWebView: UIWebView {
-
+    
     func setup(parent: UIView) {
+        let screenSize = UIDevice.screenSize
         parent.addSubview(self)
-        if (UIScreen.current == .iPhone5_5) {
-            self.snp.makeConstraints { maker in
-                maker.width.equalTo(parent.snp.width).inset(40)
+        self.snp.makeConstraints { maker in
+            if (screenSize == "5.5") {
                 maker.height.equalTo(self.snp.width).inset(131.2)
-                maker.top.equalTo(parent.snp.top)
-                maker.centerX.equalTo(parent.snp.centerX)
-            }
-        } else if (UIScreen.current == .iPhone4_7) {
-            self.snp.makeConstraints { maker in
-                maker.width.equalTo(parent.snp.width).inset(40)
+            } else if (screenSize == "4.7") {
                 maker.height.equalTo(self.snp.width).inset(117.5)
-                maker.top.equalTo(parent.snp.top)
-                maker.centerX.equalTo(parent.snp.centerX)
-            }
-        } else if (UIScreen.current == .iPhone4_0) {
-            self.snp.makeConstraints { maker in
-                maker.width.equalTo(parent.snp.width).inset(40)
+            } else if (screenSize == "4.0") {
                 maker.height.equalTo(self.snp.width).inset(97.5)
-                maker.top.equalTo(parent.snp.top)
-                maker.centerX.equalTo(parent.snp.centerX)
-            }
-        } else {
-            self.snp.makeConstraints { maker in
+            } else {
                 maker.height.equalTo(parent.snp.height).inset(10.5)
-                maker.width.equalTo(parent.snp.width).inset(40)
-                maker.top.equalTo(parent)
-                maker.centerX.equalTo(parent)
-                maker.centerY.equalTo(parent.snp.centerY)
             }
+            maker.width.equalTo(parent.snp.width).inset(40)
+            maker.top.equalTo(parent)
+            maker.centerX.equalTo(parent)
+            maker.centerY.equalTo(parent.snp.centerY)
         }
-
         NotificationCenter.default.addObserver(self, selector: #selector(gameStart), name: Constants.START_EVENT, object: nil)
         self.mediaPlaybackRequiresUserAction = false
         self.delegate = self
     }
-
+    
     func load() {
         var connection = String()
         if Setting.getconnection() == 0 {
             connection = "about:blank"
-        } else if Setting.getconnection() == 1 || Setting.getconnection() == 2 || Setting.getconnection() == 3 || Setting.getconnection() == 6 {
+        } else if Setting.getconnection() == 1 || Setting.getconnection() == 2 || Setting.getconnection() == 3 || Setting.getconnection() == 6 || Setting.getconnection() == 7 || Setting.getconnection() == 8 {
             connection = Constants.HOME_PAGE
         } else if Setting.getconnection() == 4 || Setting.getconnection() == 5 {
             connection = Constants.OOI
@@ -58,7 +43,7 @@ class KCWebView: UIWebView {
         loadCookie()
     }
     
-
+    
     func loadBlankPage() {
         let url = URL(string: "about:blank")
         loadRequest(URLRequest(url: url!))
@@ -72,7 +57,7 @@ class KCWebView: UIWebView {
             ud.set(data, forKey: "cookie")
         }
     }
-
+    
     func loadCookie() {
         let ud: UserDefaults = UserDefaults.standard
         let data: Data? = ud.object(forKey: "cookie") as? Data
@@ -87,19 +72,19 @@ class KCWebView: UIWebView {
             }
         }
     }
-
+    
     @objc private func gameStart(n: Notification) {
         OperationQueue.main.addOperation {
             self.stringByEvaluatingJavaScript(from: Constants.FULL_SCREEN_SCRIPT)
-//            self.stringByEvaluatingJavaScript(from: Constants.darkBG)
+            //            self.stringByEvaluatingJavaScript(from: Constants.darkBG)
         }
     }
     
     private var isConnectedToVpn: Bool {
         if let settings = CFNetworkCopySystemProxySettings()?.takeRetainedValue() as? Dictionary<String, Any>,
-            let scopes = settings["__SCOPED__"] as? [String:Any] {
+           let scopes = settings["__SCOPED__"] as? [String:Any] {
             for (key, _) in scopes {
-             if key.contains("tap") || key.contains("tun") || key.contains("ppp") || key.contains("ipsec") {
+                if key.contains("tap") || key.contains("tun") || key.contains("ppp") || key.contains("ipsec") {
                     return true
                 }
             }
@@ -108,71 +93,15 @@ class KCWebView: UIWebView {
     }
 }
 
-public extension UIDevice {
-
-    static let screenSize: String = {
-        var systemInfo = utsname()
-        uname(&systemInfo)
-        let machineMirror = Mirror(reflecting: systemInfo.machine)
-        let identifier = machineMirror.children.reduce("") { identifier, element in
-            guard let value = element.value as? Int8, value != 0 else { return identifier }
-            return identifier + String(UnicodeScalar(UInt8(value)))
-        }
-
-        func mapToDevice(identifier: String) -> String {
-            #if os(iOS)
-            switch identifier {
-            case "iPod7,1", "iPod9,1", "iPhone6,1", "iPhone6,2","iPhone8,4":
-                return "4.0"
-            case "iPhone7,2", "iPhone8,1", "iPhone9,1", "iPhone9,3", "iPhone10,1", "iPhone10,4", "iPhone12,8":
-                return "4.7"
-            case "iPhone13,1":
-                return "5.4"
-            case "iPhone7,1", "iPhone8,2", "iPhone9,2", "iPhone9,4", "iPhone10,2", "iPhone10,5":
-                return "5.5"
-            case "iPhone10,3", "iPhone10,6", "iPhone11,2", "iPhone12,3":
-                return "5.8"
-            case "iPhone11,8", "iPhone12,1":
-                return "6.1"
-            case "iPhone11,4", "iPhone11,6", "iPhone12,5", "iPhone13,2", "iPhone13,3":
-                return "6.5"
-            case "iPhone13,4":
-                return "6.7"
-            case "iPad4,4", "iPad4,5", "iPad4,6", "iPad4,7", "iPad4,8", "iPad4,9", "iPad5,1", "iPad5,2", "iPad11,1", "iPad11,2":
-                return "7.9"
-            case "iPad4,1", "iPad4,2", "iPad4,3", "iPad5,3", "iPad5,4", "iPad6,3", "iPad6,4", "iPad6,11", "iPad6,12", "iPad7,5", "iPad7,6":
-                return "9.7"
-            case "iPad7,11", "iPad7,12", "iPad11,6", "iPad11,7":
-                return "10.2"
-            case "iPad7,3", "iPad7,4", "iPad11,3", "iPad11,4", "iPad11,5":
-                return "10.5"
-            case "iPad13,1", "iPad13,2":
-                return "10.9"
-            case "iPad8,1", "iPad8,2", "iPad8,3", "iPad8,4", "iPad8,9", "iPad8,10":
-                return "11.0"
-            case "iPad6,7", "iPad6,8", "iPad7,1", "iPad7,2", "iPad8,5", "iPad8,6", "iPad8,7", "iPad8,8", "iPad8,11", "iPad8,12":
-                return "12.9"
-            case "i386", "x86_64":
-                return "\(mapToDevice(identifier: ProcessInfo().environment["SIMULATOR_MODEL_IDENTIFIER"] ?? "iOS"))"
-            default:
-                return "Unknown Device" + identifier
-            }
-            #endif
-        }
-        return mapToDevice(identifier: identifier)
-    }()
-
-}
-
 extension KCWebView: UIWebViewDelegate {
-
+    
     public func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: NavigationType) -> Bool {
         if (request.url?.scheme == "kcwebview") {
             if let params = request.url?.query {
                 do {
                     let decoded = params.removingPercentEncoding!
-                            .replacingOccurrences(of: "\\n", with: "")
-                            .replacingOccurrences(of: " ", with: "")
+                        .replacingOccurrences(of: "\\n", with: "")
+                        .replacingOccurrences(of: " ", with: "")
                     let jsonData = decoded.data(using: .utf8)!
                     let dic = try JSONSerialization.jsonObject(with: jsonData) as? [String: String]
                     let url: String = dic?["url"] ?? ""
@@ -190,17 +119,17 @@ extension KCWebView: UIWebViewDelegate {
             }
             return false
         }
-
+        
         return true
     }
-
+    
     public func webViewDidStartLoad(_ webView: UIWebView) {
-
+        
     }
     
     public func webViewDidFinishLoad(_ webView: UIWebView) {
         
-        if Setting.getconnection() == 6 {
+        if Setting.getconnection() == 6 || Setting.getconnection() == 8 {
             OperationQueue.main.addOperation {
                 self.stringByEvaluatingJavaScript(from: Constants.DMM_COOKIES)
             }
@@ -212,10 +141,10 @@ extension KCWebView: UIWebViewDelegate {
         let url4 = URL(string: "http://ooi.moe/")
         let url5 = URL(string: "http://kancolle.su/")
         if webView.request?.url == url1 {
-            if Setting.getconnection() == 2 {
+            if Setting.getconnection() == 2 || Setting.getconnection() == 3 || Setting.getconnection() == 6 || Setting.getconnection() == 7 || Setting.getconnection() == 8 {
                 self.stringByEvaluatingJavaScript(from: Constants.FULL_SCREEN_SCRIPT)
             }
-            if(UIScreen.current < .iPad9_7){
+            if (UIScreen.current < .iPad9_7) {
                 self.scrollView.minimumZoomScale = 1.0
                 self.scrollView.maximumZoomScale = 1.0
                 self.scrollView.zoomScale = 1.0
@@ -297,7 +226,7 @@ extension KCWebView: UIWebViewDelegate {
                 self.scrollView.maximumZoomScale = 0.92
                 self.scrollView.setZoomScale(0.92, animated: false)
                 self.scrollView.isScrollEnabled = false
-            } else if (screenSize == "12.9") {
+            } else if (screenSize == "12.9" || screenSize == "12.9Round") {
                 self.scrollView.minimumZoomScale = 1
                 self.scrollView.maximumZoomScale = 1
                 self.scrollView.setZoomScale(1, animated: false)
@@ -306,26 +235,27 @@ extension KCWebView: UIWebViewDelegate {
                 print("Unknown Device.")
             }
         } else if webView.request?.url == url4 || webView.request?.url == url5 {
-            print("URL: " + (webView.request?.url!.absoluteString)!)
-            print("OOI Auto Login Started.")
-            let loginAccount = Setting.getLoginAccount()
-            let loginPasswd = Setting.getLoginPasswd()
-            if Setting.getAttemptTime() == 0 {
-                Setting.saveAttemptTime(value: 1)
-                let loginJS = "javascript:document.getElementById('login_id').value = '" + loginAccount + "'; document.getElementById('password').value = '" + loginPasswd + "'; document.getElementById('mode3').checked = 'true'; document.forms[0].submit();"
-                self.stringByEvaluatingJavaScript(from: loginJS)
+            if Setting.getconnection() == 5 {
+                print("[INFO] URL: " + (webView.request?.url!.absoluteString)!)
+                print("[INFO] OOI Auto Login Started.")
+                let loginAccount = Setting.getLoginAccount()
+                let loginPasswd = Setting.getLoginPasswd()
+                if Setting.getAttemptTime() == 0 {
+                    Setting.saveAttemptTime(value: 1)
+                    let loginJS = "javascript:document.getElementById('login_id').value = '" + loginAccount + "'; document.getElementById('password').value = '" + loginPasswd + "'; document.getElementById('mode3').checked = 'true'; document.forms[0].submit();"
+                    self.stringByEvaluatingJavaScript(from: loginJS)
+                }
             }
         } else {
             print("URL: " + (webView.request?.url!.absoluteString)!)
             self.scrollView.contentOffset = CGPoint(x: 0, y: 0)
             self.scrollView.setZoomScale(1, animated: false)
-            //self.scrollView.zoomScale = 1
             self.scrollView.isScrollEnabled = true
         }
         saveCookie()
     }
-
+    
     public func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
     }
-
+    
 }

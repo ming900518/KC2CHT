@@ -9,24 +9,22 @@ import SnapKit
 import Photos
 
 class SettingVC: UIViewController {
-
+    
     private let cellIdentifier = "SettingCell"
     private var settingTable: UITableView!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let toolbar = UIView()
         if #available(iOS 13.0, *) {
             self.view.backgroundColor = UIColor.systemBackground
-            //toolbar.backgroundColor = UIColor.systemFill
         } else {
             self.view.backgroundColor = UIColor(hexString: "#FBFBFB")
-            //toolbar.backgroundColor = UIColor(hexString: "#FBFBFB")
         }
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.landscape = true
         self.view.addSubview(toolbar)
-
+        
         let titleBar = UIView()
         toolbar.addSubview(titleBar)
         titleBar.snp.makeConstraints { maker in
@@ -34,7 +32,7 @@ class SettingVC: UIViewController {
             maker.width.equalTo(self.view.snp.width)
             maker.height.equalTo(44)
         }
-
+        
         let titleText = UILabel()
         titleText.text = "設定"
         if #available(iOS 13.0, *) {
@@ -46,13 +44,13 @@ class SettingVC: UIViewController {
         titleText.snp.makeConstraints { maker in
             maker.center.equalTo(titleBar.snp.center)
         }
-
+        
         toolbar.snp.makeConstraints { maker in
             maker.top.equalTo(self.view.snp.top)
             maker.width.equalTo(self.view.snp.width)
             maker.bottom.equalTo(titleBar.snp.bottom)
         }
-
+        
         let toolbarDivider = UIView()
         if #available(iOS 13.0, *) {
             toolbarDivider.backgroundColor = UIColor.separator
@@ -65,16 +63,16 @@ class SettingVC: UIViewController {
             maker.height.equalTo(1)
             maker.bottom.equalTo(toolbar.snp.bottom)
         }
-
+        
         let closeBtn = UIButton(type: .system)
         closeBtn.setTitle("關閉", for: .normal)
-        closeBtn.addTarget(self, action: #selector(close), for: .touchUpInside)
+        closeBtn.addTarget(self, action: #selector(closeCheck), for: .touchUpInside)
         titleBar.addSubview(closeBtn)
         closeBtn.snp.makeConstraints { maker in
             maker.centerY.equalTo(titleBar.snp.centerY)
             maker.right.equalTo(titleBar.snp.right).offset(-16)
         }
-
+        
         if #available(iOS 13.0, *) {
             settingTable = UITableView(frame: CGRect.zero, style: .insetGrouped)
         } else {
@@ -95,16 +93,29 @@ class SettingVC: UIViewController {
         }
         CacheManager.checkCachedfiles()
     }
-
+    
+    @objc func closeCheck() {
+        if Setting.getconnection() != 1 && Setting.getconnection() != 2 && Setting.getconnection() != 3 && Setting.getconnection() != 4 && Setting.getconnection() != 5 && Setting.getconnection() != 6 && Setting.getconnection() != 7 && Setting.getconnection() != 8 {
+            let noConnection = UIAlertController(title: "未設定連線方式", message: "請設定連線方式", preferredStyle: .alert)
+            noConnection.addAction(UIAlertAction(title: "了解", style: .default, handler: nil))
+            self.present(noConnection, animated: true)
+        } else {
+            self.close()
+        }
+    }
+    
     @objc func close() {
+        if Setting.getfirstStartup() != 1 {
+            Setting.savefirstStartup(value: 1)
+        }
         dismiss(animated: true)
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.landscape = true
-         }
     }
+}
 
 extension SettingVC: UITableViewDelegate {
-
+    
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath.section == 0) {
             if (indexPath.row == 0) {
@@ -114,15 +125,19 @@ extension SettingVC: UITableViewDelegate {
                 } else if Setting.getconnection() == 2 {
                     connection = "大陸地區以外專用Proxy"
                 } else if Setting.getconnection() == 3 {
-                    connection = "自定義Proxy"
+                    connection = "自定義HTTP Proxy"
                 } else if Setting.getconnection() == 4 {
                     connection = "ooi緩存系統（手動登入）"
                 } else if Setting.getconnection() == 5 {
                     connection = "ooi緩存系統（自動登入）"
                 } else if Setting.getconnection() == 6 {
-                    connection = "自定義Proxy（烤餅乾）"
+                    connection = "自定義HTTP Proxy（烤餅乾）"
+                } else if Setting.getconnection() == 7 {
+                    connection = "自定義HTTPS Proxy"
+                } else if Setting.getconnection() == 8 {
+                    connection = "自定義HTTPS Proxy（烤餅乾）"
                 } else {
-                    connection = "未知"
+                    connection = "尚未設定"
                 }
                 let info = UIAlertController(title: "請選擇連線方式", message: "目前使用：\(connection)", preferredStyle: .actionSheet)
                 if let popoverController = info.popoverPresentationController {
@@ -130,13 +145,15 @@ extension SettingVC: UITableViewDelegate {
                     popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
                     popoverController.permittedArrowDirections = []
                 }
+                
                 info.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
                 info.addAction(UIAlertAction(title: "日本地區直連/使用VPN", style: .default) { action in
                     Setting.saveconnection(value: 1)
                     self.settingTable.reloadData()
                 })
+                
                 info.addAction(UIAlertAction(title: "大陸地區以外專用Proxy", style: .default) { action in
-                    let thanksSV = UIAlertController(title: "使用條款說明及感謝", message: "1. 本服務由OOI開發者@SenkaViewer無償提供，在此感謝他的貢獻！\n2. 如在使用本服務上遇到任何問題，請加入Discord群@App相關服務開發者以獲得支援。\n3. iKanColleCommand Tweaked Version修改者不對使用這項服務所造成的任何問題負責。", preferredStyle: .alert)
+                    let thanksSV = UIAlertController(title: "使用條款說明及感謝", message: "1. 本服務由OOI開發者@SenkaViewer無償提供，在此感謝他的貢獻！\n2. 如在使用本服務上遇到任何問題，請加入Discord群@App相關服務開發者以獲得支援。\n3. iKanColleCommand Tweaked Version修改者不對使用這項服務所造成的任何問題負責。\n4. 如無法正常登入，請先使用「日本地區直連/使用VPN」模式登入後，再從設定畫面切換至本模式。", preferredStyle: .alert)
                     thanksSV.addAction(UIAlertAction(title: "我已詳閱並同意以上內容", style: .default) { action in
                         Setting.saveconnection(value: 2)
                         self.settingTable.reloadData()
@@ -144,37 +161,94 @@ extension SettingVC: UITableViewDelegate {
                     thanksSV.addAction(UIAlertAction(title: "不同意，退出", style: .destructive, handler: nil))
                     self.present(thanksSV, animated: true)
                 })
+                
                 info.addAction(UIAlertAction(title: "自定義Proxy", style: .default) { action in
-                    let proxyInfo = UIAlertController(title: "輸入Proxy資訊", message: "請輸入Proxy IP及Port號\n（僅支持HTTP Proxy，HTTPS Proxy未測試）", preferredStyle: .alert)
-                    proxyInfo.addTextField { (textField) in
-                        textField.placeholder = "Proxy IP"
-                        textField.keyboardType = UIKeyboardType.URL
-                    }
-                    proxyInfo.addTextField { (textField) in
-                        textField.placeholder = "Port"
-                        textField.keyboardType = UIKeyboardType.decimalPad
-                    }
-                    proxyInfo.addAction(UIAlertAction(title: "取消", style: .cancel) { action in
-                        Setting.saveconnection(value: 2)
-                        self.settingTable.reloadData()
-                    })
-                    proxyInfo.addAction(UIAlertAction(title: "完成", style: .default) { action in
-                        Setting.saveCustomProxyIP(value: proxyInfo.textFields?[0].text ?? "")
-                        Setting.saveCustomProxyPort(value: proxyInfo.textFields?[1].text ?? "")
-                        self.settingTable.reloadData()
-                    })
-                    let cookieNeeded = UIAlertController(title: "烤餅乾？", message: "是否使用解除DMM地域限制Cookies？\n（僅大陸地區以外用戶有效）", preferredStyle: .alert)
-                    cookieNeeded.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
-                    cookieNeeded.addAction(UIAlertAction(title: "是", style: .default) { action in
-                        self.present(proxyInfo, animated: true)
+                    let HTTPcookieNeeded = UIAlertController(title: "烤餅乾？", message: "是否使用解除DMM地域限制Cookies？\n（僅大陸地區以外用戶有效）", preferredStyle: .alert)
+                    HTTPcookieNeeded.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+                    HTTPcookieNeeded.addAction(UIAlertAction(title: "是", style: .default) { action in
                         Setting.saveconnection(value: 6)
+                        self.settingTable.reloadData()
                     })
-                    cookieNeeded.addAction(UIAlertAction(title: "否", style: .default) { action in
-                        self.present(proxyInfo, animated: true)
+                    HTTPcookieNeeded.addAction(UIAlertAction(title: "否", style: .default) { action in
                         Setting.saveconnection(value: 3)
+                        self.settingTable.reloadData()
+                    })
+                    let HTTPScookieNeeded = UIAlertController(title: "烤餅乾？", message: "是否使用解除DMM地域限制Cookies？\n（僅大陸地區以外用戶有效）", preferredStyle: .alert)
+                    HTTPScookieNeeded.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+                    HTTPScookieNeeded.addAction(UIAlertAction(title: "是", style: .default) { action in
+                        Setting.saveconnection(value: 8)
+                        self.settingTable.reloadData()
+                    })
+                    HTTPScookieNeeded.addAction(UIAlertAction(title: "否", style: .default) { action in
+                        Setting.saveconnection(value: 7)
+                        self.settingTable.reloadData()
                         
                     })
-                    self.present(cookieNeeded, animated: true)
+                    let HTTPproxyInfo = UIAlertController(title: "輸入HTTP Proxy資訊", message: "請輸入以下資訊", preferredStyle: .alert)
+                    HTTPproxyInfo.addTextField { (textField) in
+                        textField.placeholder = "Proxy IP/Domain Name"
+                        textField.keyboardType = UIKeyboardType.URL
+                    }
+                    HTTPproxyInfo.addTextField { (textField) in
+                        textField.placeholder = "Proxy Port（預設為80）"
+                        textField.keyboardType = UIKeyboardType.decimalPad
+                    }
+                    HTTPproxyInfo.addTextField { (textField) in
+                        textField.placeholder = "Proxy帳號（可留空）"
+                        textField.keyboardType = UIKeyboardType.emailAddress
+                    }
+                    HTTPproxyInfo.addTextField { (textField) in
+                        textField.placeholder = "Proxy密碼（可留空）"
+                        textField.isSecureTextEntry = true
+                    }
+                    HTTPproxyInfo.addAction(UIAlertAction(title: "取消", style: .cancel) { action in
+                        Setting.saveconnection(value: 1)
+                        self.settingTable.reloadData()
+                    })
+                    HTTPproxyInfo.addAction(UIAlertAction(title: "完成", style: .default) { action in
+                        Setting.saveCustomProxyIP(value: HTTPproxyInfo.textFields?[0].text ?? "")
+                        Setting.saveCustomProxyPort(value: HTTPproxyInfo.textFields?[0].text ?? "")
+                        Setting.saveCustomProxyUser(value: HTTPproxyInfo.textFields?[2].text ?? "")
+                        Setting.saveCustomProxyPass(value: HTTPproxyInfo.textFields?[3].text ?? "")
+                        self.present(HTTPcookieNeeded, animated: true)
+                    })
+                    let HTTPSproxyInfo = UIAlertController(title: "輸入HTTPS Proxy資訊", message: "請輸入以下資訊", preferredStyle: .alert)
+                    HTTPSproxyInfo.addTextField { (textField) in
+                        textField.placeholder = "Proxy IP/Domain Name"
+                        textField.keyboardType = UIKeyboardType.URL
+                    }
+                    HTTPSproxyInfo.addTextField { (textField) in
+                        textField.placeholder = "Proxy Port（預設為443）"
+                        textField.keyboardType = UIKeyboardType.decimalPad
+                    }
+                    HTTPSproxyInfo.addTextField { (textField) in
+                        textField.placeholder = "Proxy帳號（可留空）"
+                        textField.keyboardType = UIKeyboardType.emailAddress
+                    }
+                    HTTPSproxyInfo.addTextField { (textField) in
+                        textField.placeholder = "Proxy密碼（可留空）"
+                        textField.isSecureTextEntry = true
+                    }
+                    HTTPSproxyInfo.addAction(UIAlertAction(title: "取消", style: .cancel) { action in
+                        Setting.saveconnection(value: 1)
+                        self.settingTable.reloadData()
+                    })
+                    HTTPSproxyInfo.addAction(UIAlertAction(title: "完成", style: .default) { action in
+                        Setting.saveCustomProxyIP(value: HTTPSproxyInfo.textFields?[0].text ?? "")
+                        Setting.saveCustomProxyPort(value: HTTPSproxyInfo.textFields?[1].text ?? "")
+                        Setting.saveCustomProxyUser(value: HTTPSproxyInfo.textFields?[2].text ?? "")
+                        Setting.saveCustomProxyPass(value: HTTPSproxyInfo.textFields?[3].text ?? "")
+                        self.present(HTTPScookieNeeded, animated: true)
+                    })
+                    let HTTPSproxyNeeded = UIAlertController(title: "Proxy連線方式", message: "請選擇Proxy連線方式", preferredStyle: .alert)
+                    HTTPSproxyNeeded.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+                    HTTPSproxyNeeded.addAction(UIAlertAction(title: "HTTP", style: .default) { action in
+                        self.present(HTTPproxyInfo, animated: true)
+                    })
+                    HTTPSproxyNeeded.addAction(UIAlertAction(title: "HTTPS", style: .default) { action in
+                        self.present(HTTPSproxyInfo, animated: true)
+                    })
+                    self.present(HTTPSproxyNeeded, animated: true)
                     self.settingTable.reloadData()
                 })
                 info.addAction(UIAlertAction(title: "ooi緩存系統", style: .default) { action in
@@ -354,12 +428,12 @@ extension SettingVC: UITableViewDelegate {
                 info.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
                 info.addAction(UIAlertAction(title: "前往本修改版App官方網站", style: .default) { action in
                     if let url = URL(string:"https://kc2tweaked.github.io") {
-                    UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
+                        UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
                     }
                 })
                 info.addAction(UIAlertAction(title: "加入Discord", style: .default) { action in
                     if let url = URL(string:"https://discord.gg/Yesf3cN") {
-                    UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
+                        UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
                     }
                 })
                 self.present(info, animated: true)
@@ -386,18 +460,18 @@ extension SettingVC: UITableViewDelegate {
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
-
+    
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return CGFloat(50)
     }
 }
 
 extension SettingVC: UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
-
+    
     public func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }
-
+    
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
     }
@@ -418,15 +492,19 @@ extension SettingVC: UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDa
                 } else if Setting.getconnection() == 2 {
                     connection = "大陸地區以外專用Proxy"
                 } else if Setting.getconnection() == 3 {
-                    connection = "自定義Proxy"
+                    connection = "自定義HTTP Proxy"
                 } else if Setting.getconnection() == 4 {
                     connection = "ooi緩存系統（手動登入）"
                 } else if Setting.getconnection() == 5 {
                     connection = "ooi緩存系統（自動登入）"
                 } else if Setting.getconnection() == 6 {
-                    connection = "自定義Proxy（烤餅乾）"
+                    connection = "自定義HTTP Proxy（烤餅乾）"
+                } else if Setting.getconnection() == 7 {
+                    connection = "自定義HTTPS Proxy"
+                } else if Setting.getconnection() == 8 {
+                    connection = "自定義HTTPS Proxy（烤餅乾）"
                 } else {
-                    connection = "未知"
+                    connection = "尚未設定"
                 }
                 let cell = UITableViewCell(style: .value1, reuseIdentifier: cellIdentifier)
                 cell.textLabel?.text = "連線方式"
@@ -500,21 +578,21 @@ extension SettingVC: UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDa
                 return cell
             }
         }
-    return UITableViewCell(style: .default, reuseIdentifier: cellIdentifier)
+        return UITableViewCell(style: .default, reuseIdentifier: cellIdentifier)
     }
-
+    
     public func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
         return CGFloat(40)
     }
-
+    
     public func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
-
+    
     public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return 6
     }
-
+    
     public func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return "\(row)"
     }
@@ -540,10 +618,10 @@ extension SettingVC: UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDa
             Setting.saveAppIconChange(value: 0)
         }
     }
-
+    
 }
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
-	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
+    return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }

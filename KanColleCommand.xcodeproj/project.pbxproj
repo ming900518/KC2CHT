@@ -965,6 +965,7 @@
 			baseConfigurationReference = 9FAA516216D5D2B0CBC7DDD0 /* Pods-KanColleCommand.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = KanColleCommand/KanColleCommand.entitlements;
@@ -978,8 +979,8 @@
 				INFOPLIST_FILE = KanColleCommand/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = "1.0 (TW.CHT-Release2.6)";
-				ONLY_ACTIVE_ARCH = NO;
+				MARKETING_VERSION = "1.0 (TW.CHT-R2.6.1Beta1)";
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = tw.mingchang.ikancollecmd;
 				PRODUCT_NAME = iKanColleCmd;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -999,6 +1000,7 @@
 			baseConfigurationReference = 42944E5D16F2F356C5F5F1D8 /* Pods-KanColleCommand.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_ENTITLEMENTS = KanColleCommand/KanColleCommand.entitlements;
@@ -1012,8 +1014,8 @@
 				INFOPLIST_FILE = KanColleCommand/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = "1.0 (TW.CHT-Release2.6)";
-				ONLY_ACTIVE_ARCH = NO;
+				MARKETING_VERSION = "1.0 (TW.CHT-R2.6.1Beta1)";
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = tw.mingchang.ikancollecmd;
 				PRODUCT_NAME = iKanColleCmd;
 				PROVISIONING_PROFILE_SPECIFIER = "";
