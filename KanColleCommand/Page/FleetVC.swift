@@ -25,6 +25,9 @@ class FleetVC: UIViewController {
             self.view.backgroundColor = ViewController.DEFAULT_BACKGROUND
         } else {
             self.view.backgroundColor = UIColor.black.withAlphaComponent(0.8)
+            if Setting.getUseTheme() == 2 {
+                // TODO
+            }
         }
         setupList()
         setupIndicator()

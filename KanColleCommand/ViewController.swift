@@ -61,15 +61,9 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             webView.scrollView.contentInsetAdjustmentBehavior = .always;
             webView.scalesPageToFit = true;
         }
+        Setting.saveBDPstatus(value: false)
         NotificationCenter.default.addObserver(self, selector: #selector(reloadGame), name: Constants.RELOAD_GAME, object: nil)
-        
-        let badlyDamageWarning = UIImageView(image: UIImage(named: "badly_damage_warning.png")?.resizableImage(
-                                                withCapInsets: UIEdgeInsets.init(top: 63, left: 63, bottom: 63, right: 63), resizingMode: .stretch))
-        badlyDamageWarning.isHidden = true
-        self.view.addSubview(badlyDamageWarning)
-        badlyDamageWarning.snp.makeConstraints { maker in
-            maker.edges.equalTo(webView)
-        }
+        self.view.badlyDamagePic(hidden: true)
         if Setting.getOyodo() != 1 {
             Oyodo.attention().watch(data: Fleet.instance.shipWatcher) { (event: Event<Transform>) in
                 var show = false
@@ -86,7 +80,12 @@ class ViewController: UIViewController, UIScrollViewDelegate {
                     let battleFleet = Battle.instance.friendIndex
                     show = battleFleet >= 0 && Fleet.instance.isBadlyDamage(index: battleFleet)
                 }
-                badlyDamageWarning.isHidden = !show
+                if show == true {
+                    self.view.badlyDamagePic(hidden: false)
+                } else {
+                    self.view.badlyDamagePic(hidden: true)
+                }
+                
                 if Setting.getwarningAlert() == 1 {
                     let warningAlert = UIAlertController(title: "⚠️ 大破 ⚠️", message: "あうぅっ！ 痛いってばぁっ！\n(つД`)", preferredStyle: .alert)
                     warningAlert.addAction(UIAlertAction(title: "はい、はい、知っています", style: .destructive, handler: nil))
@@ -145,7 +144,23 @@ class ViewController: UIViewController, UIScrollViewDelegate {
                 }
             }
         }
-        settingBtn.addTarget(self, action: #selector(openSetting), for: .touchUpInside)
+        if #available(iOS 14.0, *) {
+            let settingAction = UIAction(
+                title: "開啓App設定"
+            ) { (_) in
+                self.openSetting()
+            }
+            let appearanceAction = UIAction(
+                title: "開啓外觀設定"
+            ) { (_) in
+                self.openAppearance()
+            }
+            let menuActions = [settingAction, appearanceAction]
+            settingBtn.showsMenuAsPrimaryAction = true
+            settingBtn.menu = UIMenu(title: "", children: menuActions)
+        } else {
+            settingBtn.addTarget(self, action: #selector(openSetting), for: .touchUpInside)
+        }
         
         let refreshBtn = UIButton(type: .custom)
         refreshBtn.setImage(UIImage(named: "reload.png"), for: .normal)
@@ -167,36 +182,49 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             maker.right.equalTo(settingBtn.snp.right)
             maker.top.equalTo(settingBtn.snp.bottom)
         }
-        refreshBtn.addTarget(self, action: #selector(confirmRefresh), for: .touchUpInside)
-        
-        let appearanceBtn = UIButton(type: .custom)
-        if #available(iOS 13.0, *) {
-            let boldConfig = UIImage.SymbolConfiguration(weight: .bold)
-            appearanceBtn.setImage(UIImage(systemName: "pencil", withConfiguration: boldConfig), for: .normal)
-            appearanceBtn.tintColor = UIColor.white
-        } else {
-            appearanceBtn.setImage(UIImage(named: "refresh.png"), for: .normal)
-        }
-        appearanceBtn.imageEdgeInsets = UIEdgeInsets.init(top: 8, left: 8, bottom: 8, right: 8)
-        if Setting.getUseTheme() == 1 {
-            appearanceBtn.backgroundColor = UIColor.init(white: 0, alpha: 1)
-        } else {
-            appearanceBtn.backgroundColor = UIColor.init(white: 0.185, alpha: 1)
-        }
-        self.view.addSubview(appearanceBtn)
-        appearanceBtn.snp.makeConstraints { maker in
-            if (screenSize == "5.4"){ //iPhone mini
-                maker.width.equalTo(35)
-                maker.height.equalTo(35)
-            } else {
-                maker.width.equalTo(40)
-                maker.height.equalTo(40)
+        if #available(iOS 14.0, *) {
+            let confirmAction = UIAction(
+                title: "確定"
+            ) { (_) in
+                Setting.saveAttemptTime(value: 0)
+                self.reloadGame()
             }
-            maker.centerX.equalTo(refreshBtn.snp.centerX)
-            maker.bottom.equalTo(view.snp.bottom).inset(20)
+            let menuActions = [confirmAction]
+            refreshBtn.showsMenuAsPrimaryAction = true
+            refreshBtn.menu = UIMenu(title: "確定重新整理？", children: menuActions)
+        } else {
+            refreshBtn.addTarget(self, action: #selector(confirmRefresh), for: .touchUpInside)
         }
-        appearanceBtn.addTarget(self, action: #selector(openAppearance), for: .touchUpInside)
         
+        if ProcessInfo().operatingSystemVersion.majorVersion < 14 {
+            let appearanceBtn = UIButton(type: .custom)
+            if #available(iOS 13.0, *) {
+                let boldConfig = UIImage.SymbolConfiguration(weight: .bold)
+                appearanceBtn.setImage(UIImage(systemName: "pencil", withConfiguration: boldConfig), for: .normal)
+                appearanceBtn.tintColor = UIColor.white
+            } else {
+                appearanceBtn.setImage(UIImage(named: "refresh.png"), for: .normal)
+            }
+            appearanceBtn.imageEdgeInsets = UIEdgeInsets.init(top: 8, left: 8, bottom: 8, right: 8)
+            if Setting.getUseTheme() == 1 {
+                appearanceBtn.backgroundColor = UIColor.init(white: 0, alpha: 1)
+            } else {
+                appearanceBtn.backgroundColor = UIColor.init(white: 0.185, alpha: 1)
+            }
+            self.view.addSubview(appearanceBtn)
+            appearanceBtn.snp.makeConstraints { maker in
+                if (screenSize == "5.4"){ //iPhone mini
+                    maker.width.equalTo(35)
+                    maker.height.equalTo(35)
+                } else {
+                    maker.width.equalTo(40)
+                    maker.height.equalTo(40)
+                }
+                maker.centerX.equalTo(refreshBtn.snp.centerX)
+                maker.bottom.equalTo(view.snp.bottom).inset(20)
+            }
+            appearanceBtn.addTarget(self, action: #selector(openAppearance), for: .touchUpInside)
+        }
         Drawer().attachTo(controller: self)
     }
     
@@ -303,6 +331,54 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         webView.setup(parent: self.view)
         self.view.sendSubviewToBack(webView)
+    }
+}
+
+extension UIView {
+    func addBackground(imageName: String = "", contentMode: UIView.ContentMode = .scaleToFill) {
+        // setup the UIImageView
+        let backgroundImageView = UIImageView(frame: UIScreen.main.bounds)
+        backgroundImageView.image = UIImage(named: imageName)
+        backgroundImageView.contentMode = contentMode
+        backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        addSubview(backgroundImageView)
+        sendSubviewToBack(backgroundImageView)
+        
+        // adding NSLayoutConstraints
+        let leadingConstraint = NSLayoutConstraint(item: backgroundImageView, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1.0, constant: 0.0)
+        let trailingConstraint = NSLayoutConstraint(item: backgroundImageView, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1.0, constant: 0.0)
+        let topConstraint = NSLayoutConstraint(item: backgroundImageView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0.0)
+        let bottomConstraint = NSLayoutConstraint(item: backgroundImageView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: 0.0)
+        
+        NSLayoutConstraint.activate([leadingConstraint, trailingConstraint, topConstraint, bottomConstraint])
+    }
+    
+    func badlyDamagePic(hidden: Bool = true) {
+        // setup the UIImageView
+        let BDPImageView = UIImageView(frame: UIScreen.main.bounds)
+        BDPImageView.image = UIImage(named: "badly_damage_warning.png")
+        BDPImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        if Setting.getBDPstatus() != true {
+            addSubview(BDPImageView)
+            BDPImageView.isHidden = true
+            // adding NSLayoutConstraints
+            let leadingConstraint = NSLayoutConstraint(item: BDPImageView, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1.0, constant: 0.0)
+            let trailingConstraint = NSLayoutConstraint(item: BDPImageView, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1.0, constant: 0.0)
+            let topConstraint = NSLayoutConstraint(item: BDPImageView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0.0)
+            let bottomConstraint = NSLayoutConstraint(item: BDPImageView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: 0.0)
+            NSLayoutConstraint.activate([leadingConstraint, trailingConstraint, topConstraint, bottomConstraint])
+            Setting.saveBDPstatus(value: true)
+        }
+        
+        if hidden == true {
+            BDPImageView.isHidden = true
+            print("Hide BDPImageView")
+        } else if hidden == false {
+            BDPImageView.isHidden = false
+            print("Show BDPImageView")
+        }
     }
 }
 

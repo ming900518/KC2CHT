@@ -166,4 +166,14 @@ class Setting {
     static func saveCustomProxyPass(value: String) {
         UserDefaults.standard.set(value, forKey: kCustomProxyPass)
     }
+    
+    private static let kBDPstatus = "BDPstatus"
+    
+    static func getBDPstatus() -> Bool {
+        return UserDefaults.standard.bool(forKey: kBDPstatus)
+    }
+
+    static func saveBDPstatus(value: Bool) {
+        UserDefaults.standard.set(value, forKey: kBDPstatus)
+    }
 }

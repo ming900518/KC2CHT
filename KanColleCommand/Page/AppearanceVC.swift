@@ -141,6 +141,10 @@ extension AppearanceVC: UITableViewDelegate {
                     Setting.saveUseTheme(value: 1)
                     self.appearanceTable.reloadData()
                 })
+//                dialog.addAction(UIAlertAction(title: "自訂背景圖片", style: .default) { action in
+//                    Setting.saveUseTheme(value: 2)
+//                    self.appearanceTable.reloadData()
+//                })
                 self.present(dialog, animated: true)
             }
         } else if (indexPath.section == 2) {

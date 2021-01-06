@@ -18,7 +18,7 @@ class GripView: UIView {
 
     public func gripTo(view: UIView) {
         //backgroundColor = UIColor(white: 0.144, alpha: 1)
-        if Setting.getUseTheme() == 1 {
+        if Setting.getUseTheme() == 1 || Setting.getUseTheme() == 2 {
             backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
         } else {
             backgroundColor = UIColor(white: 0.185, alpha: 1)
@@ -67,13 +67,13 @@ class GripView: UIView {
     public func selectItem(_ index: Int) {
         for v in self.subviews {
             if (v.tag == index) {
-                if Setting.getUseTheme() == 1 {
+                if Setting.getUseTheme() == 1 || Setting.getUseTheme() == 2 {
                     v.backgroundColor = UIColor(white: 0, alpha: 0)
                 } else {
                     v.backgroundColor = ViewController.DEFAULT_BACKGROUND
                 }
             } else {
-                if Setting.getUseTheme() == 1 {
+                if Setting.getUseTheme() == 1 || Setting.getUseTheme() == 2 {
                     v.backgroundColor = UIColor(white: 0, alpha: 0)
                 } else {
                     v.backgroundColor = UIColor.clear
