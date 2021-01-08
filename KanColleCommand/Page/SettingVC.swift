@@ -207,7 +207,7 @@ extension SettingVC: UITableViewDelegate {
                     })
                     HTTPproxyInfo.addAction(UIAlertAction(title: "完成", style: .default) { action in
                         Setting.saveCustomProxyIP(value: HTTPproxyInfo.textFields?[0].text ?? "")
-                        Setting.saveCustomProxyPort(value: HTTPproxyInfo.textFields?[0].text ?? "")
+                        Setting.saveCustomProxyPort(value: HTTPproxyInfo.textFields?[1].text ?? "")
                         Setting.saveCustomProxyUser(value: HTTPproxyInfo.textFields?[2].text ?? "")
                         Setting.saveCustomProxyPass(value: HTTPproxyInfo.textFields?[3].text ?? "")
                         self.present(HTTPcookieNeeded, animated: true)

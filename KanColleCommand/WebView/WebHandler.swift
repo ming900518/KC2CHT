@@ -161,8 +161,8 @@ class WebHandler: URLProtocol, URLSessionDelegate, URLSessionDataDelegate, URLSe
         
         if Setting.getconnection() == 2 {
             print("[INFO] Using proxy to load response.")
-            let proxy_server = "non.http.monitor.moe"
-            let proxy_port = 8989
+            let proxy_server = "connector.monitor.moe"
+            let proxy_port = 8443
             let proxy_user = "ooi.moe"
             let proxy_pass = "ooi.moe"
             let hostKey = kCFNetworkProxiesHTTPProxy as String
@@ -180,7 +180,7 @@ class WebHandler: URLProtocol, URLSessionDelegate, URLSessionDataDelegate, URLSe
             print(proxy_server)
             let port:Int? = Int(Setting.getCustomProxyPort())
             let proxy_port = port
-            print(proxy_port ?? "80")
+            print(proxy_port ?? "Empty, using 80 instead.")
             let proxy_user = Setting.getCustomProxyUser()
             print(proxy_user)
             let proxy_pass = Setting.getCustomProxyPass()
@@ -199,7 +199,7 @@ class WebHandler: URLProtocol, URLSessionDelegate, URLSessionDataDelegate, URLSe
             let proxy_server = Setting.getCustomProxyIP()
             let port:Int? = Int(Setting.getCustomProxyPort())
             let proxy_port = port
-            print(proxy_port ?? "443")
+            print(proxy_port ?? "Empty, using 443 instead.")
             let proxy_user = Setting.getCustomProxyUser()
             let proxy_pass = Setting.getCustomProxyPass()
             let hostKey = kCFNetworkProxiesHTTPProxy as String
