@@ -1,4 +1,3 @@
-
 .DS_Store
 *.xcuserstate
 ChangeIcon/AlternateIcon/AlternateIcon20x20@1x.png
@@ -18,3 +17,10 @@ ChangeIcon/AlternateIcon/AlternateIcon@3x.png
 ChangeIcon/AlternateIcon/AlternateIcon40x40@2x.png
 ChangeIcon/AlternateIcon/AlternateIcon40x40@3x.png
 KanColleCommand.xcworkspace/xcuserdata/mingchang.xcuserdatad/UserInterfaceState.xcuserstate
+DEB Pack/Pack command.rtf
+DEB Pack/tw.mingchang.ikancollecmd.deb
+DEB Pack/tw.mingchang.ikancollecmd/DEBIAN/control
+DEB Pack/tw.mingchang.ikancollecmd/DEBIAN/postinst
+DEB Pack/tw.mingchang.ikancollecmd/Packages
+DEB Pack/tw.mingchang.ikancollecmd/var/mobile/KC2InstTemp/iKanColleCmdUnsigned.ipa
+DEB Pack/tw.mingchang.ikancollecmd/var/mobile/KC2InstTemp/signer.sh
