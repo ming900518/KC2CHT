@@ -61,9 +61,15 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             webView.scrollView.contentInsetAdjustmentBehavior = .always;
             webView.scalesPageToFit = true;
         }
-        Setting.saveBDPstatus(value: false)
         NotificationCenter.default.addObserver(self, selector: #selector(reloadGame), name: Constants.RELOAD_GAME, object: nil)
-        self.view.badlyDamagePic(hidden: true)
+                
+                let badlyDamageWarning = UIImageView(image: UIImage(named: "badly_damage_warning.png")?.resizableImage(
+                                                        withCapInsets: UIEdgeInsets.init(top: 63, left: 63, bottom: 63, right: 63), resizingMode: .stretch))
+                badlyDamageWarning.isHidden = true
+                self.view.addSubview(badlyDamageWarning)
+                badlyDamageWarning.snp.makeConstraints { maker in
+                    maker.edges.equalTo(webView)
+                }
         if Setting.getOyodo() != 1 {
             Oyodo.attention().watch(data: Fleet.instance.shipWatcher) { (event: Event<Transform>) in
                 var show = false
@@ -80,12 +86,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
                     let battleFleet = Battle.instance.friendIndex
                     show = battleFleet >= 0 && Fleet.instance.isBadlyDamage(index: battleFleet)
                 }
-                if show == true {
-                    self.view.badlyDamagePic(hidden: false)
-                } else {
-                    self.view.badlyDamagePic(hidden: true)
-                }
-                
+                badlyDamageWarning.isHidden = !show
                 if Setting.getwarningAlert() == 1 {
                     let warningAlert = UIAlertController(title: "⚠️ 大破 ⚠️", message: "あうぅっ！ 痛いってばぁっ！\n(つД`)", preferredStyle: .alert)
                     warningAlert.addAction(UIAlertAction(title: "はい、はい、知っています", style: .destructive, handler: nil))
@@ -125,20 +126,15 @@ class ViewController: UIViewController, UIScrollViewDelegate {
                 maker.width.equalTo(35)
                 maker.height.equalTo(35)
                 maker.right.equalTo(webView.snp.left)
-                maker.top.equalTo(webView.snp.top).inset(11)
+                maker.top.equalTo(webView.snp.top).inset(20)
             }
         } else {
             settingBtn.snp.makeConstraints { maker in
-                if (screenSize == "5.4") { //iPhone mini
-                    maker.width.equalTo(35)
-                    maker.height.equalTo(35)
-                } else {
-                    maker.width.equalTo(40)
-                    maker.height.equalTo(40)
-                }
+                maker.width.equalTo(40)
+                maker.height.equalTo(40)
                 maker.right.equalTo(webView.snp.left)
-                if (screenSize == "5.4" || screenSize == "5.8" || screenSize == "6.1" || screenSize == "6.5" || screenSize == "10.9" || screenSize == "11.0" || screenSize == "12.9Round") { //iDevices with round bezel
-                    maker.top.equalTo(webView.snp.top).inset(11)
+                if (screenSize == "5.8" || screenSize == "6.1" || screenSize == "6.5" || screenSize == "6.7" || screenSize == "10.9" || screenSize == "11.0" || screenSize == "12.9Round") { //iDevices with round bezel
+                    maker.top.equalTo(webView.snp.top).inset(30)
                 } else {
                     maker.top.equalTo(webView.snp.top)
                 }
@@ -175,12 +171,18 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             if (screenSize == "5.4"){ //iPhone mini
                 maker.width.equalTo(35)
                 maker.height.equalTo(35)
+                maker.right.equalTo(webView.snp.left)
+                maker.bottom.equalTo(webView.snp.bottom).inset(5)
+            } else if (screenSize == "5.8" || screenSize == "6.1" || screenSize == "6.5" || screenSize == "6.7") { //iPhones with round bezel
+                maker.width.equalTo(40)
+                maker.height.equalTo(40)
+                maker.bottom.equalTo(webView.snp.bottom).inset(10)
             } else {
                 maker.width.equalTo(40)
                 maker.height.equalTo(40)
+                maker.right.equalTo(settingBtn.snp.right)
+                maker.top.equalTo(settingBtn.snp.bottom)
             }
-            maker.right.equalTo(settingBtn.snp.right)
-            maker.top.equalTo(settingBtn.snp.bottom)
         }
         if #available(iOS 14.0, *) {
             let confirmAction = UIAction(
@@ -323,63 +325,6 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         }
         return false
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        webView.removeFromSuperview()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        webView.setup(parent: self.view)
-        self.view.sendSubviewToBack(webView)
-    }
-}
-
-extension UIView {
-    func addBackground(imageName: String = "", contentMode: UIView.ContentMode = .scaleToFill) {
-        // setup the UIImageView
-        let backgroundImageView = UIImageView(frame: UIScreen.main.bounds)
-        backgroundImageView.image = UIImage(named: imageName)
-        backgroundImageView.contentMode = contentMode
-        backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        addSubview(backgroundImageView)
-        sendSubviewToBack(backgroundImageView)
-        
-        // adding NSLayoutConstraints
-        let leadingConstraint = NSLayoutConstraint(item: backgroundImageView, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1.0, constant: 0.0)
-        let trailingConstraint = NSLayoutConstraint(item: backgroundImageView, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1.0, constant: 0.0)
-        let topConstraint = NSLayoutConstraint(item: backgroundImageView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0.0)
-        let bottomConstraint = NSLayoutConstraint(item: backgroundImageView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: 0.0)
-        
-        NSLayoutConstraint.activate([leadingConstraint, trailingConstraint, topConstraint, bottomConstraint])
-    }
-    
-    func badlyDamagePic(hidden: Bool = true) {
-        // setup the UIImageView
-        let BDPImageView = UIImageView(frame: UIScreen.main.bounds)
-        BDPImageView.image = UIImage(named: "badly_damage_warning.png")
-        BDPImageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        if Setting.getBDPstatus() != true {
-            addSubview(BDPImageView)
-            BDPImageView.isHidden = true
-            // adding NSLayoutConstraints
-            let leadingConstraint = NSLayoutConstraint(item: BDPImageView, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1.0, constant: 0.0)
-            let trailingConstraint = NSLayoutConstraint(item: BDPImageView, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1.0, constant: 0.0)
-            let topConstraint = NSLayoutConstraint(item: BDPImageView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0.0)
-            let bottomConstraint = NSLayoutConstraint(item: BDPImageView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: 0.0)
-            NSLayoutConstraint.activate([leadingConstraint, trailingConstraint, topConstraint, bottomConstraint])
-            Setting.saveBDPstatus(value: true)
-        }
-        
-        if hidden == true {
-            BDPImageView.isHidden = true
-            print("Hide BDPImageView")
-        } else if hidden == false {
-            BDPImageView.isHidden = false
-            print("Show BDPImageView")
-        }
-    }
 }
 
 extension UIDevice {
@@ -428,7 +373,7 @@ extension UIDevice {
                 return "12.9"
             case "iPad8,5", "iPad8,6", "iPad8,7", "iPad8,8", "iPad8,11", "iPad8,12":
                 return "12.9Round"
-            case "i386", "x86_64":
+            case "i386", "x86_64", "arm64":
                 return "\(mapToDevice(identifier: ProcessInfo().environment["SIMULATOR_MODEL_IDENTIFIER"] ?? "iOS"))"
             default:
                 return "Unknown Device" + identifier
