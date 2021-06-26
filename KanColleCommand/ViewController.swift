@@ -367,11 +367,11 @@ extension UIDevice {
                 return "10.5"
             case "iPad13,1", "iPad13,2":
                 return "10.9"
-            case "iPad8,1", "iPad8,2", "iPad8,3", "iPad8,4", "iPad8,9", "iPad8,10":
+            case "iPad8,1", "iPad8,2", "iPad8,3", "iPad8,4", "iPad8,9", "iPad8,10", "iPad13,4", "iPad13,5", "iPad13,6", "iPad13,7":
                 return "11.0"
             case "iPad6,7", "iPad6,8", "iPad7,1", "iPad7,2":
                 return "12.9"
-            case "iPad8,5", "iPad8,6", "iPad8,7", "iPad8,8", "iPad8,11", "iPad8,12":
+            case "iPad8,5", "iPad8,6", "iPad8,7", "iPad8,8", "iPad8,11", "iPad8,12", "iPad13,8", "iPad13,9", "iPad13,10", "iPad13,11":
                 return "12.9Round"
             case "i386", "x86_64", "arm64":
                 return "\(mapToDevice(identifier: ProcessInfo().environment["SIMULATOR_MODEL_IDENTIFIER"] ?? "iOS"))"
