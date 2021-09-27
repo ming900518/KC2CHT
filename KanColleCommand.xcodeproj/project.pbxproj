@@ -176,7 +176,6 @@
 		423AF779219FECC100C4BCE9 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		42944E5D16F2F356C5F5F1D8 /* Pods-KanColleCommand.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KanColleCommand.debug.xcconfig"; path = "Target Support Files/Pods-KanColleCommand/Pods-KanColleCommand.debug.xcconfig"; sourceTree = "<group>"; };
 		42C20DA822C5B4A400235A19 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
-		7AAE038E23374CAB00FC27F8 /* KanColleCommand.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KanColleCommand.entitlements; sourceTree = "<group>"; };
 		7AAE038F23374CAB00FC27F8 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		7ACE2D5A247774FD007F4F57 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		7ADB814725B9680C00DDAD2A /* AlternateIcon76x76@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AlternateIcon76x76@1x.png"; sourceTree = "<group>"; };
@@ -525,7 +524,6 @@
 		C608938942B0394D84C007B2 /* KanColleCommand */ = {
 			isa = PBXGroup;
 			children = (
-				7AAE038E23374CAB00FC27F8 /* KanColleCommand.entitlements */,
 				4202BEA5224133F300AED2D4 /* Files.bundle */,
 				C6010E08739966591A1CE2A1 /* Info.plist */,
 				C60FF98AA6E3FDAC202E22EA /* Assets.xcassets */,
@@ -968,7 +966,6 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
-				CODE_SIGN_ENTITLEMENTS = KanColleCommand/KanColleCommand.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
@@ -979,9 +976,9 @@
 				INFOPLIST_FILE = KanColleCommand/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = "1.0 (TW.CHT-R2.6.2Beta1-EOL)";
+				MARKETING_VERSION = "1.0 (TW.CHT-R2.6.2-EOL)";
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = tw.mingchang.ikancollecmd.eol;
+				PRODUCT_BUNDLE_IDENTIFIER = "tw.mingchang.ikancollecmd-eol";
 				PRODUCT_NAME = iKanColleCmd;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRIP_INSTALLED_PRODUCT = YES;
@@ -1003,7 +1000,6 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
-				CODE_SIGN_ENTITLEMENTS = KanColleCommand/KanColleCommand.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
@@ -1014,9 +1010,9 @@
 				INFOPLIST_FILE = KanColleCommand/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = "1.0 (TW.CHT-R2.6.2Beta1-EOL)";
+				MARKETING_VERSION = "1.0 (TW.CHT-R2.6.2-EOL)";
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = tw.mingchang.ikancollecmd.eol;
+				PRODUCT_BUNDLE_IDENTIFIER = "tw.mingchang.ikancollecmd-eol";
 				PRODUCT_NAME = iKanColleCmd;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRIP_STYLE = "non-global";

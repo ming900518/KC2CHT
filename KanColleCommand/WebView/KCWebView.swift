@@ -131,6 +131,95 @@ extension KCWebView: UIWebViewDelegate {
     
     public func webViewDidFinishLoad(_ webView: UIWebView) {
         
+        if #available(iOS 15, *) {
+            print("iOS 15 detected, fix game.")
+            self.stringByEvaluatingJavaScript(from: Constants.ios15Fix)
+            print("URL: " + (webView.request?.url!.absoluteString)!)
+            let screenSize = UIDevice.screenSize
+            print("iOS 15 detected, resize.")
+            print("Screen size should be " + screenSize + " inch.")
+            if (screenSize == "4.0") {
+                self.scrollView.minimumZoomScale = 0.41
+                self.scrollView.maximumZoomScale = 0.41
+                self.scrollView.setZoomScale(0.41, animated: false)
+                self.scrollView.isScrollEnabled = false
+            } else if (screenSize == "4.7") {
+                self.scrollView.minimumZoomScale = 0.49
+                self.scrollView.maximumZoomScale = 0.49
+                self.scrollView.setZoomScale(0.49, animated: false)
+                self.scrollView.isScrollEnabled = false
+            } else if (screenSize == "5.4") {
+                self.scrollView.minimumZoomScale = 0.546
+                self.scrollView.maximumZoomScale = 0.546
+                self.scrollView.setZoomScale(0.546, animated: false)
+                self.scrollView.isScrollEnabled = false
+            } else if (screenSize == "5.5") {
+                self.scrollView.minimumZoomScale = 0.546
+                self.scrollView.maximumZoomScale = 0.546
+                self.scrollView.setZoomScale(0.546, animated: false)
+                self.scrollView.isScrollEnabled = false
+            } else if (screenSize == "5.8") {
+                self.scrollView.minimumZoomScale = 0.495
+                self.scrollView.maximumZoomScale = 0.495
+                self.scrollView.setZoomScale(0.495, animated: false)
+                self.scrollView.isScrollEnabled = false
+            } else if (screenSize == "6.1") {
+                self.scrollView.minimumZoomScale = 0.55
+                self.scrollView.maximumZoomScale = 0.55
+                self.scrollView.setZoomScale(0.55, animated: false)
+                self.scrollView.isScrollEnabled = false
+            } else if (screenSize == "6.5") {
+                self.scrollView.minimumZoomScale = 0.545
+                self.scrollView.maximumZoomScale = 0.545
+                self.scrollView.setZoomScale(0.545, animated: false)
+                self.scrollView.isScrollEnabled = false
+            } else if (screenSize == "6.7") {
+                print("iFrame我要進來囉")
+                self.stringByEvaluatingJavaScript(from: Constants.iframe)
+                self.scrollView.minimumZoomScale = 0.545
+                self.scrollView.maximumZoomScale = 0.545
+                self.scrollView.setZoomScale(0.545, animated: false)
+                self.scrollView.isScrollEnabled = false
+            } else if (screenSize == "7.9") {
+                self.scrollView.minimumZoomScale = 0.79
+                self.scrollView.maximumZoomScale = 0.79
+                self.scrollView.setZoomScale(0.79, animated: false)
+                self.scrollView.isScrollEnabled = false
+            } else if (screenSize == "9.7") {
+                self.scrollView.minimumZoomScale = 0.79
+                self.scrollView.maximumZoomScale = 0.79
+                self.scrollView.setZoomScale(0.79, animated: false)
+                self.scrollView.isScrollEnabled = false
+            } else if (screenSize == "10.2") {
+                self.scrollView.minimumZoomScale = 0.833
+                self.scrollView.maximumZoomScale = 0.833
+                self.scrollView.setZoomScale(0.833, animated: false)
+                self.scrollView.isScrollEnabled = false
+            } else if (screenSize == "10.5") {
+                self.scrollView.minimumZoomScale = 0.86
+                self.scrollView.maximumZoomScale = 0.86
+                self.scrollView.setZoomScale(0.86, animated: false)
+                self.scrollView.isScrollEnabled = false
+            } else if (screenSize == "10.9") {
+                self.scrollView.minimumZoomScale = 0.918
+                self.scrollView.maximumZoomScale = 0.918
+                self.scrollView.setZoomScale(0.918, animated: false)
+                self.scrollView.isScrollEnabled = false
+            } else if (screenSize == "11.0") {
+                self.scrollView.minimumZoomScale = 0.92
+                self.scrollView.maximumZoomScale = 0.92
+                self.scrollView.setZoomScale(0.92, animated: false)
+                self.scrollView.isScrollEnabled = false
+            } else if (screenSize == "12.9" || screenSize == "12.9Round") {
+                self.scrollView.minimumZoomScale = 1
+                self.scrollView.maximumZoomScale = 1
+                self.scrollView.setZoomScale(1, animated: false)
+                self.scrollView.isScrollEnabled = false
+            } else {
+                print("Unknown Device.")
+            }
+        }
+        
         if Setting.getconnection() == 6 || Setting.getconnection() == 8 {
             OperationQueue.main.addOperation {
                 self.stringByEvaluatingJavaScript(from: Constants.DMM_COOKIES)

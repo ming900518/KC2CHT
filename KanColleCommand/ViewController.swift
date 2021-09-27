@@ -345,17 +345,17 @@ extension UIDevice {
                 return "4.0"
             case "iPhone7,2", "iPhone8,1", "iPhone9,1", "iPhone9,3", "iPhone10,1", "iPhone10,4", "iPhone12,8":
                 return "4.7"
-            case "iPhone13,1":
+            case "iPhone13,1", "iPhone14,4":
                 return "5.4"
             case "iPhone7,1", "iPhone8,2", "iPhone9,2", "iPhone9,4", "iPhone10,2", "iPhone10,5":
                 return "5.5"
             case "iPhone10,3", "iPhone10,6", "iPhone11,2", "iPhone12,3":
                 return "5.8"
-            case "iPhone11,8", "iPhone12,1":
+            case "iPhone11,8", "iPhone12,1", "iPhone14,5", "iPhone14,2", "iPhone13,2", "iPhone13,3":
                 return "6.1"
-            case "iPhone11,4", "iPhone11,6", "iPhone12,5", "iPhone13,2", "iPhone13,3":
+            case "iPhone11,4", "iPhone11,6", "iPhone12,5":
                 return "6.5"
-            case "iPhone13,4":
+            case "iPhone13,4", "iPhone14,3":
                 return "6.7"
             case "iPad4,4", "iPad4,5", "iPad4,6", "iPad4,7", "iPad4,8", "iPad4,9", "iPad5,1", "iPad5,2", "iPad11,1", "iPad11,2":
                 return "7.9"
