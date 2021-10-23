@@ -23,5 +23,5 @@ struct Constants {
     
     static let ios15Fix = "javascript:window.open(gadgetInfo.URL)"
     
-    static let iframe = "javascript:window.open(document.getElementById('htmlWrap').contentWindow.location.href)"
+    static let iframeFix = "javascript:var sectionWrap = document.getElementById('sectionWrap');sectionWrap.parentNode.removeChild(sectionWrap);var spacing_top = document.getElementById('spacing_top');spacing_top.parentNode.removeChild(spacing_top);var debugDiv = document.getElementById('debugDiv');debugDiv.parentNode.removeChild(debugDiv);"
 }
