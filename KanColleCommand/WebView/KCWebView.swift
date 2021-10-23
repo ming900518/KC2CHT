@@ -7,18 +7,19 @@ import UIKit
 class KCWebView: UIWebView {
     
     var inset = 0.0
+    let screenSize = UIDevice.screenSize
     
     func setup(parent: UIView) {
         let screenSize = UIDevice.screenSize
         parent.addSubview(self)
         self.snp.makeConstraints { maker in
-            if (screenSize == "5.5") {
+            if (screenSize == 5.5) {
                 inset = 131.2
                 maker.height.equalTo(self.snp.width).inset(inset)
-            } else if (screenSize == "4.7") {
+            } else if (screenSize == 4.7) {
                 inset = 117.5
                 maker.height.equalTo(self.snp.width).inset(inset)
-            } else if (screenSize == "4.0") {
+            } else if (screenSize == 4.0) {
                 inset = 97.5
                 maker.height.equalTo(self.snp.width).inset(inset)
             } else {
@@ -168,80 +169,79 @@ extension KCWebView: UIWebViewDelegate {
                         }
         } else if webView.request?.url == url2 || webView.request?.url == url3 {
             print("URL: " + (webView.request?.url!.absoluteString)!)
-            let screenSize = UIDevice.screenSize
             print("OOI poi mode detected, resize.")
-            print("Screen size should be " + screenSize + " inch.")
-            if (screenSize == "4.0") {
+            print("Screen size should be " + String(screenSize) + " inch.")
+            if (screenSize == 4.0) {
                 self.scrollView.minimumZoomScale = 0.41
                 self.scrollView.maximumZoomScale = 0.41
                 self.scrollView.setZoomScale(0.41, animated: false)
                 self.scrollView.isScrollEnabled = false
-            } else if (screenSize == "4.7") {
+            } else if (screenSize == 4.7) {
                 self.scrollView.minimumZoomScale = 0.49
                 self.scrollView.maximumZoomScale = 0.49
                 self.scrollView.setZoomScale(0.49, animated: false)
                 self.scrollView.isScrollEnabled = false
-            } else if (screenSize == "5.4") {
+            } else if (screenSize == 5.4) {
                 self.scrollView.minimumZoomScale = 0.546
                 self.scrollView.maximumZoomScale = 0.546
                 self.scrollView.setZoomScale(0.546, animated: false)
                 self.scrollView.isScrollEnabled = false
-            } else if (screenSize == "5.5") {
+            } else if (screenSize == 5.5) {
                 self.scrollView.minimumZoomScale = 0.546
                 self.scrollView.maximumZoomScale = 0.546
                 self.scrollView.setZoomScale(0.546, animated: false)
                 self.scrollView.isScrollEnabled = false
-            } else if (screenSize == "5.8") {
+            } else if (screenSize == 5.8) {
                 self.scrollView.minimumZoomScale = 0.495
                 self.scrollView.maximumZoomScale = 0.495
                 self.scrollView.setZoomScale(0.495, animated: false)
                 self.scrollView.isScrollEnabled = false
-            } else if (screenSize == "6.1") {
+            } else if (screenSize == 6.1) {
                 self.scrollView.minimumZoomScale = 0.55
                 self.scrollView.maximumZoomScale = 0.55
                 self.scrollView.setZoomScale(0.55, animated: false)
                 self.scrollView.isScrollEnabled = false
-            } else if (screenSize == "6.5") {
+            } else if (screenSize == 6.5) {
                 self.scrollView.minimumZoomScale = 0.545
                 self.scrollView.maximumZoomScale = 0.545
                 self.scrollView.setZoomScale(0.545, animated: false)
                 self.scrollView.isScrollEnabled = false
-            } else if (screenSize == "6.7") {
+            } else if (screenSize == 6.7) {
                 self.scrollView.minimumZoomScale = 0.545
                 self.scrollView.maximumZoomScale = 0.545
                 self.scrollView.setZoomScale(0.545, animated: false)
                 self.scrollView.isScrollEnabled = false
-            } else if (screenSize == "7.9") {
+            } else if (screenSize == 7.9) {
                 self.scrollView.minimumZoomScale = 0.79
                 self.scrollView.maximumZoomScale = 0.79
                 self.scrollView.setZoomScale(0.79, animated: false)
                 self.scrollView.isScrollEnabled = false
-            } else if (screenSize == "9.7") {
+            } else if (screenSize == 9.7) {
                 self.scrollView.minimumZoomScale = 0.79
                 self.scrollView.maximumZoomScale = 0.79
                 self.scrollView.setZoomScale(0.79, animated: false)
                 self.scrollView.isScrollEnabled = false
-            } else if (screenSize == "10.2") {
+            } else if (screenSize == 10.2) {
                 self.scrollView.minimumZoomScale = 0.833
                 self.scrollView.maximumZoomScale = 0.833
                 self.scrollView.setZoomScale(0.833, animated: false)
                 self.scrollView.isScrollEnabled = false
-            } else if (screenSize == "10.5") {
+            } else if (screenSize == 10.5) {
                 self.scrollView.minimumZoomScale = 0.86
                 self.scrollView.maximumZoomScale = 0.86
                 self.scrollView.setZoomScale(0.86, animated: false)
                 self.scrollView.isScrollEnabled = false
-            } else if (screenSize == "10.9") {
+            } else if (screenSize == 10.9) {
                 self.scrollView.minimumZoomScale = 0.918
                 self.scrollView.maximumZoomScale = 0.918
                 self.scrollView.setZoomScale(0.918, animated: false)
                 self.scrollView.isScrollEnabled = false
-            } else if (screenSize == "11.0") {
+            } else if (screenSize == 11.0) {
                 self.scrollView.minimumZoomScale = 0.92
                 self.scrollView.maximumZoomScale = 0.92
                 self.scrollView.setZoomScale(0.92, animated: false)
                 self.scrollView.isScrollEnabled = false
-            } else if (screenSize == "12.9" || screenSize == "12.9Round") {
+            } else if (screenSize == 12.9 || screenSize == 12.91) {
                 self.scrollView.minimumZoomScale = 1
                 self.scrollView.maximumZoomScale = 1
                 self.scrollView.setZoomScale(1, animated: false)
@@ -262,19 +262,21 @@ extension KCWebView: UIWebViewDelegate {
                 }
             }
         } else {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
-                print("iFrame Fix")
-                self.stringByEvaluatingJavaScript(from: Constants.iframeFix)
-                
-                var contentHeightCGFloat: CGFloat?
-                if let contentHeightDoubleValue = Double(self.stringByEvaluatingJavaScript(from: "document.body.offsetHeight;") ?? "") {
-                    contentHeightCGFloat = (CGFloat(contentHeightDoubleValue))
+            print(screenSize)
+            if screenSize < 7 {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+                    print("Device is not iPad, fix iframe.")
+                    self.stringByEvaluatingJavaScript(from: Constants.iframeFix)
+                    var contentHeightCGFloat: CGFloat?
+                    if let contentHeightDoubleValue = Double(self.stringByEvaluatingJavaScript(from: "document.body.offsetHeight;") ?? "") {
+                        contentHeightCGFloat = (CGFloat(contentHeightDoubleValue))
+                    }
+                    let resizeValue = contentHeightCGFloat! / (UIScreen.main.bounds.height * 2)
+                    self.scrollView.minimumZoomScale = resizeValue
+                    self.scrollView.maximumZoomScale = resizeValue
+                    self.scrollView.setZoomScale(resizeValue, animated: false)
+                    self.scrollView.isScrollEnabled = false
                 }
-                let resizeValue = contentHeightCGFloat! / (UIScreen.main.bounds.height * 2)
-                self.scrollView.minimumZoomScale = resizeValue
-                self.scrollView.maximumZoomScale = resizeValue
-                self.scrollView.setZoomScale(resizeValue, animated: false)
-                self.scrollView.isScrollEnabled = false
             }
         }
         saveCookie()

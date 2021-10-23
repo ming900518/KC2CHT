@@ -121,7 +121,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             settingBtn.backgroundColor = UIColor.init(white: 0.185, alpha: 1)
         }
         self.view.addSubview(settingBtn)
-        if (screenSize == "5.4"){ //iPhone mini
+        if (screenSize == 5.4){ //iPhone mini
             settingBtn.snp.makeConstraints { maker in
                 maker.width.equalTo(35)
                 maker.height.equalTo(35)
@@ -133,7 +133,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
                 maker.width.equalTo(40)
                 maker.height.equalTo(40)
                 maker.right.equalTo(webView.snp.left)
-                if (screenSize == "5.8" || screenSize == "6.1" || screenSize == "6.5" || screenSize == "6.7" || screenSize == "10.9" || screenSize == "11.0" || screenSize == "12.9Round") { //iDevices with round bezel
+                if (screenSize == 5.8 || screenSize == 6.1 || screenSize == 6.5 || screenSize == 6.7 || screenSize == 10.9 || screenSize == 11.0 || screenSize == 12.91) { //iDevices with round bezel
                     maker.top.equalTo(webView.snp.top).inset(30)
                 } else {
                     maker.top.equalTo(webView.snp.top)
@@ -168,12 +168,12 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         }
         self.view.addSubview(refreshBtn)
         refreshBtn.snp.makeConstraints { maker in
-            if (screenSize == "5.4"){ //iPhone mini
+            if (screenSize == 5.4){ //iPhone mini
                 maker.width.equalTo(35)
                 maker.height.equalTo(35)
                 maker.right.equalTo(webView.snp.left)
                 maker.bottom.equalTo(webView.snp.bottom).inset(5)
-            } else if (screenSize == "5.8" || screenSize == "6.1" || screenSize == "6.5" || screenSize == "6.7") { //iPhones with round bezel
+            } else if (screenSize == 5.8 || screenSize == 6.1 || screenSize == 6.5 || screenSize == 6.7) { //iPhones with round bezel
                 maker.width.equalTo(40)
                 maker.height.equalTo(40)
                 maker.bottom.equalTo(webView.snp.bottom).inset(10)
@@ -215,7 +215,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             }
             self.view.addSubview(appearanceBtn)
             appearanceBtn.snp.makeConstraints { maker in
-                if (screenSize == "5.4"){ //iPhone mini
+                if (screenSize == 5.4){ //iPhone mini
                     maker.width.equalTo(35)
                     maker.height.equalTo(35)
                 } else {
@@ -329,7 +329,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
 
 extension UIDevice {
     
-    static let screenSize: String = {
+    static let screenSize: Double = {
         var systemInfo = utsname()
         uname(&systemInfo)
         let machineMirror = Mirror(reflecting: systemInfo.machine)
@@ -338,45 +338,47 @@ extension UIDevice {
             return identifier + String(UnicodeScalar(UInt8(value)))
         }
         
-        func mapToDevice(identifier: String) -> String {
+        func mapToDevice(identifier: String) -> Double {
             #if os(iOS)
             switch identifier {
             case "iPod7,1", "iPod9,1", "iPhone6,1", "iPhone6,2","iPhone8,4":
-                return "4.0"
+                return 4.0
             case "iPhone7,2", "iPhone8,1", "iPhone9,1", "iPhone9,3", "iPhone10,1", "iPhone10,4", "iPhone12,8":
-                return "4.7"
+                return 4.7
             case "iPhone13,1", "iPhone14,4":
-                return "5.4"
+                return 5.4
             case "iPhone7,1", "iPhone8,2", "iPhone9,2", "iPhone9,4", "iPhone10,2", "iPhone10,5":
-                return "5.5"
+                return 5.5
             case "iPhone10,3", "iPhone10,6", "iPhone11,2", "iPhone12,3":
-                return "5.8"
+                return 5.8
             case "iPhone11,8", "iPhone12,1", "iPhone14,5", "iPhone14,2", "iPhone13,2", "iPhone13,3":
-                return "6.1"
+                return 6.1
             case "iPhone11,4", "iPhone11,6", "iPhone12,5":
-                return "6.5"
+                return 6.5
             case "iPhone13,4", "iPhone14,3":
-                return "6.7"
+                return 6.7
             case "iPad4,4", "iPad4,5", "iPad4,6", "iPad4,7", "iPad4,8", "iPad4,9", "iPad5,1", "iPad5,2", "iPad11,1", "iPad11,2":
-                return "7.9"
+                return 7.9
+            case "iPad14,1", "iPad14,2":
+                return 8.3
             case "iPad4,1", "iPad4,2", "iPad4,3", "iPad5,3", "iPad5,4", "iPad6,3", "iPad6,4", "iPad6,11", "iPad6,12", "iPad7,5", "iPad7,6":
-                return "9.7"
+                return 9.7
             case "iPad7,11", "iPad7,12", "iPad11,6", "iPad11,7":
-                return "10.2"
+                return 10.2
             case "iPad7,3", "iPad7,4", "iPad11,3", "iPad11,4", "iPad11,5":
-                return "10.5"
+                return 10.5
             case "iPad13,1", "iPad13,2":
-                return "10.9"
+                return 10.9
             case "iPad8,1", "iPad8,2", "iPad8,3", "iPad8,4", "iPad8,9", "iPad8,10", "iPad13,4", "iPad13,5", "iPad13,6", "iPad13,7":
-                return "11.0"
+                return 11.0
             case "iPad6,7", "iPad6,8", "iPad7,1", "iPad7,2":
-                return "12.9"
+                return 12.9
             case "iPad8,5", "iPad8,6", "iPad8,7", "iPad8,8", "iPad8,11", "iPad8,12", "iPad13,8", "iPad13,9", "iPad13,10", "iPad13,11":
-                return "12.9Round"
+                return 12.91
             case "i386", "x86_64", "arm64":
-                return "\(mapToDevice(identifier: ProcessInfo().environment["SIMULATOR_MODEL_IDENTIFIER"] ?? "iOS"))"
+                return 0.1
             default:
-                return "Unknown Device" + identifier
+                return 0.0
             }
             #endif
         }
