@@ -21,7 +21,7 @@ struct Constants {
     
     static let darkBG = "javascript:var style = document.createElement(\"style\");style.type = \"text/css\";var head = document.head;head.appendChild(style);style.sheet.insertRule(\"* { color: #aaa !important; background-color: #000 !important; border-color: currentColor !important; }\");completion(true);;"
     
-    static let ios15Fix = "javascript:window.open(gadgetInfo.URL)"
+    static let ios15Fix = "javascript:window.open('http:'+gadgetInfo.URL,'_blank');"
     
     static let iframeFix = "javascript:var sectionWrap = document.getElementById('sectionWrap');sectionWrap.parentNode.removeChild(sectionWrap);var spacing_top = document.getElementById('spacing_top');spacing_top.parentNode.removeChild(spacing_top);var debugDiv = document.getElementById('debugDiv');debugDiv.parentNode.removeChild(debugDiv);"
 }
