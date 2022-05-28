@@ -19,9 +19,9 @@ class KCWebView: UIWebView {
             } else if (screenSize == 4.7) {
                 inset = 117.5
                 maker.height.equalTo(self.snp.width).inset(inset)
-            } else if (screenSize == 4.0) {
-                inset = 97.5
-                maker.height.equalTo(self.snp.width).inset(inset)
+//            } else if (screenSize == 4.0) {
+//                inset = 97.5
+//                maker.height.equalTo(self.snp.width).inset(inset)
             } else {
                 inset = 10.5
                 maker.height.equalTo(parent.snp.height).inset(inset)
@@ -271,7 +271,7 @@ extension KCWebView: UIWebViewDelegate {
                     if let contentHeightDoubleValue = Double(self.stringByEvaluatingJavaScript(from: "document.body.offsetHeight;") ?? "") {
                         contentHeightCGFloat = (CGFloat(contentHeightDoubleValue))
                     }
-                    let resizeValue = contentHeightCGFloat! / (UIScreen.main.bounds.height * 2)
+                    let resizeValue = contentHeightCGFloat! / (UIScreen.main.bounds.height * 2) - 0.14
                     self.scrollView.minimumZoomScale = resizeValue
                     self.scrollView.maximumZoomScale = resizeValue
                     self.scrollView.setZoomScale(resizeValue, animated: false)
